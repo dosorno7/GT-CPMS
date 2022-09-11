@@ -1,33 +1,32 @@
-html {
-    position: relative;
-    /* Had to change width to fit my screen. Change back to 1512px if you have issues */
-    width: 1512px;
-    height: 975px;
-    margin: 0;
-
-}
-
 body {
-    background: #F9F6E5;
-
+    background-color: #dbdbdbeb;
 }
 
-.top_box {
-    position: absolute;
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
     width: 100%;
-    height: 16%;
-    left: 0px;
-    top: 0px;
+    height: 20%;
 
     background-color: #C4C4C4;
 }
 
+.header_utils {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: space-between;
+    gap: 800px;
+
+    width: 100%;
+
+}
+
+
+
 .title_text {
-    position: absolute;
-    left: 1.06%;
-    right: 60.85%;
-    top: 17.09%;
-    bottom: 56.96%;
 
     font-family: 'Roboto', sans-serif;
     font-style: normal;
@@ -39,45 +38,8 @@ body {
     color: #000000;
 }
 
-.teams_box {
-    position: absolute;
-    left: 0%;
-    right: 87.57%;
-    top: 60.13%;
-    bottom: 0%;
-    text-align: center;
-
-    background: #595959;
-}
-
-.clients_box {
-    position: absolute;
-    left: 12.43%;
-    right: 75.13%;
-    top: 60.13%;
-    bottom: 0%;
-    text-align: center;
-
-    background: #979797;
-}
-
-.projects_box {
-    position: absolute;
-    left: 24.87%;
-    right: 62.7%;
-    top: 60.13%;
-    bottom: 0%;
-    text-align: center;
-
-    background: #979797;
-}
 
 .profile_box {
-    position: absolute;
-    left: 83.07%;
-    right: 0.13%;
-    top: 20.76%;
-    bottom: 67.09%;
     gap: 10px;
 
 
@@ -85,7 +47,6 @@ body {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-
 
 }
 
@@ -95,7 +56,7 @@ body {
     width: 319px;
     height: 60px;
     left: 1191px;
-    top: 94px;
+    top: 70px;
 
     background: #E3E3E3;
     border-radius: 10px;
@@ -110,7 +71,7 @@ body {
     font-style: normal;
     font-weight: 400;
     font-size: 36px;
-    line-height: 63px;
+    line-height: 2px;
 
     color: #FFFFFF;
 }
@@ -178,6 +139,11 @@ body {
     top: 18px;
 
     background: url(icons8-help.png);
+}
+
+.main_content {
+    height: 80%;
+    background: red;
 }
 
 .create_team_box {
