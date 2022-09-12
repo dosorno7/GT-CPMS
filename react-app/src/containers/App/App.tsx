@@ -1,14 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import '../App.css';
+import React, { Component } from 'react';
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
-  );
+import LogIn from '../LogIn';
+import HomePage from '../HomePage';
+
+
+import './App.css';
+
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <Routes>
+        <Route path="/" element={<LogIn />}/>
+        <Route path="/LogIn" element={<LogIn />}/>
+        <Route path="/HomePage" element={<HomePage />}/>
+        </Routes>
+      </Router>
+    )
+  }
 }
 
 export default App;
