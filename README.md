@@ -5,7 +5,8 @@ The Client-Project Management System is a web application for Georgia Tech profe
 
 ## Version 0.1.0
 ### New Features
-* [AUTHENTICATION & LOGIN STUFF HERE PLZ]
+* [AUTHENTICATION STUFF HERE PLZ]
+* Added a login page that uses SSO to verify a user. SSO appends a session ticket to the URL and routes you to the home page on successful login. 
 * Added a landing page for the applciation after logging in. It contains the framework for upcoming features. The layouts for the tab bar and buttons to create teams, import from excel, copy emails to clipboard, and manage teams are in place.
 * Able to filter the columns of the grid in ascending & descending order for each column, or by a custom value inputted by the user. 
 
