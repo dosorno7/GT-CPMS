@@ -9,9 +9,11 @@ The Client-Project Management System is a web application for Georgia Tech profe
 * Added a login page that uses SSO to verify a user. SSO appends a session ticket to the URL and routes you to the home page on successful login. 
 * Added a landing page for the applciation after logging in. It contains the framework for upcoming features. The layouts for the tab bar and buttons to create teams, import from excel, copy emails to clipboard, and manage teams are in place.
 * Able to filter the columns of the grid in ascending & descending order for each column, or by a custom value inputted by the user. 
+* Added a request access page for new users with placeholder alerts for when the backend is implemented.
 
 ### Bug Fixes
 N/A
 
 ### Known Issues 
 * Resizing the window does not resize the section or team number columns of the data grid. 
+* The dropdown menu does not save the selected choice upon submission.
