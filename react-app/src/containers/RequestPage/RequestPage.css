@@ -1,5 +1,5 @@
 .Dropdown {
-    display: grid !important;
+    display: grid;
     font-size: medium;
     grid-gap: 5px;
 }

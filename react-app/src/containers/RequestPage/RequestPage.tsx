@@ -11,7 +11,6 @@ function RequestPage() {
   const [access, setAccess] = useState("");
 
   const handleSubmit = () => {
-    // event.preventDefault();
     alert(`The name you entered was: ${firstName} ${lastName}\nThe email you entered was: ${email}\nThe access you chose was: ${access}`)
   }
   
