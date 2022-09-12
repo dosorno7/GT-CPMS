@@ -6,7 +6,6 @@ body {
 .home_page{
     display: block;
 }
-
 .header {
     display: flex;
     flex-direction: column;
@@ -22,6 +21,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
     box-sizing: border-box;
     padding: 8px 16px;
     width: 100%;
@@ -47,7 +47,6 @@ body {
     justify-content: flex-start;
     align-items: center;
 }
-
 .username {
     font-family: 'Roboto', sans-serif;
     font-style: normal;
@@ -58,7 +57,6 @@ body {
 
     color: #000000;
 }
-
 .user_icon {
     width: 35px;
     height: 35px;
@@ -66,7 +64,6 @@ body {
     background: url(icons8-male-user-96.png);
 
 }
-
 .arrow_icon {
     width: 24px;
     height: 24px;
@@ -75,7 +72,6 @@ body {
 
     background: url(icons8-down.png);
 }
-
 .main_content {
     box-sizing: border-box;
     display: flex;
@@ -96,6 +92,10 @@ body {
 }
 
 .grid {
+    display: flex;
+    width: 80%;
+    height: 90%;
+
     align-self: center;
     padding: 16px;
 }

@@ -1,11 +1,10 @@
 import { Button, Box, Tabs, Tab } from '@mui/material';
 import React, {Component} from 'react'
-import './homePage.css'
+import './HomePage.css'
+import TeamGrid from '../../components/DataGrid'
 
 class HomePage extends Component {
-    
-    //TODO: Separate some of these into different component files so it isn't so cluttered
-    // I just took the code from last sem and pasted here. This will need to be cleaned up. 
+     
     render() {
         return (
             <div className="home_page">
@@ -53,13 +52,7 @@ class HomePage extends Component {
                     </div>
 
                     <div className="grid">
-                        {/* TODO: DataGrid here? Seems perfect for our needs but not sure if it is available for us */}
-                        <Box sx={{
-                            width: 1500,
-                            height: 500,
-                            backgroundColor: 'primary.main'
-
-                        }} />
+                        {TeamGrid()}
                     </div>
 
                     <div className="bottom_buttons">
