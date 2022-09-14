@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './containers/App/App';
 import reportWebVitals from './reportWebVitals';
+import RequestPage from './containers/RequestPage/RequestPage';
+import App from './containers/App/App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <RequestPage />
   </React.StrictMode>
 );
 
