@@ -1,14 +1,15 @@
 import * as React from 'react';
 import {Button, Box} from '@mui/material';
-import { DataGrid, GridColDef, GridValueGetterParams, gridClasses, useGridApiRef } from '@mui/x-data-grid';
+import { DataGridPro, GridColDef, GridValueGetterParams, gridClasses, useGridApiRef } from '@mui/x-data-grid-pro';
 import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 
 import './DataGrid.css';
 
+
 const ODD_OPACITY = 0.2;
 
-const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
+const StripedDataGrid = styled(DataGridPro)(({ theme }) => ({
     '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
         borderRight: `1px solid ${theme.palette.mode === 'dark' ? '#f0f0f0' : '#303030'
             }`,
@@ -149,6 +150,7 @@ export default function TeamGrid() {
                 }, 
             }}>
             <StripedDataGrid
+                apiRef={apiRef}
                 rows={rows}
                 columns={columns}
                 pageSize={10}
