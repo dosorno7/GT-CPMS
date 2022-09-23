@@ -6,7 +6,6 @@ import { grey } from '@mui/material/colors';
 
 import './DataGrid.css';
 
-
 const ODD_OPACITY = 0.2;
 
 const StripedDataGrid = styled(DataGrid)(({ theme }) => ({

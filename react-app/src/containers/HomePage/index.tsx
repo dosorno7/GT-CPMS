@@ -3,6 +3,9 @@ import React, {Component} from 'react'
 import './HomePage.css'
 import TeamGrid from '../../components/DataGrid'
 
+import { ReactFromModule } from 'react-dom'
+console.log(React === ReactFromModule) //false
+
 class HomePage extends Component {
      
     render() {
