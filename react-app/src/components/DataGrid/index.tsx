@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Button, Box} from '@mui/material';
-import { DataGrid, GridColDef, GridValueGetterParams, gridClasses } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridValueGetterParams, gridClasses, useGridApiRef } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 
@@ -115,13 +115,18 @@ const rows = [
 ];
 
 export default function TeamGrid() {
+
+    const apiRef = useGridApiRef();
+
+    const handleCreateTeam = () => {
+        //apiRef.current.updateRows([{id: 15, teamNumer: 3000, section: 'XXX', project: 'X', client: 'X', professor: 'X'}]);
+        console.log('debug')
+    }
+
     return (
         <div className="main_content">
             <div className="top_buttons">
-                <Button variant="contained" onClick={() => {
-                    // TODO: Handle Create Team click here
-                    console.log('create team clicked')
-                    }}
+                <Button variant="contained" onClick={handleCreateTeam}
                 >
                     Create Team
                 </Button>
