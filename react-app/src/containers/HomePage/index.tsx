@@ -1,7 +1,7 @@
 import { Button, Box, Tabs, Tab } from '@mui/material';
 import React, {Component} from 'react'
 import './HomePage.css'
-import TeamGrid from '../../components/DataGrid'
+import TeamGrid from '../../components/TeamGrid'
 
 class HomePage extends Component {
     

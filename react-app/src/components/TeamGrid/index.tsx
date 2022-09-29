@@ -3,8 +3,9 @@ import {Button, Box} from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams, gridClasses, useGridApiRef } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
+import CreateTeamModal from '../CreateTeamModal/createTeamModal'
 
-import './DataGrid.css';
+import './TeamGrid.css';
 
 
 const ODD_OPACITY = 0.2;
@@ -129,17 +130,14 @@ export default function TeamGrid() {
 
     const [rows, setRows] = React.useState(() => rowsmock);
 
-    const handleAddRow = () => {
-        setRows((prevRows) => [...prevRows, createNewRow(prevRows)]);
-    };
+    //const handleAddRow = () => {
+        //setRows((prevRows) => [...prevRows, createNewRow(prevRows)]);
+    //};
 
     return (
         <div className="main_content">
             <div className="top_buttons">
-                <Button variant="contained" onClick={handleAddRow}
-                >
-                    Create Team
-                </Button>
+                <CreateTeamModal />
 
                 <Button variant="contained" onClick={() => {
                     // TODO: Handle import from excel click here
