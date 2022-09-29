@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Button, Box} from '@mui/material';
-import { DataGridPro, GridColDef, GridValueGetterParams, gridClasses, useGridApiRef } from '@mui/x-data-grid-pro';
+import { DataGrid, GridColDef, GridValueGetterParams, gridClasses, useGridApiRef } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 
@@ -9,7 +9,7 @@ import './DataGrid.css';
 
 const ODD_OPACITY = 0.2;
 
-const StripedDataGrid = styled(DataGridPro)(({ theme }) => ({
+const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
     '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
         borderRight: `1px solid ${theme.palette.mode === 'dark' ? '#f0f0f0' : '#303030'
             }`,
@@ -96,7 +96,7 @@ const columns: GridColDef[] = [
     },
 ];
 
-const rows = [
+const rowsmock = [
     { id: 1, teamNumber: 2100, section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen'},
     { id: 2, teamNumber: 2101, section: 'JDA', project: 'Helius', client: 'Carol Denvers', professor: 'Elizabeth Olsen' },
     { id: 3, teamNumber: 2102, section: 'JDA', project: 'Insight', client: 'Peter Parker', professor: 'Elizabeth Olsen' },
@@ -114,19 +114,29 @@ const rows = [
 
 ];
 
+const createNewRow = (prevRows: {
+    id: number;
+    teamNumber: number;
+    section: string;
+    project: string;
+    client: string;
+    professor: string;
+}[]) => {
+    return { id: prevRows.length, teamNumber: 3000, section: 'XXX', project: 'X', client: 'X', professor: 'X' }
+}
+
 export default function TeamGrid() {
 
-    const apiRef = useGridApiRef();
+    const [rows, setRows] = React.useState(() => rowsmock);
 
-    const handleCreateTeam = () => {
-        //apiRef.current.updateRows([{id: 15, teamNumer: 3000, section: 'XXX', project: 'X', client: 'X', professor: 'X'}]);
-        console.log('debug')
-    }
+    const handleAddRow = () => {
+        setRows((prevRows) => [...prevRows, createNewRow(prevRows)]);
+    };
 
     return (
         <div className="main_content">
             <div className="top_buttons">
-                <Button variant="contained" onClick={handleCreateTeam}
+                <Button variant="contained" onClick={handleAddRow}
                 >
                     Create Team
                 </Button>
@@ -150,11 +160,10 @@ export default function TeamGrid() {
                 }, 
             }}>
             <StripedDataGrid
-                apiRef={apiRef}
                 rows={rows}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[6]}
+                pageSize={8}
+                rowsPerPageOptions={[7]}
                 checkboxSelection
                 disableSelectionOnClick
                 experimentalFeatures={{ newEditingApi: true }}

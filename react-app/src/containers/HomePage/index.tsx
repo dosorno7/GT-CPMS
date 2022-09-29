@@ -30,8 +30,9 @@ class HomePage extends Component {
                     </div>
                 </div>
 
+                <TeamGrid />
                 
-            {TeamGrid()}
+            
 
             </div>
         )
