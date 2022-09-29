@@ -1,8 +1,15 @@
 import { Button, Box, Tabs, Tab } from '@mui/material';
 import React, {Component} from 'react'
 import './Login.css'
+import RequestPage from '../RequestPage/RequestPage';
 
 class LogIn extends Component {
+    authenticate() {
+        window.location.assign("https://sso.gatech.edu/cas/login?service=http://localhost:3000/AuthenticationPage/");
+        var link = window.location.href;
+        var ticket = link.substring(link.indexOf("ticket"));
+        console.log(ticket);
+    }
 
     render() {
         return (
@@ -14,15 +21,17 @@ class LogIn extends Component {
                 </div>
 
                 <div className="main_content">
-                    <div className="login_button">
+                    <div className="login_buttons">
                     <div>
-                    <button id="loginbutton" onClick={event =>  
-                        window.location.href='https://sso.gatech.edu/cas/login?service=http://localhost:3000/HomePage'}> 
+                    <button id="loginbutton" onClick={this.authenticate}> 
                         Authorize
                     </button>
                     </div>
-
-                        </div>
+                    <button id="requestaccessbutton" onClick={event =>  
+                        window.location.href='http://localhost:3000/RequestPage/'}>
+                        Request Access
+                    </button>
+                    </div>
                 </div>
             </div>
         )

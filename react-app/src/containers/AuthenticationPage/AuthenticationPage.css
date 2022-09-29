@@ -30,26 +30,22 @@ html, body {
     padding: 16px;
 }
 
+.not_auth {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 16px;
+}
+
 .login_buttons {
     margin:calc(10px + 5vmin);
     align-items: center;
 }
 
-#loginbutton {
-    background-color: #1976D2;
-    color: white;
-    padding: 20px 37px;
-    text-align: center;
-    font-size: calc(10px + 1vmin);   
-    margin-bottom: 15%;
-}
-
-#loginbutton:hover {
-    background-color: #8fe4fc;
-    
-  }
-
-  #requestaccessbutton {
+#requestaccessbutton {
     background-color: #19aad2;
     color: white;
     padding: 10px 15px;
@@ -58,6 +54,5 @@ html, body {
 }
 
 #requestaccessbutton:hover {
-    background-color: #8fe4fc;
-    
+    background-color: #8fe4fc; 
   }
