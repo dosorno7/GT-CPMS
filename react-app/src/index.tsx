@@ -2,15 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import RequestPage from './containers/RequestPage/RequestPage';
+//import RequestPage from './containers/RequestPage/RequestPage';
 import App from './containers/App/App';
+import HomePage from './containers/HomePage';
+import ClientPage from './containers/ClientPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <RequestPage />
+    <HomePage />
   </React.StrictMode>
 );
 

@@ -3,7 +3,7 @@ body {
     display: block;
 }
 
-.home_page{
+.client_page{
     display: block;
 }
 .header {
@@ -61,7 +61,7 @@ body {
     width: 35px;
     height: 35px;
 
-    background: url(../Assets/Imagesicons8-male-user-96.png);
+    background: url(../Assets/Images/icons8-male-user-96.png);
 
 }
 .arrow_icon {
