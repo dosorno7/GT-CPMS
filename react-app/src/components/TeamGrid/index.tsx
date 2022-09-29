@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Button, Box} from '@mui/material';
-import { DataGrid, GridColDef, GridValueGetterParams, gridClasses, useGridApiRef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import CreateTeamModal from '../CreateTeamModal/createTeamModal'
@@ -139,6 +139,7 @@ const createNewRow = (prevRows: {
 
 
 export default function TeamGrid() {
+
 
     const [rows, setRows] = React.useState(() => rowsmock);
 
