@@ -98,46 +98,65 @@ const columns: GridColDef[] = [
 ];
 
 const rowsmock = [
-    { id: 1, teamNumber: 2100, section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen'},
-    { id: 2, teamNumber: 2101, section: 'JDA', project: 'Helius', client: 'Carol Denvers', professor: 'Elizabeth Olsen' },
-    { id: 3, teamNumber: 2102, section: 'JDA', project: 'Insight', client: 'Peter Parker', professor: 'Elizabeth Olsen' },
-    { id: 4, teamNumber: 2103, section: 'JDA', project: 'Reclamation', client: 'Stephen Strange', professor: 'Elizabeth Olsen' },
-    { id: 5, teamNumber: 2104, section: 'JDA', project: 'Phase 2', client: 'Peter Quill', professor: 'Elizabeth Olsen' },
-    { id: 6, teamNumber: 2105, section: 'JDF', project: 'Avengers Initiative', client: 'Steve Rogers', professor: 'Chris Evens' },
-    { id: 7, teamNumber: 2106, section: 'JDF', project: 'Blizzard', client: 'Bucky Barnes', professor: 'Chris Evens' },
-    { id: 8, teamNumber: 2107, section: 'JDF', project: 'Pegasus', client: 'Bruce Banner', professor: 'Chris Evens' },
-    { id: 9, teamNumber: 2108, section: 'JIA', project: 'Venom', client: 'Eddie Brock', professor: 'Mark Ruffalo' },
-    { id: 10, teamNumber: 2109, section: 'JIA', project: 'Project Alpha', client: 'Steve Rogers', professor: 'Mark Ruffalo' },
-    { id: 11, teamNumber: 2110, section: 'JIA', project: 'Phase 4', client: 'Tony Stark', professor: 'Mark Ruffalo' },
-    { id: 12, teamNumber: 2111, section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo' },
-    { id: 13, teamNumber: 2112, section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo' },
-    { id: 14, teamNumber: 2113, section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo' },
+    { id: 1, teamNumber: '2100', section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen'},
+    { id: 2, teamNumber: '2101', section: 'JDA', project: 'Helius', client: 'Carol Denvers', professor: 'Elizabeth Olsen' },
+    { id: 3, teamNumber: '2102', section: 'JDA', project: 'Insight', client: 'Peter Parker', professor: 'Elizabeth Olsen' },
+    { id: 4, teamNumber: '2103', section: 'JDA', project: 'Reclamation', client: 'Stephen Strange', professor: 'Elizabeth Olsen' },
+    { id: 5, teamNumber: '2104', section: 'JDA', project: 'Phase 2', client: 'Peter Quill', professor: 'Elizabeth Olsen' },
+    { id: 6, teamNumber: '2105', section: 'JDF', project: 'Avengers Initiative', client: 'Steve Rogers', professor: 'Chris Evens' },
+    { id: 7, teamNumber: '2106', section: 'JDF', project: 'Blizzard', client: 'Bucky Barnes', professor: 'Chris Evens' },
+    { id: 8, teamNumber: '2107', section: 'JDF', project: 'Pegasus', client: 'Bruce Banner', professor: 'Chris Evens' },
+    { id: 9, teamNumber: '2108', section: 'JIA', project: 'Venom', client: 'Eddie Brock', professor: 'Mark Ruffalo' },
+    { id: 10, teamNumber: '2109', section: 'JIA', project: 'Project Alpha', client: 'Steve Rogers', professor: 'Mark Ruffalo' },
+    { id: 11, teamNumber: '2110', section: 'JIA', project: 'Phase 4', client: 'Tony Stark', professor: 'Mark Ruffalo' },
+    { id: 12, teamNumber: '2111', section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo' },
+    { id: 13, teamNumber: '2112', section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo' },
+    { id: 14, teamNumber: '2113', section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo' },
 
 ];
 
 const createNewRow = (prevRows: {
     id: number;
-    teamNumber: number;
+    teamNumber: string;
     section: string;
     project: string;
     client: string;
     professor: string;
-}[]) => {
-    return { id: prevRows.length, teamNumber: 3000, section: 'XXX', project: 'X', client: 'X', professor: 'X' }
+}[], teamNumber: string,
+    section: string,
+    project: string,
+    client: string,
+    professor: string) => {
+    
+        return { id: prevRows.length, 
+        teamNumber: teamNumber, 
+        section: section, 
+        project: project, 
+        client: client, 
+        professor: professor }
 }
+
+
 
 export default function TeamGrid() {
 
     const [rows, setRows] = React.useState(() => rowsmock);
 
-    //const handleAddRow = () => {
-        //setRows((prevRows) => [...prevRows, createNewRow(prevRows)]);
-    //};
+    const getCreateTeamInfo = (
+        teamNumber: string, 
+        section: string, 
+        project: string, 
+        client: string, 
+        professor: string) => {
+
+        setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamNumber, section, project, client, professor)]);
+
+    }
 
     return (
         <div className="main_content">
             <div className="top_buttons">
-                <CreateTeamModal />
+                <CreateTeamModal getCreateTeamInfo={getCreateTeamInfo} />
 
                 <Button variant="contained" onClick={() => {
                     // TODO: Handle import from excel click here
