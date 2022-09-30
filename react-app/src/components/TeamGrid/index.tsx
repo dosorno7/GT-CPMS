@@ -128,7 +128,7 @@ const createNewRow = (prevRows: {
     client: string,
     professor: string) => {
     
-        return { id: prevRows.length, 
+        return { id: prevRows.length + 1, 
         teamNumber: teamNumber, 
         section: section, 
         project: project, 
@@ -149,7 +149,8 @@ export default function TeamGrid() {
         project: string, 
         client: string, 
         professor: string) => {
-
+        
+        console.log("creating a new team")
         setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamNumber, section, project, client, professor)]);
 
     }
