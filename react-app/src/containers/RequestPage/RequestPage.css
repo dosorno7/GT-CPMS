@@ -2,7 +2,25 @@
     display: grid;
     font-size: medium;
     grid-gap: 5px;
+    color: black;
 }
  .textbox {
     border-radius: 4px;
  }
+.body {
+    background-color: #dbdbdbeb;
+    display: block;
+}
+.header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+    background-color: #C4C4C4;
+}
+.text {
+    color: black;
+}
