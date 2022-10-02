@@ -12,9 +12,11 @@ class App extends Component {
     return (
       <Router>
         <Routes>
-        <Route path="/" element={<LogIn />}/>
-        <Route path="/LogIn" element={<LogIn />}/>
-        <Route path="/HomePage" element={<HomePage />}/>
+        <Route path="/" element={<LogIn />} />
+        <Route path="/LogIn" element={<LogIn />} />
+        <Route path="/HomePage" element={<HomePage />} />
+        <Route path="/ClientPage" element={<HomePage />} />
+        <Route path="/TeamPage" element={<HomePage />} />
         </Routes>
       </Router>
     )
