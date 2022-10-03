@@ -2,6 +2,7 @@ import { Button, Box, Tabs, Tab } from '@mui/material';
 import { Component } from 'react';
 import './ProjectsPage.css';
 import { ProjectsGrid } from '../../components/DataGrid';
+import BasicTabs from '../../components/TabBar';
 
 class ProjectsPage extends Component {
     render() {
@@ -17,16 +18,8 @@ class ProjectsPage extends Component {
                         </div>
 
                     </div>
-
-                    <div className="tab_bar">
-                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                <Tabs>
-                                    <Tab label="Teams" />
-                                    <Tab label="Clients" />
-                                    <Tab label="Projects" />
-                                </Tabs>
-                            </Box>
-                    </div>
+                    <BasicTabs />
+                    
                 </div>
 
                 <div className="main_content">

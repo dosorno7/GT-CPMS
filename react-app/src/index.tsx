@@ -24,6 +24,7 @@ root.render(
     <Route path="/HomePage/" element={<HomePage />}/>
     <Route path="/ProjectsPage/" element={<ProjectsPage />}/>
     <Route path="/RequestPage/" element={<RequestPage />}/>
+    <Route path="/ClientPage/" element={<ClientPage />} />
     <Route path="/AuthenticationPage/" element={<AuthenticationPage />}/>
     </Routes>
   </Router>

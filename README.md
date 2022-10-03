@@ -6,7 +6,8 @@ The Client-Project Management System is a web application for Georgia Tech profe
 ## Version 0.2.0
 ### New Features
 * Added a client and project page in addition to the landing team page, with appropriate routing added to the tab bar to ensure these pages can be reached.
-* The create team button on the teams page displays a pop-up modal which prompts for team information. Submitting the new team adds a new row to the team datagrid populated with the entered team information. 
+* The create team button on the teams page displays a pop-up modal which prompts for team information. Submitting the new team adds a new row to the team datagrid populated with the entered team information.
+* Added ticketing authorization for users based on the ticket SSO returns after successful authentication. Developed authorization logic and page.
 * The tab bar can be used to navigate between the different pages of the website.
 
 ### Bug Fixes
@@ -14,9 +15,9 @@ The Client-Project Management System is a web application for Georgia Tech profe
 * Fixed new team creation issue where the new team would only be located in the 1st position of the grid even after filtering. 
 
 ### Known Issues
+* Unauthorized user page breifly appears even if a valid ticket is presented.
 * When a new page is navigated to, the tab bar does not accurately reflect the active page.
 * The dropdown menu does not save the selected choice upon submission on the request access page.
-
 
 ## Version 0.1.0
 ### New Features
