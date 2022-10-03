@@ -140,6 +140,44 @@ const clientColumns: GridColDef[] = [
     },
 ];
 
+const projectsColumns: GridColDef[] = [
+    {   
+        field: 'teamsAssigned', 
+        headerName: 'Team Assigned', 
+        width: 150,
+        headerAlign: 'center',
+        headerClassName: 'super-app-theme--header',
+        align: 'center', 
+    },
+    {
+        field: 'section',
+        headerName: 'Section',
+        width: 150,
+        headerAlign: 'center',
+        headerClassName: 'super-app-theme--header',
+        align: 'center', 
+        
+    },
+    {
+        field: 'project',
+        headerName: 'Project',
+        width: 250,
+        headerAlign: 'center',
+        headerClassName: 'super-app-theme--header',
+        align: 'center', 
+        flex: 1,
+    },
+    {
+        field: 'client',
+        headerName: 'Client',
+        width: 250,
+        headerAlign: 'center',
+        headerClassName: 'super-app-theme--header',
+        align: 'center', 
+        flex: 1,
+    }
+];
+
 const teamRows = [
     { id: 1, teamNumber: 2100, section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen'},
     { id: 2, teamNumber: 2101, section: 'JDA', project: 'Helius', client: 'Carol Denvers', professor: 'Elizabeth Olsen' },
@@ -170,7 +208,21 @@ const clientRows = [
     { id: 9, teamsAssigned: 2108, section: 'JIA', project: 'Venom', client: 'Eddie Brock', contact: 'symbrock@hotmail.com' },
     { id: 10, teamsAssigned: 2109, section: 'JIA', project: 'Project Alpha', client: 'Pepper Potts', contact: 'pottsceo@starkcorp.comm' },
     { id: 11, teamsAssigned: 2110, section: 'JIA', project: 'Phase 4', client: 'Nick Fury', contact: 'NA' },
-]
+];
+
+const projectsRows = [
+    { id: 1, teamsAssigned: 2100, section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark' },
+    { id: 2, teamsAssigned: 2101, section: 'JDA', project: 'Helius', client: 'Carol Denvers' },
+    { id: 3, teamsAssigned: 2102, section: 'JDA', project: 'Insight', client: 'Peter Parker' },
+    { id: 4, teamsAssigned: 2103, section: 'JDA', project: 'Reclamation', client: 'Stephen Strange' },
+    { id: 5, teamsAssigned: 2104, section: 'JDA', project: 'Phase 2', client: 'Peter Quill' },
+    { id: 6, teamsAssigned: 2105, section: 'JDF', project: 'Avengers Initiative', client: 'Steve Rogers' },
+    { id: 7, teamsAssigned: 2106, section: 'JDF', project: 'Blizzard', client: 'Bucky Barnes' },
+    { id: 8, teamsAssigned: 2107, section: 'JDF', project: 'Pegasus', client: 'Bruce Banner' },
+    { id: 9, teamsAssigned: 2108, section: 'JIA', project: 'Venom', client: 'Eddie Brock' },
+    { id: 10, teamsAssigned: 2109, section: 'JIA', project: 'Project Alpha', client: 'Pepper Potts' },
+    { id: 11, teamsAssigned: 2110, section: 'JIA', project: 'Phase 4', client: 'Nick Fury' },
+];
 
 export function TeamGrid() {
     return (
@@ -200,7 +252,7 @@ export function TeamGrid() {
             />
         </Box>
     );
-}
+};
 
 export function ClientGrid() {
     return  (
@@ -217,6 +269,36 @@ export function ClientGrid() {
                 columns={clientColumns}
                 pageSize={11}
                 rowsPerPageOptions={[11]}
+                checkboxSelection
+                disableSelectionOnClick
+                experimentalFeatures={{ newEditingApi: true }}
+                sx = {{
+                    border: 2
+                }}
+                
+                getRowClassName={(params) =>
+                    params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+                }
+            />
+        </Box>
+    );
+};
+
+export function ProjectsGrid() {
+    return  (
+        <Box 
+            sx={{ 
+                height: 500, 
+                width: '100%',
+                '& .super-app-theme--header': {
+                    backgroundColor: 'rgba(0,0,0,0)',
+                }, 
+            }}>
+            <StripedDataGrid
+                rows={projectsRows}
+                columns={projectsColumns}
+                pageSize={10}
+                rowsPerPageOptions={[6]}
                 checkboxSelection
                 disableSelectionOnClick
                 experimentalFeatures={{ newEditingApi: true }}
