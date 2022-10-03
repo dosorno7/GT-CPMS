@@ -51,8 +51,8 @@ export default function BasicTabs() {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Teams" onClick={() => {history('/HomePage')}} />
-          <Tab label="Clients" onClick={() => {history('/ClientPage')}} />
-          <Tab label="Projects" onClick={() => {history('/TeamPage')}} />
+          <Tab label="Clients" onClick={() => {history('/ClientPage/')}} />
+          <Tab label="Projects" onClick={() => {history('/ProjectsPage/')}} />
         </Tabs>
       </Box>
     </Box>
