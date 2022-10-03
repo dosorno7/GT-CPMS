@@ -1,14 +1,13 @@
 import { Button, Box, Tabs, Tab } from '@mui/material';
-import React, {Component} from 'react'
-import './HomePage.css'
-import { BasicTabs } from '../../components/TabBar'
-import { TeamGrid } from '../../components/DataGrid'
+import React, {Component} from 'react';
+import './ClientPage.css';
+import { ClientGrid } from '../../components/DataGrid';
 
-class HomePage extends Component {
+class ClientPage extends Component {
      
     render() {
         return (
-            <div className="home_page">
+            <div className="client_page">
                 <div className="header">
                     <div className="header_utils">
                         <h1 className="title_text"> Client Project Management System </h1>
@@ -19,17 +18,26 @@ class HomePage extends Component {
                         </div>
 
                     </div>
-                    <BasicTabs />
+
+                    <div className="tab_bar">
+                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                <Tabs>
+                                    <Tab label="Teams" />
+                                    <Tab label="Clients" />
+                                    <Tab label="Projects" />
+                                </Tabs>
+                            </Box>
+                    </div>
                 </div>
 
                 <div className="main_content">
                     <div className="top_buttons">
                         <Button variant="contained" onClick={() => {
                             // TODO: Handle Create Team click here
-                            console.log('create team clicked')
+                            console.log('create client clicked')
                         }}
                         >
-                            Create Team
+                            Create Client
                         </Button>
 
                         <Button variant="contained" onClick={() => {
@@ -44,7 +52,7 @@ class HomePage extends Component {
                     </div>
 
                     <div className="grid">
-                        {TeamGrid()}
+                        {ClientGrid()}
                     </div>
 
                     <div className="bottom_buttons">
@@ -70,17 +78,17 @@ class HomePage extends Component {
                         <div className="bottom_buttons_group">
                             <Button variant="contained" onClick={() => {
                                 // TODO: Handle click here
-                                console.log('manage team clicked')
+                                console.log('manage client clicked')
                             }}
                             >
-                                Manage Selected Team
+                                Manage Selected Client
                             </Button>
                             <Button variant="contained" onClick={() => {
                                 // TODO: Handle click here
-                                console.log('delete team clicked')
+                                console.log('delete client clicked')
                             }}
                             >
-                                Delete Selected Teams
+                                Delete Selected Clients
                             </Button>
                         </div>
 
@@ -92,4 +100,4 @@ class HomePage extends Component {
 
 }
 
-export default HomePage;
+export default ClientPage;
