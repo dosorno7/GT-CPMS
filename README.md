@@ -15,6 +15,7 @@ The Client-Project Management System is a web application for Georgia Tech profe
 * Fixed new team creation issue where the new team would only be located in the 1st position of the grid even after filtering. 
 
 ### Known Issues
+* Resizing the teams page window does not resize the section or team number columns of the data grid.
 * Unauthorized user page breifly appears even if a valid ticket is presented.
 * When a new page is navigated to, the tab bar does not accurately reflect the active page.
 * The dropdown menu does not save the selected choice upon submission on the request access page.
