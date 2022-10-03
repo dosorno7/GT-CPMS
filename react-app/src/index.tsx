@@ -7,6 +7,7 @@ import RequestPage from './containers/RequestPage/RequestPage';
 import LogIn from './containers/LogIn';
 import App from './containers/App/App';
 import HomePage from './containers/HomePage';
+import ProjectsPage from './containers/ProjectsPage/ProjectsPage';
 import AuthenticationPage from './containers/AuthenticationPage/';
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ClientPage from './containers/ClientPage';
@@ -21,6 +22,7 @@ root.render(
     <Route path="/" element={<LogIn />}/>
     <Route path="/LogIn" element={<LogIn />}/>
     <Route path="/HomePage/" element={<HomePage />}/>
+    <Route path="/ProjectsPage/" element={<ProjectsPage />}/>
     <Route path="/RequestPage/" element={<RequestPage />}/>
     <Route path="/AuthenticationPage/" element={<AuthenticationPage />}/>
     </Routes>
