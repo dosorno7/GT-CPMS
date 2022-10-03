@@ -5,9 +5,12 @@ The Client-Project Management System is a web application for Georgia Tech profe
 
 ## Version 0.2.0
 ### New Features
-* Added a client and project page in addition to the landing team page, with appropriate routing added to the tab bar to ensure these pages can be reached
+* Added a client and project page in addition to the landing team page, with appropriate routing added to the tab bar to ensure these pages can be reached.
+* The create team button on the teams page displays a pop-up modal which prompts for team information. Submitting the new team adds a new row to the team datagrid populated with the entered team information. 
 
 ### Bug Fixes
+* Fixed paging issue in the teams data-grid where, after creating a new team, the new team would multiply with each page navigation. 
+* Fixed new team creation issue where the new team would only be located in the 1st position of the grid even after filtering. 
 
 ### Known Issues
 
