@@ -11,12 +11,26 @@ function RequestPage() {
   const [access, setAccess] = useState("");
 
   const handleSubmit = () => {
-    alert(`The name you entered was: ${firstName} ${lastName}\nThe email you entered was: ${email}\nThe access you chose was: ${access}`)
+    if (firstName == "") {
+      alert('Please Enter a First Name')
+    }
+    if (lastName == "") {
+      alert('Please Enter a Last Name')
+    }
+    if (email == "") {
+      alert('Please Enter an Email')
+    }
+    if (access == "") {
+      alert('Please Select Access')
+    }
+    if (firstName != "" && lastName != "" && email != "" && access != "") {
+          alert(`The name you entered was: ${firstName} ${lastName}\nThe email you entered was: ${email}\nThe access you chose was: ${access}`)
+    }
   }
   
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="body">
+      <header className="header">
         Request Access
         <form onSubmit={handleSubmit}>
           <div className='Dropdown'>

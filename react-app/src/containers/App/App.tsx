@@ -22,6 +22,7 @@ class App extends Component {
         <Route path="/RequestPage/" element={<RequestPage />}/>
         <Route path="/AuthenticationPage/" element={<AuthenticationPage />} />
         <Route path="/ClientPage" element={<ClientPage />}/>
+        <Route path="/TeamPage" element={<HomePage />} />
         </Routes>
       </Router>
     )
