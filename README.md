@@ -3,6 +3,14 @@ The Client-Project Management System is a web application for Georgia Tech profe
 
 # Release Notes
 
+## Version 0.2.0
+### New Features
+* Added a client and project page in addition to the landing team page, with appropriate routing added to the tab bar to ensure these pages can be reached
+
+### Bug Fixes
+
+### Known Issues
+
 ## Version 0.1.0
 ### New Features
 * Added a login page that uses SSO to verify a user. SSO appends a session ticket to the URL and routes you to the home page on successful login. 
