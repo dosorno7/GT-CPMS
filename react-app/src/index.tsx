@@ -8,10 +8,10 @@ import LogIn from './containers/LogIn';
 import App from './containers/App/App';
 import HomePage from './containers/HomePage';
 import ProjectsPage from './containers/ProjectsPage/ProjectsPage';
-import AuthenticationPage from './containers/AuthenticationPage/';
+import AuthenticationPage from './containers/AuthenticationPage';
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ClientPage from './containers/ClientPage';
-
+import RejectionPage from './containers/RejectionPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -26,6 +26,7 @@ root.render(
     <Route path="/RequestPage/" element={<RequestPage />}/>
     <Route path="/ClientPage/" element={<ClientPage />} />
     <Route path="/AuthenticationPage/" element={<AuthenticationPage />}/>
+    <Route path="/RejectionPage/" element={<RejectionPage />}/>
     </Routes>
   </Router>
 );
