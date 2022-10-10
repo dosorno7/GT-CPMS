@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
+import './RemoveClientModal.css';
+
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -37,13 +39,14 @@ export default function RemoveClientModal( {deleteClients}: any ) {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Are you sure that you want to delete these client(s)?
                     </Typography>
-
-                    <Button variant="contained" onClick={handleYes}>
-                        Yes
-                    </Button>
-                    <Button variant="contained" onClick={handleClose}>
-                        No
-                    </Button>
+                    <div className="option_buttons">
+                        <Button variant="contained" onClick={handleYes}>
+                            Yes
+                        </Button>
+                        <Button variant="contained" onClick={handleClose}>
+                            No
+                        </Button>
+                    </div>
                 </Box>
             </Modal>
         </div>
