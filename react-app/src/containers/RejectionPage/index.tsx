@@ -1,28 +1,8 @@
 import { Button, Box, Tabs, Tab } from '@mui/material';
 import React, {Component, Suspense, useEffect, useState} from 'react'
-import '../RejectionPage/RejectionPage.css'
+import './RejectionPage.css'
 
-
-class AuthenticationPage extends Component {
-    
-    authenticate() {
-        var link = window.location.href;
-        var ticket = link.substring(link.indexOf("ticket") + 7);
-        console.log(ticket);
-
-        //Replace with proper identification when OIT gives access
-        if(ticket.substring(0, 2) === "ST") {
-            window.location.assign("http://localhost:3000/HomePage/");
-            return true;
-        } else {
-            window.location.assign("http://localhost:3000/RejectionPage/");
-        }
-
-    }
-
-    componentDidMount(): void {
-        this.authenticate();
-    }
+class RejectionPage extends Component<any, any> {
 
     render() {
         return (
@@ -34,16 +14,23 @@ class AuthenticationPage extends Component {
                 </div>
                 <div className="main_content">
                     <div className="login_buttons">
+                    <Suspense fallback={<div>Loading</div>}>
                     <div>
                         <div className="not_auth">
-                            Authenticating
+                            It seems that you are not an authorized user, would you like to request access?
                         </div>
+                        <button id="requestaccessbutton" onClick={event =>  
+                        window.location.href='http://localhost:3000/RequestPage/'}>
+                            Request Access
+                        </button>
                     </div>
+                    </Suspense>
                     </div>
                 </div>
             </div>
         )
     }
+
 }
 
-export default AuthenticationPage;
+export default RejectionPage;
