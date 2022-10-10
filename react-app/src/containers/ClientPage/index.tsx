@@ -1,7 +1,6 @@
-import { Button, Box, Tabs, Tab } from '@mui/material';
-import React, {Component} from 'react';
+import {Component} from 'react';
 import './ClientPage.css';
-import { ClientGrid } from '../../components/DataGrid';
+import ClientGrid from '../../components/ClientGrid';
 import BasicTabs from '../../components/TabBar';
 
 class ClientPage extends Component {
@@ -22,70 +21,7 @@ class ClientPage extends Component {
                     <BasicTabs />
                 </div>
 
-                <div className="main_content">
-                    <div className="top_buttons">
-                        <Button variant="contained" onClick={() => {
-                            // TODO: Handle Create Team click here
-                            console.log('create client clicked')
-                        }}
-                        >
-                            Create Client
-                        </Button>
-
-                        <Button variant="contained" onClick={() => {
-                            // TODO: Handle import from excel click here
-                            console.log('import from excel clicked')
-                        }}
-                        >
-                            Import From Excel
-                        </Button>
-                        
-                        {/* TODO: Filtering goes here! */}
-                    </div>
-
-                    <div className="grid">
-                        {ClientGrid()}
-                    </div>
-
-                    <div className="bottom_buttons">
-                        
-                        <div className="bottom_buttons_group">
-                            <Button variant="contained" onClick={() => {
-                                // TODO: Handle click here
-                                console.log('copy emails clicked')
-                            }}
-                            >
-                                Copy Emails to Clipboard
-                            </Button>
-
-                            <Button variant="contained" onClick={() => {
-                                // TODO: Handle click here
-                                console.log('export to excel clicked')
-                            }}
-                            >
-                                Export to Excel
-                            </Button>
-                        </div>
-
-                        <div className="bottom_buttons_group">
-                            <Button variant="contained" onClick={() => {
-                                // TODO: Handle click here
-                                console.log('manage client clicked')
-                            }}
-                            >
-                                Manage Selected Client
-                            </Button>
-                            <Button variant="contained" onClick={() => {
-                                // TODO: Handle click here
-                                console.log('delete client clicked')
-                            }}
-                            >
-                                Delete Selected Clients
-                            </Button>
-                        </div>
-
-                    </div>
-                </div>
+                <ClientGrid />
             </div>
         )
     }
