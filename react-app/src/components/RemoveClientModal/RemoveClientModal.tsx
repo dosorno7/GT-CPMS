@@ -25,7 +25,7 @@ export default function RemoveClientModal( {deleteClients}: any ) {
     return (
         <div>
             <Button variant="contained" onClick={handleOpen}>
-                Delete Selected Teams
+                Delete Selected Clients
             </Button>
             <Modal
                 open={open}
