@@ -1,8 +1,11 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import {Button, Box} from '@mui/material';
 import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
+import CreateProjectModal from '../CreateProjectModal/createProjectModal';
+import '../TeamGrid/TeamGrid.css';
+import '../../containers/ProjectsPage/ProjectsPage.css';
 
 const ODD_OPACITY = 0.2;
 
@@ -162,8 +165,26 @@ const projectsRows = [
     { id: 10, teamsAssigned: 2109, section: 'JIA', project: 'Project Alpha', client: 'Pepper Potts' },
     { id: 11, teamsAssigned: 2110, section: 'JIA', project: 'Phase 4', client: 'Nick Fury' },
 ];
+const createNewRow = (prevRows: {
+    id: number;
+    teamsAssigned: number;
+    section: string;
+    project: string;
+    client: string;
+}[], teamsAssigned: number,
+    section: string,
+    project: string,
+    client: string) => {
+    
+        return { id: prevRows.length + 1, 
+        teamsAssigned: teamsAssigned, 
+        section: section, 
+        project: project, 
+        client: client }
+}
 
 export function TeamGrid() {
+    
     return (
         <Box 
             sx={{ 
@@ -194,31 +215,94 @@ export function TeamGrid() {
 };
 
 export function ProjectsGrid() {
+    const [rows, setRows] = React.useState(() => projectsRows);
+
+    const getCreateProjectInfo = (
+        teamsAssigned: number, 
+        section: string, 
+        project: string, 
+        client: string ) => {
+        
+        console.log("creating a new project")
+        setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamsAssigned, section, project, client)]);
+
+    }
     return  (
-        <Box 
-            sx={{ 
-                height: 500, 
-                width: '100%',
-                '& .super-app-theme--header': {
-                    backgroundColor: 'rgba(0,0,0,0)',
-                }, 
-            }}>
-            <StripedDataGrid
-                rows={projectsRows}
-                columns={projectsColumns}
-                pageSize={10}
-                rowsPerPageOptions={[6]}
-                checkboxSelection
-                disableSelectionOnClick
-                experimentalFeatures={{ newEditingApi: true }}
-                sx = {{
-                    border: 2
-                }}
-                
-                getRowClassName={(params) =>
-                    params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-                }
-            />
-        </Box>
+        <div className="main_content">
+            <div className="top_buttons">
+                <CreateProjectModal getCreateProjectInfo={getCreateProjectInfo} />
+                <Button variant="contained" onClick={() => {
+                    // TODO: Handle import from excel click here
+                    console.log('import from excel clicked')
+                    }}
+                >
+                    Import From Excel
+                </Button>
+                        
+                {/* TODO: Filtering goes here! */}
+            </div>
+                <Box className="grid"
+                    sx={{ 
+                        height: 500, 
+                        width: '100%',
+                        '& .super-app-theme--header': {
+                            backgroundColor: 'rgba(0,0,0,0)',
+                        }, 
+                    }}>
+                    <StripedDataGrid
+                        rows={rows}
+                        columns={projectsColumns}
+                        pageSize={10}
+                        rowsPerPageOptions={[6]}
+                        checkboxSelection
+                        disableSelectionOnClick
+                        experimentalFeatures={{ newEditingApi: true }}
+                        sx = {{
+                            border: 2
+                        }}
+                        
+                        getRowClassName={(params) =>
+                            params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+                        }
+                    />
+                </Box>
+                <div className="bottom_buttons">
+
+                <div className="bottom_buttons_group">
+                    <Button variant="contained" onClick={() => {
+                        // TODO: Handle click here
+                        console.log('copy emails clicked')
+                    }}
+                    >
+                        Copy Emails to Clipboard
+                    </Button>
+
+                    <Button variant="contained" onClick={() => {
+                        // TODO: Handle click here
+                        console.log('export to excel clicked')
+                    }}
+                    >
+                        Export to Excel
+                    </Button>
+                </div>
+
+                <div className="bottom_buttons_group">
+                    <Button variant="contained" onClick={() => {
+                        // TODO: Handle click here
+                        console.log('manage team clicked')
+                    }}
+                    >
+                        Manage Selected Team
+                    </Button>
+                    <Button variant="contained" onClick={() => {
+                        // TODO: Handle click here
+                        console.log('delete team clicked')
+                    }}
+                    >
+                        Delete Selected Teams
+                    </Button>
+                </div>
+            </div>
+        </div>
     );
 };
