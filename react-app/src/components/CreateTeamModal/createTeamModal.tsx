@@ -80,7 +80,17 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
             setDisabled(true)
     }
 
-    function formHelperText(input: any) {
+    function sectionValidation() {
+        if (section == '') {
+            return 'This field cannot be empty'
+        }
+        if (section.toUpperCase() != section) {
+            return 'Section code cannot contain lowercase characters'
+        }
+        return ''
+    }
+
+    function formHelperText(input: any) {            
         if (input == '')
             return 'This field cannot be empty'
         else
@@ -119,8 +129,8 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleSectionChange}
-                            error={section == ''}
-                            helperText={formHelperText(section)}
+                            error={section == '' || section.toUpperCase() != section}
+                            helperText={sectionValidation()}
                         />
                         <TextField
                             label="Project Name"
