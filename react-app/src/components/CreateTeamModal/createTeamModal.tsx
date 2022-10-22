@@ -74,23 +74,33 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
     }
 
     function formValidation() {        
-        if (teamNumber != '' && section != ''&& projName != '' && clientName != '' && profName != '')
+        if (teamNumber != '' && section != '' && projName != '' && clientName != '' && profName != '')
             setDisabled(false)
         else 
             setDisabled(true)
     }
 
-    function sectionValidation() {
+    function sectionHelperText() {
         if (section == '') {
-            return 'This field cannot be empty'
+            return 'This field cannot be empty';
         }
         if (section.toUpperCase() != section) {
-            return 'Section code cannot contain lowercase characters'
+            return 'Section code cannot contain lowercase characters';
         }
-        return ''
+        return '';
     }
 
-    function formHelperText(input: any) {            
+    function teamNumberHelperText() {
+        if (teamNumber == '') {
+            return 'This field cannot be empty';
+        }
+        if (teamNumber.match(/^[0-9]+$/) == null) {
+            return 'Team number must only contain numbers';
+        }
+        return '';
+    }
+
+    function genericHelperText(input: any) {            
         if (input == '')
             return 'This field cannot be empty'
         else
@@ -120,8 +130,8 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }} 
                             margin="normal" 
                             onChange={handleTeamNumberChange}
-                            error={teamNumber == ''}
-                            helperText={formHelperText(teamNumber)}
+                            error={teamNumber == '' || teamNumber.match(/^[0-9]+$/) == null}
+                            helperText={teamNumberHelperText()}
                         />
                         <TextField
                             label="Section"
@@ -130,7 +140,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             margin="normal"
                             onChange={handleSectionChange}
                             error={section == '' || section.toUpperCase() != section}
-                            helperText={sectionValidation()}
+                            helperText={sectionHelperText()}
                         />
                         <TextField
                             label="Project Name"
@@ -139,7 +149,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             margin="normal"
                             onChange={handleProjNameChange}
                             error={projName == ''}
-                            helperText={formHelperText(projName)}
+                            helperText={genericHelperText(projName)}
                         />
                         <TextField
                             label="Client Name"
@@ -148,7 +158,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             margin="normal"
                             onChange={handleClientNameChange}
                             error={clientName == ''}
-                            helperText={formHelperText(clientName)}
+                            helperText={genericHelperText(clientName)}
                         />
                         <TextField
                             label="Professor Name"
@@ -157,7 +167,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             margin="normal"
                             onChange={handleProfNameChange}
                             error={profName == ''}
-                            helperText={formHelperText(profName)}
+                            helperText={genericHelperText(profName)}
                         />
                     </Typography>
                     <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick() }}>
