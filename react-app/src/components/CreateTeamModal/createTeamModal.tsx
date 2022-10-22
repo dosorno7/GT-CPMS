@@ -25,11 +25,12 @@ const style = {
 export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
     const [open, setOpen] = React.useState(false);
     const [disabled, setDisabled] = React.useState(true);
-    const [teamNumber, setTeamNumber] = React.useState('')
-    const [section, setSection] = React.useState('')
-    const [projName, setProjName] = React.useState('')
-    const [clientName, setClientName] = React.useState('')
-    const [profName, setProfName] = React.useState('')
+    
+    const [teamNumber, setTeamNumber] = React.useState('');
+    const [section, setSection] = React.useState('');
+    const [projName, setProjName] = React.useState('');
+    const [clientName, setClientName] = React.useState('');
+    const [profName, setProfName] = React.useState('');
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
