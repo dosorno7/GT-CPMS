@@ -74,7 +74,11 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
     }
 
     function formValidation() {        
-        if (teamNumber != '' && section != '' && projName != '' && clientName != '' && profName != '')
+        if (teamNumber != '' && teamNumber.match(/^[0-9]+$/) != null
+            && section != '' && section.toUpperCase() == section
+            && projName != '' 
+            && clientName != '' 
+            && profName != '')
             setDisabled(false)
         else 
             setDisabled(true)
