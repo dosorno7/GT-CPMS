@@ -24,45 +24,57 @@ const style = {
 
 export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
     const [open, setOpen] = React.useState(false);
+    const [disabled, setDisabled] = React.useState(true);
+    const [teamNumber, setTeamNumber] = React.useState('')
+    const [section, setSection] = React.useState('')
+    const [projName, setProjName] = React.useState('')
+    const [clientName, setClientName] = React.useState('')
+    const [profName, setProfName] = React.useState('')
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    let teamNumber = '';
-    let section = '';
-    let projName = '';
-    let clientName = '';
-    let profName = '';
+    React.useEffect(() => {
+        formValidation()
+    });
+
 
     //Event Handlers
-    const handleCreateClick = (
-        teamNumber: string,
-        section: string,
-        projName: string,
-        clientName: string,
-        profName: string) => {
-
-        getCreateTeamInfo(teamNumber, section, projName, clientName, profName); 
+    function handleCreateClick() {
+        getCreateTeamInfo(teamNumber, section, projName, clientName, profName);
+        setTeamNumber('')
+        setSection('')
+        setProjName('')
+        setClientName('')
+        setProfName('') 
         handleClose();
     }
 
-    const handleTeamNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        teamNumber = event.target.value;
+    function handleTeamNumberChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setTeamNumber(event.target.value);
     }
 
-    const handleSectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        section = event.target.value;
+    function handleSectionChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setSection(event.target.value);
     }
 
-    const handleProjNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        projName = event.target.value;
+    function handleProjNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setProjName(event.target.value);
     }
 
-    const handleClientNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        clientName = event.target.value;
+    function handleClientNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setClientName(event.target.value);
     }
 
-    const handleProfNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        profName = event.target.value;
+    function handleProfNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setProfName(event.target.value);
+    }
+
+    function formValidation() {        
+        if (teamNumber != '' && section != ''&& projName != '' && clientName != '' && profName != '')
+            setDisabled(false)
+        else 
+            setDisabled(true)
     }
 
     return (
@@ -118,7 +130,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             onChange={handleProfNameChange}
                         />
                     </Typography>
-                    <Button variant="contained" onClick={() => { handleCreateClick(teamNumber, section, projName, clientName, profName) }}>
+                    <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick() }}>
                         Create Team
                     </Button>
 
