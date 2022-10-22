@@ -25,7 +25,7 @@ const style = {
 export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
     const [open, setOpen] = React.useState(false);
     const [disabled, setDisabled] = React.useState(true);
-    
+
     const [teamNumber, setTeamNumber] = React.useState('');
     const [section, setSection] = React.useState('');
     const [projName, setProjName] = React.useState('');
@@ -101,6 +101,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }} 
                             margin="normal" 
                             onChange={handleTeamNumberChange}
+                            error={teamNumber == ''}
                         />
                         <TextField
                             label="Section"
@@ -108,6 +109,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleSectionChange}
+                            error={section == ''}
                         />
                         <TextField
                             label="Project Name"
@@ -115,6 +117,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleProjNameChange}
+                            error={projName == ''}
                         />
                         <TextField
                             label="Client Name"
@@ -122,6 +125,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleClientNameChange}
+                            error={clientName == ''}
                         />
                         <TextField
                             label="Professor Name"
@@ -129,6 +133,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleProfNameChange}
+                            error={profName == ''}
                         />
                     </Typography>
                     <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick() }}>
