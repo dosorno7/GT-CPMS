@@ -7,6 +7,8 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField'
 
+
+
 import Modal from '@mui/material/Modal';
 
 
@@ -78,6 +80,13 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
             setDisabled(true)
     }
 
+    function formHelperText(input: any) {
+        if (input == '')
+            return 'This field cannot be empty'
+        else
+            return ''
+    }
+
     return (
         <div>
             <Button variant="contained" onClick={handleOpen}>
@@ -102,6 +111,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             margin="normal" 
                             onChange={handleTeamNumberChange}
                             error={teamNumber == ''}
+                            helperText={formHelperText(teamNumber)}
                         />
                         <TextField
                             label="Section"
@@ -110,6 +120,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             margin="normal"
                             onChange={handleSectionChange}
                             error={section == ''}
+                            helperText={formHelperText(section)}
                         />
                         <TextField
                             label="Project Name"
@@ -118,6 +129,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             margin="normal"
                             onChange={handleProjNameChange}
                             error={projName == ''}
+                            helperText={formHelperText(projName)}
                         />
                         <TextField
                             label="Client Name"
@@ -126,6 +138,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             margin="normal"
                             onChange={handleClientNameChange}
                             error={clientName == ''}
+                            helperText={formHelperText(clientName)}
                         />
                         <TextField
                             label="Professor Name"
@@ -134,6 +147,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                             margin="normal"
                             onChange={handleProfNameChange}
                             error={profName == ''}
+                            helperText={formHelperText(profName)}
                         />
                     </Typography>
                     <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick() }}>
