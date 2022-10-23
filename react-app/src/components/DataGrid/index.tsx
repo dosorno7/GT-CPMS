@@ -203,7 +203,7 @@ export function ProjectsGrid() {
                         
                 {/* TODO: Filtering goes here! */}
             </div>
-                <Box className="grid"
+        <Box className="grid"
                     sx={{ 
                         height: 500, 
                         width: '100%',
@@ -213,7 +213,7 @@ export function ProjectsGrid() {
                     }}>
                     <StripedDataGrid
                         rows={rows}
-                        columns={projectsColumns}
+                        columns={teamColumns}
                         pageSize={10}
                         rowsPerPageOptions={[6]}
                         checkboxSelection
@@ -227,7 +227,7 @@ export function ProjectsGrid() {
                             params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                         }
                     />
-                </Box>
+        </Box>
                 <div className="bottom_buttons">
 
                 <div className="bottom_buttons_group">
