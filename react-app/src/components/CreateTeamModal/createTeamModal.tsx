@@ -26,11 +26,30 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const [open2, setOpen2] = React.useState(false);
+    const handleOpen2 = () => setOpen2(true);
+    const handleClose2 = () => setOpen2(false);
+
+    const [formValues, setFormValues] = React.useState([{ studentName: "", studentEmail: ""}])
+    
+    let handleRowChange = () => {
+        let newFormValues = [...formValues];
+        // newFormValues[i][e.target.name] = e.target.value;
+        setFormValues(newFormValues);
+    }
+        
+    let addFormFields = () => {
+        setFormValues([...formValues, { studentName: "", studentEmail: "" }])
+    }
+
     let teamNumber = '';
     let section = '';
     let projName = '';
     let clientName = '';
     let profName = '';
+
+    let studentName = '';
+    let studentEmail = '';
 
     //Event Handlers
     const handleCreateClick = (
@@ -41,8 +60,15 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
         profName: string) => {
 
         getCreateTeamInfo(teamNumber, section, projName, clientName, profName); 
+        handleOpen2();
         handleClose();
     }
+
+    const handleStudentsClick = (
+        studentName: string,
+        studentEmail: string) => {
+            handleClose2();
+        }
 
     const handleTeamNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         teamNumber = event.target.value;
@@ -64,6 +90,14 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
         profName = event.target.value;
     }
 
+    const handleStudentNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        studentName = event.target.value;
+    }
+
+    const handleStudentEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        studentEmail = event.target.value;
+    }
+
     return (
         <div>
             <Button variant="contained" onClick={handleOpen}>
@@ -79,7 +113,6 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Create New Team
                     </Typography>
-
                     <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
                         <TextField 
                             label="Team Number" 
@@ -118,9 +151,44 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                         />
                     </Typography>
                     <Button variant="contained" onClick={() => { handleCreateClick(teamNumber, section, projName, clientName, profName) }}>
+                        Next
+                    </Button>
+                </Box>
+            </Modal>
+            <Modal
+                open={open2}
+                onClose={handleClose2}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Enter Student Information
+                    </Typography>
+                    <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
+                        {formValues.map((element, index) => (
+                        <div>
+                            <TextField 
+                                label="Student Name" 
+                                id="standard-start-adornment"
+                                sx={{ m: 1, width: '25ch' }} 
+                                margin="normal" 
+                                onChange={handleStudentNameChange}
+                            />
+                            <TextField 
+                                label="Student Email" 
+                                id="standard-start-adornment"
+                                sx={{ m: 1, width: '25ch' }} 
+                                margin="normal" 
+                                onChange={handleStudentEmailChange}
+                            />
+                        </div>
+                        ))}
+                    </Typography>
+                    <Button variant="contained" onClick={() => addFormFields()}>Add Student</Button>
+                    <Button variant="contained" onClick={() => { handleStudentsClick(studentName, studentEmail) }}>
                         Create Team
                     </Button>
-
                 </Box>
             </Modal>
         </div>
