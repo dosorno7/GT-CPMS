@@ -96,44 +96,6 @@ const teamColumns: GridColDef[] = [
     },
 ];
 
-const projectsColumns: GridColDef[] = [
-    {   
-        field: 'teamsAssigned', 
-        headerName: 'Team Assigned', 
-        width: 150,
-        headerAlign: 'center',
-        headerClassName: 'super-app-theme--header',
-        align: 'center', 
-    },
-    {
-        field: 'section',
-        headerName: 'Section',
-        width: 150,
-        headerAlign: 'center',
-        headerClassName: 'super-app-theme--header',
-        align: 'center', 
-        
-    },
-    {
-        field: 'project',
-        headerName: 'Project',
-        width: 250,
-        headerAlign: 'center',
-        headerClassName: 'super-app-theme--header',
-        align: 'center', 
-        flex: 1,
-    },
-    {
-        field: 'client',
-        headerName: 'Client',
-        width: 250,
-        headerAlign: 'center',
-        headerClassName: 'super-app-theme--header',
-        align: 'center', 
-        flex: 1,
-    }
-];
-
 const teamRows = [
     { id: 1, teamNumber: 2100, section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen'},
     { id: 2, teamNumber: 2101, section: 'JDA', project: 'Helius', client: 'Carol Denvers', professor: 'Elizabeth Olsen' },

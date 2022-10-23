@@ -1,7 +1,6 @@
-import { Button, Box, Tabs, Tab } from '@mui/material';
 import { Component } from 'react';
 import './ProjectsPage.css';
-import { ProjectsGrid } from '../../components/DataGrid';
+import ProjectsGrid from '../../components/ProjectsGrid';
 import BasicTabs from '../../components/TabBar';
 
 class ProjectsPage extends Component {
@@ -19,7 +18,6 @@ class ProjectsPage extends Component {
 
                     </div>
                     <BasicTabs />
-                    
                 </div>
             <ProjectsGrid />
             </div>

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {Button, Box} from '@mui/material';
-import { DataGrid, GridColDef, gridClasses } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
-import CreateTeamModal from '../CreateTeamModal/createTeamModal'
+import CreateTeamModal from '../CreateTeamModal/createTeamModal';
+import RemoveTeamModal from '../RemoveTeamModal/RemoveTeamModal';
 
 import './TeamGrid.css';
-
 
 const ODD_OPACITY = 0.2;
 
@@ -49,7 +49,6 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         },
     },
 }));
-
 
 const columns: GridColDef[] = [
     {   
@@ -136,12 +135,13 @@ const createNewRow = (prevRows: {
         professor: professor }
 }
 
-
-
 export default function TeamGrid() {
-
-
     const [rows, setRows] = React.useState(() => rowsmock);
+    const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
+
+    const deleteTeams = () => {
+        setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
+    };
 
     const getCreateTeamInfo = (
         teamNumber: string, 
@@ -189,7 +189,8 @@ export default function TeamGrid() {
                 sx = {{
                     border: 2
                 }}
-                
+                selectionModel={selectionModel}
+                onSelectionModelChange={setSelectionModel}
                 getRowClassName={(params) =>
                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                 }
@@ -224,13 +225,7 @@ export default function TeamGrid() {
                     >
                         Manage Selected Team
                     </Button>
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('delete team clicked')
-                    }}
-                    >
-                        Delete Selected Teams
-                    </Button>
+                    <RemoveTeamModal deleteTeams={deleteTeams}/>
                 </div>
             </div>
         </div>
