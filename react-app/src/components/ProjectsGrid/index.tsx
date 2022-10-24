@@ -139,7 +139,7 @@ export default function ProjectsGrid() {
                 {/* TODO: Filtering goes here! */}
             </div>
 
-            <Box 
+            <Box className="grid"
                 sx={{ 
                     height: 500, 
                     width: '100%',
