@@ -49,7 +49,7 @@ export default function BasicTabs() {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Teams" onClick={() => {history('/HomePage')}} />
           <Tab label="Clients" onClick={() => {history('/ClientPage/')}} />
           <Tab label="Projects" onClick={() => {history('/ProjectsPage/')}} />
