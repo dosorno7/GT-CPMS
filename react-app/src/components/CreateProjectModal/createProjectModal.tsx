@@ -29,7 +29,7 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
 
     let teamNumber = '';
     let section = '';
-    let projName = '';
+    let organization = '';
     let clientName = '';
     let activeStatus = '';
 
@@ -37,11 +37,11 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
     const handleCreateClick = (
         teamNumber: string,
         section: string,
-        projName: string,
+        organization: string,
         clientName: string,
         activeStatus: string) => {
 
-        getCreateProjectInfo(teamNumber, section, projName, clientName, activeStatus); 
+        getCreateProjectInfo(teamNumber, section, organization, clientName, activeStatus); 
         handleClose();
     }
 
@@ -53,8 +53,8 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
         section = event.target.value;
     }
 
-    const handleProjNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        projName = event.target.value;
+    const handleorganizationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        organization = event.target.value;
     }
 
     const handleClientNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,11 +83,11 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
 
                     <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
                         <TextField
-                            label="Project Name"
+                            label="Organizaton Name"
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
-                            onChange={handleProjNameChange}
+                            onChange={handleorganizationChange}
                         />
                         <TextField
                             label="Client Name"
@@ -118,7 +118,7 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
                             onChange={handleStatusChange}
                         />
                     </Typography>
-                    <Button variant="contained" onClick={() => { handleCreateClick(teamNumber, section, projName, clientName, activeStatus) }}>
+                    <Button variant="contained" onClick={() => { handleCreateClick(teamNumber, section, organization, clientName, activeStatus) }}>
                         Create Project
                     </Button>
 

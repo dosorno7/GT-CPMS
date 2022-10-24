@@ -10,187 +10,243 @@ import Modal from '@mui/material/Modal';
 
 
 const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 500,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 500,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
 };
 
 export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  const [open, setOpen] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(true);
 
-    const [open2, setOpen2] = React.useState(false);
-    const handleOpen2 = () => setOpen2(true);
-    const handleClose2 = () => setOpen2(false);
+  const [teamNumber, setTeamNumber] = React.useState('');
+  const [section, setSection] = React.useState('');
+  const [projName, setProjName] = React.useState('');
+  const [clientName, setClientName] = React.useState('');
+  const [profName, setProfName] = React.useState('');
 
-    const [formValues, setFormValues] = React.useState([{ studentName: "", studentEmail: ""}])
-    
-    let handleRowChange = () => {
-        let newFormValues = [...formValues];
-        // newFormValues[i][e.target.name] = e.target.value;
-        setFormValues(newFormValues);
-    }
-        
-    let addFormFields = () => {
-        setFormValues([...formValues, { studentName: "", studentEmail: "" }])
-    }
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-    let teamNumber = '';
-    let section = '';
-    let projName = '';
-    let clientName = '';
-    let profName = '';
+  const [open2, setOpen2] = React.useState(false);
+  const handleOpen2 = () => setOpen2(true);
+  const handleClose2 = () => setOpen2(false);
 
-    let studentName = '';
-    let studentEmail = '';
+  const [formValues, setFormValues] = React.useState([{ studentName: "", studentEmail: ""}])
 
-    //Event Handlers
-    const handleCreateClick = (
-        teamNumber: string,
-        section: string,
-        projName: string,
-        clientName: string,
-        profName: string) => {
+  let handleRowChange = () => {
+      let newFormValues = [...formValues];
+      // newFormValues[i][e.target.name] = e.target.value;
+      setFormValues(newFormValues);
+  }
 
-        getCreateTeamInfo(teamNumber, section, projName, clientName, profName); 
-        handleOpen2();
-        handleClose();
-    }
+  let addFormFields = () => {
+      setFormValues([...formValues, { studentName: "", studentEmail: "" }])
+  }
 
-    const handleStudentsClick = (
-        studentName: string,
-        studentEmail: string) => {
-            handleClose2();
-        }
 
-    const handleTeamNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        teamNumber = event.target.value;
-    }
+  React.useEffect(() => {
+      formValidation()
+  });
 
-    const handleSectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        section = event.target.value;
-    }
 
-    const handleProjNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        projName = event.target.value;
-    }
 
-    const handleClientNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        clientName = event.target.value;
-    }
+  let studentName = '';
+  let studentEmail = '';
 
-    const handleProfNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        profName = event.target.value;
-    }
+  //Event Handlers
+  const handleStudentsClick = (
+      studentName: string,
+      studentEmail: string) => {
+          handleClose2();
+      }
 
-    const handleStudentNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        studentName = event.target.value;
-    }
+  function handleCreateClick() {
+      getCreateTeamInfo(teamNumber, section, projName, clientName, profName);
+      setTeamNumber('')
+      setSection('')
+      setProjName('')
+      setClientName('')
+      setProfName('') 
+      handleOpen2();
+      handleClose();
+  }
 
-    const handleStudentEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        studentEmail = event.target.value;
-    }
+  function handleTeamNumberChange(event: React.ChangeEvent<HTMLInputElement>) {
+      setTeamNumber(event.target.value);
+  }
 
-    return (
-        <div>
-            <Button variant="contained" onClick={handleOpen}>
-                Create Team
-            </Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Create New Team
-                    </Typography>
-                    <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
-                        <TextField 
-                            label="Team Number" 
-                            id="standard-start-adornment"
-                            sx={{ m: 1, width: '25ch' }} 
-                            margin="normal" 
-                            onChange={handleTeamNumberChange}
-                        />
-                        <TextField
-                            label="Section"
-                            id="standard-start-adornment"
-                            sx={{ m: 1, width: '25ch' }}
-                            margin="normal"
-                            onChange={handleSectionChange}
-                        />
-                        <TextField
-                            label="Project Name"
-                            id="standard-start-adornment"
-                            sx={{ m: 1, width: '25ch' }}
-                            margin="normal"
-                            onChange={handleProjNameChange}
-                        />
-                        <TextField
-                            label="Client Name"
-                            id="standard-start-adornment"
-                            sx={{ m: 1, width: '25ch' }}
-                            margin="normal"
-                            onChange={handleClientNameChange}
-                        />
-                        <TextField
-                            label="Professor Name"
-                            id="standard-start-adornment"
-                            sx={{ m: 1, width: '25ch' }}
-                            margin="normal"
-                            onChange={handleProfNameChange}
-                        />
-                    </Typography>
-                    <Button variant="contained" onClick={() => { handleCreateClick(teamNumber, section, projName, clientName, profName) }}>
-                        Next
-                    </Button>
-                </Box>
-            </Modal>
-            <Modal
-                open={open2}
-                onClose={handleClose2}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Enter Student Information
-                    </Typography>
-                    <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
-                        {formValues.map((element, index) => (
-                        <div>
-                            <TextField 
-                                label="Student Name" 
-                                id="standard-start-adornment"
-                                sx={{ m: 1, width: '25ch' }} 
-                                margin="normal" 
-                                onChange={handleStudentNameChange}
-                            />
-                            <TextField 
-                                label="Student Email" 
-                                id="standard-start-adornment"
-                                sx={{ m: 1, width: '25ch' }} 
-                                margin="normal" 
-                                onChange={handleStudentEmailChange}
-                            />
-                        </div>
-                        ))}
-                    </Typography>
-                    <Button variant="contained" onClick={() => addFormFields()}>Add Student</Button>
-                    <Button variant="contained" onClick={() => { handleStudentsClick(studentName, studentEmail) }}>
-                        Create Team
-                    </Button>
-                </Box>
-            </Modal>
-        </div>
-    );
+  function handleSectionChange(event: React.ChangeEvent<HTMLInputElement>) {
+      setSection(event.target.value);
+  }
+
+  function handleProjNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+      setProjName(event.target.value);
+  }
+
+  function handleClientNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+      setClientName(event.target.value);
+  }
+
+  function handleProfNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+      setProfName(event.target.value);
+  }
+
+  function formValidation() {        
+      if (teamNumber != '' && teamNumber.match(/^[0-9]+$/) != null
+          && section != '' && section.toUpperCase() == section
+          && projName != '' 
+          && clientName != '' 
+          && profName != '')
+          setDisabled(false)
+      else 
+          setDisabled(true)
+  }
+
+  function sectionHelperText() {
+      if (section == '') {
+          return 'This field cannot be empty';
+      }
+      if (section.toUpperCase() != section) {
+          return 'Section code cannot contain lowercase characters';
+      }
+      return '';
+  }
+
+  function teamNumberHelperText() {
+      if (teamNumber == '') {
+          return 'This field cannot be empty';
+      }
+      if (teamNumber.match(/^[0-9]+$/) == null) {
+          return 'Team number must only contain numbers';
+      }
+      return '';
+  }
+
+  function genericHelperText(input: any) {            
+      if (input == '')
+          return 'This field cannot be empty'
+      else
+          return ''
+  }
+
+  const handleStudentNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      studentName = event.target.value;
+  }
+
+  const handleStudentEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      studentEmail = event.target.value;
+  }
+
+  return (
+      <div>
+          <Button variant="contained" onClick={handleOpen}>
+              Create Team
+          </Button>
+          <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+          >
+              <Box sx={style}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2">
+                      Create New Team
+                  </Typography>
+                  <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
+                      <TextField 
+                          label="Team Number" 
+                          id="standard-start-adornment"
+                          sx={{ m: 1, width: '25ch' }} 
+                          margin="normal" 
+                          onChange={handleTeamNumberChange}
+                          error={teamNumber == '' || teamNumber.match(/^[0-9]+$/) == null}
+                          helperText={teamNumberHelperText()}
+                      />
+                      <TextField
+                          label="Section"
+                          id="standard-start-adornment"
+                          sx={{ m: 1, width: '25ch' }}
+                          margin="normal"
+                          onChange={handleSectionChange}
+                          error={section == '' || section.toUpperCase() != section}
+                          helperText={sectionHelperText()}
+                      />
+                      <TextField
+                          label="Project Name"
+                          id="standard-start-adornment"
+                          sx={{ m: 1, width: '25ch' }}
+                          margin="normal"
+                          onChange={handleProjNameChange}
+                          error={projName == ''}
+                          helperText={genericHelperText(projName)}
+                      />
+                      <TextField
+                          label="Client Name"
+                          id="standard-start-adornment"
+                          sx={{ m: 1, width: '25ch' }}
+                          margin="normal"
+                          onChange={handleClientNameChange}
+                          error={clientName == ''}
+                          helperText={genericHelperText(clientName)}
+                      />
+                      <TextField
+                          label="Professor Name"
+                          id="standard-start-adornment"
+                          sx={{ m: 1, width: '25ch' }}
+                          margin="normal"
+                          onChange={handleProfNameChange}
+                          error={profName == ''}
+                          helperText={genericHelperText(profName)}
+                      />
+                  </Typography>
+                  <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick() }}>
+                      Next
+                  </Button>
+              </Box>
+          </Modal>
+          <Modal
+              open={open2}
+              onClose={handleClose2}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+          >
+              <Box sx={style}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2">
+                      Enter Student Information
+                  </Typography>
+                  <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
+                      {formValues.map((element, index) => (
+                      <div>
+                          <TextField 
+                              label="Student Name" 
+                              id="standard-start-adornment"
+                              sx={{ m: 1, width: '25ch' }} 
+                              margin="normal" 
+                              onChange={handleStudentNameChange}
+                          />
+                          <TextField 
+                              label="Student Email" 
+                              id="standard-start-adornment"
+                              sx={{ m: 1, width: '25ch' }} 
+                              margin="normal" 
+                              onChange={handleStudentEmailChange}
+                          />
+                      </div>
+                      ))}
+                  </Typography>
+                  <Button variant="contained" onClick={() => addFormFields()}>Add Student</Button>
+                  <Button variant="contained" onClick={() => { handleStudentsClick(studentName, studentEmail) }}>
+                      Create Team
+                  </Button>
+              </Box>
+          </Modal>
+      </div>
+  );
 }

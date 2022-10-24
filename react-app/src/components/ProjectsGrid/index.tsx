@@ -3,6 +3,7 @@ import {Button, Box} from '@mui/material';
 import RemoveProjectsModal from '../RemoveProjectsModal/RemoveProjectsModal';
 import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
+import CreateProjectModal from '../CreateProjectModal/createProjectModal';
 
 import './ProjectsGrid.css';
 
@@ -49,13 +50,14 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 }));
 
 const projectsColumns: GridColDef[] = [
-    {   
-        field: 'teamsAssigned', 
-        headerName: 'Team Assigned', 
-        width: 150,
+    {
+        field: 'client',
+        headerName: 'Client',
+        width: 250,
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
-        align: 'center', 
+        align: 'center',
+        flex: 1,
     },
     {
         field: 'section',
@@ -63,43 +65,70 @@ const projectsColumns: GridColDef[] = [
         width: 150,
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
+        align: 'center',
+
+    },
+    {   
+        field: 'teamAssigned', 
+        headerName: 'Team Assigned', 
+        width: 150,
+        headerAlign: 'center',
+        headerClassName: 'super-app-theme--header',
         align: 'center', 
-        
     },
     {
-        field: 'project',
-        headerName: 'Project',
+        field: 'organization',
+        headerName: 'Organization',
         width: 250,
+        headerAlign: 'center',
+        headerClassName: 'super-app-theme--header',
+        align: 'center',
+        flex: 1,
+    },
+    {
+        field: 'status',
+        headerName: 'Status',
+        width: 150,
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
         align: 'center', 
         flex: 1,
     },
-    {
-        field: 'client',
-        headerName: 'Client',
-        width: 250,
-        headerAlign: 'center',
-        headerClassName: 'super-app-theme--header',
-        align: 'center', 
-        flex: 1,
-    }
 ];
 
 const projectsRows = [
-    { id: 1, teamsAssigned: 2100, section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark' },
-    { id: 2, teamsAssigned: 2101, section: 'JDA', project: 'Helius', client: 'Carol Denvers' },
-    { id: 3, teamsAssigned: 2102, section: 'JDA', project: 'Insight', client: 'Peter Parker' },
-    { id: 4, teamsAssigned: 2103, section: 'JDA', project: 'Reclamation', client: 'Stephen Strange' },
-    { id: 5, teamsAssigned: 2104, section: 'JDA', project: 'Phase 2', client: 'Peter Quill' },
-    { id: 6, teamsAssigned: 2105, section: 'JDF', project: 'Avengers Initiative', client: 'Steve Rogers' },
-    { id: 7, teamsAssigned: 2106, section: 'JDF', project: 'Blizzard', client: 'Bucky Barnes' },
-    { id: 8, teamsAssigned: 2107, section: 'JDF', project: 'Pegasus', client: 'Bruce Banner' },
-    { id: 9, teamsAssigned: 2108, section: 'JIA', project: 'Venom', client: 'Eddie Brock' },
-    { id: 10, teamsAssigned: 2109, section: 'JIA', project: 'Project Alpha', client: 'Pepper Potts' },
-    { id: 11, teamsAssigned: 2110, section: 'JIA', project: 'Phase 4', client: 'Nick Fury' },
+    { id: 1, client: 'Tony Stark', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2100, status: 'Active'},
+    { id: 2, client: 'Carol Denvers', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2101, status: 'Active' },
+    { id: 3, client: 'Stephen Strange', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2102, status: 'Active' },
+    { id: 4, client: 'Peter Quill', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2103, status: 'Active' },
+    { id: 5, client: 'Steve Rogers', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2104, status: 'Active' },
+    { id: 6, client: 'Bucky Barnes', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2105, status: 'Active' },
+    { id: 7, client: 'Bruce Banner', section: 'JIA', organization: 'Mock Org name', teamAssigned: 0, status: 'Unassigned' },
+    { id: 8, client: 'Eddie Brock', section: 'JIA', organization: 'Mock Org name', teamAssigned: 0, status: 'Unassigned' },
+    { id: 9, client: 'Pepper Potts', section: 'JIA', organization: 'Mock Org name', teamAssigned: 0, status: 'Unassigned' },
+    { id: 10, client: 'Nick Fury', section: 'JDF', organization: 'Mock Org name', teamAssigned: 0, status: 'Completed' },
+    { id: 11, client: 'Peter Parker', section: 'JDF', organization: 'Mock Org name', teamAssigned: 0, status: 'Completed' }
 ];
-
+const createNewRow = (prevRows: {
+    id: number;
+    teamAssigned: number;
+    section: string;
+    organization: string;
+    client: string;
+    status: string;
+}[], teamAssigned: number,
+    section: string,
+    organization: string,
+    client: string, 
+    status: string) => {
+    
+        return { id: prevRows.length + 1, 
+        teamAssigned: teamAssigned, 
+        section: section, 
+        organization: organization, 
+        client: client,
+        status: status }
+}
 export default function ProjectsGrid() {
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
     const [rows, setRows] = React.useState(() => projectsRows);
@@ -108,16 +137,21 @@ export default function ProjectsGrid() {
         setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
     };
 
+    const getCreateProjectInfo = (
+        teamAssigned: number, 
+        section: string, 
+        organization: string, 
+        client: string,
+        status: string ) => {
+        
+        console.log("creating a new project")
+        setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamAssigned, section, organization, client, status)]);
+
+    }
     return (
         <div className="main_content">
             <div className="top_buttons">
-                <Button variant="contained" onClick={() => {
-                    // TODO: Handle Create Project click here
-                    console.log('Create project clicked')
-                }}
-                >
-                    Create Project
-                </Button>
+            <CreateProjectModal getCreateProjectInfo={getCreateProjectInfo} />
 
                 <Button variant="contained" onClick={() => {
                     // TODO: Handle import from Excel click here
@@ -130,7 +164,7 @@ export default function ProjectsGrid() {
                 {/* TODO: Filtering goes here! */}
             </div>
 
-            <Box 
+            <Box className="grid"
                 sx={{ 
                     height: 500, 
                     width: '100%',

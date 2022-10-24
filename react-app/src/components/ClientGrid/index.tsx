@@ -50,25 +50,25 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 
 const clientColumns: GridColDef[] = [
     {   
-        field: 'teamsAssigned', 
-        headerName: 'Team Assigned', 
-        width: 150,
+        field: 'clientName', 
+        headerName: 'Client Name', 
+        width: 250,
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
         align: 'center', 
     },
     {
-        field: 'section',
-        headerName: 'Section',
-        width: 150,
+        field: 'organization',
+        headerName: 'Organization',
+        width: 250,
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
         align: 'center', 
         
     },
     {
-        field: 'project',
-        headerName: 'Project',
+        field: 'email',
+        headerName: 'Email',
         width: 250,
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
@@ -76,36 +76,28 @@ const clientColumns: GridColDef[] = [
         flex: 1,
     },
     {
-        field: 'client',
-        headerName: 'Client',
-        width: 250,
+        field: 'status',
+        headerName: 'Status',
+        width: 150,
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
         align: 'center', 
         flex: 1,
-    },
-    {
-        field: 'contact',
-        headerName: 'Contact Information',
-        width: 250,
-        headerAlign: 'center',
-        headerClassName: 'super-app-theme--header',
-        align: 'center', 
     },
 ];
 
 const clientRows = [
-    { id: 1, teamsAssigned: 2100, section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', contact: 'tstark@me.com'},
-    { id: 2, teamsAssigned: 2101, section: 'JDA', project: 'Helius', client: 'Carol Denvers', contact: 'cdanvers@aol.com' },
-    { id: 3, teamsAssigned: 2102, section: 'JDA', project: 'Insight', client: 'Peter Parker', contact: 'pparker@gmail.com' },
-    { id: 4, teamsAssigned: 2103, section: 'JDA', project: 'Reclamation', client: 'Stephen Strange', contact: 'drstrange@yahoo.com' },
-    { id: 5, teamsAssigned: 2104, section: 'JDA', project: 'Phase 2', client: 'Peter Quill', contact: 'NA' },
-    { id: 6, teamsAssigned: 2105, section: 'JDF', project: 'Avengers Initiative', client: 'Steve Rogers', contact: 'cap@gmail.com' },
-    { id: 7, teamsAssigned: 2106, section: 'JDF', project: 'Blizzard', client: 'Bucky Barnes', contact: 'wsbarnes@yahoo.com' },
-    { id: 8, teamsAssigned: 2107, section: 'JDF', project: 'Pegasus', client: 'Bruce Banner', contact: 'banner@starkcorp.com' },
-    { id: 9, teamsAssigned: 2108, section: 'JIA', project: 'Venom', client: 'Eddie Brock', contact: 'symbrock@hotmail.com' },
-    { id: 10, teamsAssigned: 2109, section: 'JIA', project: 'Project Alpha', client: 'Pepper Potts', contact: 'pottsceo@starkcorp.comm' },
-    { id: 11, teamsAssigned: 2110, section: 'JIA', project: 'Phase 4', client: 'Nick Fury', contact: 'NA' },
+    { id: 1, clientName: 'Tony Stark', organization: 'Mock Organization Name', email: 'tstark@me.com', status: 'Active'},
+    { id: 2, clientName: 'Carol Denvers', organization: 'Mock Organization Name', email: 'cdanvers@aol.com', status: 'Active'},
+    { id: 3, clientName: 'Peter Parker', organization: 'Mock Organization Name', email: 'pparker@gmail.com', status: 'Active' },
+    { id: 4, clientName: 'Stephen Strange', organization: 'Mock Organization Name', email: 'drstrange@yahoo.com', status: 'Active' },
+    { id: 5, clientName: 'Peter Quill', organization: 'Mock Organization Name', email: 'NA', status: 'Active' },
+    { id: 6, clientName: 'Steve Rogers', organization: 'Mock Organization Name', email: 'cap@gmail.com', status: 'Active' },
+    { id: 7, clientName: 'Bucky Barnes', organization: 'Mock Organization Name', email: 'wsbarnes@aol.com', status: 'Active' },
+    { id: 8, clientName: 'Bruce Banner', organization: 'Mock Organization Name', email: 'banner@aol.com', status: 'Prospective' },
+    { id: 9, clientName: 'Eddie Brock', organization: 'Mock Organization Name', email: 'symbrock@aol.com', status: 'Propsective' },
+    { id: 10, clientName: 'Pepper Potts', organization: 'Mock Organization Name', email: 'pottsceo@aol.com', status: 'Inactive' },
+    { id: 11, clientName: 'Nick Fury', organization: 'Mock Organization Name', email: 'NA', status: 'Inactive' }
 ];
 
 export default function ClientGrid() {
@@ -137,7 +129,7 @@ export default function ClientGrid() {
                 {/* TODO: Filtering goes here! */}
             </div>
 
-            <Box 
+            <Box className="grid"
                 sx={{ 
                     height: 500, 
                     width: '100%',
