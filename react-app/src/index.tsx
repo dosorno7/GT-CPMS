@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-
 import RequestPage from './containers/RequestPage/RequestPage';
 import LogIn from './containers/LogIn';
 import App from './containers/App/App';
@@ -10,23 +9,37 @@ import HomePage from './containers/HomePage';
 import ProjectsPage from './containers/ProjectsPage/ProjectsPage';
 import AuthenticationPage from './containers/AuthenticationPage';
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import ClientPage from './containers/ClientPage';
 import RejectionPage from './containers/RejectionPage';
 
+//const [token, setToken] = useState() 
+console.log(localStorage.getItem('valid_token'))
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+function RequireAuth({ children }:{children:any}) {
+  let location = useLocation();
+  if (localStorage.getItem('valid_token') != 'true') {
+    // Redirect to the /login page y
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
+}
+
 root.render(
   <Router>
     <Routes>
     <Route path="/" element={<LogIn />}/>
     <Route path="/LogIn" element={<LogIn />}/>
-    <Route path="/HomePage/" element={<HomePage />}/>
-    <Route path="/ProjectsPage/" element={<ProjectsPage />}/>
-    <Route path="/RequestPage/" element={<RequestPage />}/>
-    <Route path="/ClientPage/" element={<ClientPage />} />
-    <Route path="/AuthenticationPage/" element={<AuthenticationPage />}/>
-    <Route path="/RejectionPage/" element={<RejectionPage />}/>
+    <Route path="/HomePage/" element={<RequireAuth> <HomePage /> </RequireAuth>}/>
+    <Route path="/ProjectsPage/" element={ <RequireAuth> <ProjectsPage /> </RequireAuth>}/>
+    <Route path="/RequestPage/" element={ <RequestPage /> }/>
+    <Route path="/ClientPage/" element={<RequireAuth> <ClientPage /> </RequireAuth>} />
+    <Route path="/AuthenticationPage/" element={ <AuthenticationPage /> }/>
+    <Route path="/RejectionPage/" element={ <RejectionPage /> }/>
     </Routes>
   </Router>
 );
