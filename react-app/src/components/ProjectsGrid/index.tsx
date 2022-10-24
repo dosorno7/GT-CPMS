@@ -3,6 +3,7 @@ import {Button, Box} from '@mui/material';
 import RemoveProjectsModal from '../RemoveProjectsModal/RemoveProjectsModal';
 import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
+import CreateProjectModal from '../CreateProjectModal/createProjectModal';
 
 import './ProjectsGrid.css';
 
@@ -108,7 +109,26 @@ const projectsRows = [
     { id: 10, client: 'Nick Fury', section: 'JDF', organization: 'Mock Org name', teamAssigned: 0, status: 'Completed' },
     { id: 11, client: 'Peter Parker', section: 'JDF', organization: 'Mock Org name', teamAssigned: 0, status: 'Completed' }
 ];
-
+const createNewRow = (prevRows: {
+    id: number;
+    teamAssigned: number;
+    section: string;
+    organization: string;
+    client: string;
+    status: string;
+}[], teamAssigned: number,
+    section: string,
+    organization: string,
+    client: string, 
+    status: string) => {
+    
+        return { id: prevRows.length + 1, 
+        teamAssigned: teamAssigned, 
+        section: section, 
+        organization: organization, 
+        client: client,
+        status: status }
+}
 export default function ProjectsGrid() {
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
     const [rows, setRows] = React.useState(() => projectsRows);
@@ -117,16 +137,21 @@ export default function ProjectsGrid() {
         setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
     };
 
+    const getCreateProjectInfo = (
+        teamAssigned: number, 
+        section: string, 
+        organization: string, 
+        client: string,
+        status: string ) => {
+        
+        console.log("creating a new project")
+        setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamAssigned, section, organization, client, status)]);
+
+    }
     return (
         <div className="main_content">
             <div className="top_buttons">
-                <Button variant="contained" onClick={() => {
-                    // TODO: Handle Create Project click here
-                    console.log('Create project clicked')
-                }}
-                >
-                    Create Project
-                </Button>
+            <CreateProjectModal getCreateProjectInfo={getCreateProjectInfo} />
 
                 <Button variant="contained" onClick={() => {
                     // TODO: Handle import from Excel click here

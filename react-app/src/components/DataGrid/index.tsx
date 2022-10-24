@@ -213,7 +213,7 @@ export function ProjectsGrid() {
                     }}>
                     <StripedDataGrid
                         rows={rows}
-                        columns={projectsColumns}
+                        columns={teamColumns}
                         pageSize={10}
                         rowsPerPageOptions={[6]}
                         checkboxSelection
