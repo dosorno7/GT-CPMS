@@ -19,8 +19,7 @@ class ProjectsPage extends Component {
                     </div>
                     <BasicTabs />
                 </div>
-
-                <ProjectsGrid />
+            <ProjectsGrid />
             </div>
         )
     }
