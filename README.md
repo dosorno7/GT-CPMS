@@ -3,12 +3,28 @@ The Client-Project Management System is a web application for Georgia Tech profe
 
 # Release Notes
 
+## Version 0.3.0
+### New Features
+* Able to remove teams. 
+* Able to create a new client with client name, organization, email, and status.  
+* Able to create a new project with client name, section and team assigned if applicable, organization, and status. 
+* Able to filter the display by team number, section, or alphabetically, so that I can view all the teams easily. 
+* Able to add students and emails when creating a student team. 
+* Able to verify initialized team is valid before submission through error checking and messages on creation page. 
+
+### Bug Fixes
+* Fixed tab bar only showing the first tab as active despite switching pages. 
+
+### Known Issues
+* Resizing the teams page window does not resize the section or team number columns of the data grid.
+* Unauthorized user page breifly appears even if a valid ticket is presented.
+* The tab bar does not show any active tabs.
+* The dropdown menu does not save the selected choice upon submission on the request access page.
+
 ## Version 0.2.0
 ### New Features
-* Added a client and project page in addition to the landing team page, with appropriate routing added to the tab bar to ensure these pages can be reached.
-* The create team button on the teams page displays a pop-up modal which prompts for team information. Submitting the new team adds a new row to the team datagrid populated with the entered team information.
-* Added ticketing authorization for users based on the ticket SSO returns after successful authentication. Developed authorization logic and page.
-* The tab bar can be used to navigate between the different pages of the website.
+* Able to initialize a student team with team number, section, client name, project name, and professor. 
+* Able to navigate between Teams, Clients, and Projects pages via a tab bar.
 
 ### Bug Fixes
 * Fixed paging issue in the teams data-grid where, after creating a new team, the new team would multiply with each page navigation. 
@@ -22,10 +38,9 @@ The Client-Project Management System is a web application for Georgia Tech profe
 
 ## Version 0.1.0
 ### New Features
-* Added a login page that uses SSO to verify a user. SSO appends a session ticket to the URL and routes you to the home page on successful login. 
-* Added a landing page for the applciation after logging in. It contains the framework for upcoming features. The layouts for the tab bar and buttons to create teams, import from excel, copy emails to clipboard, and manage teams are in place.
-* Able to filter the columns of the grid in ascending & descending order for each column, or by a custom value inputted by the user. 
-* Added a request access page for new users with placeholder alerts for when the backend is implemented.
+* Able to login to the app through GT SSO 
+* Able to register for the app by requesting access 
+* Able to view teams in a grid format on the landing page 
 
 ### Bug Fixes
 N/A
