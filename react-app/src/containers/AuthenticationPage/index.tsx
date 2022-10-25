@@ -13,9 +13,11 @@ class AuthenticationPage extends Component {
         //Replace with proper identification when OIT gives access
         if(ticket.substring(0, 2) === "ST") {
             window.location.assign("http://localhost:3000/HomePage/");
+            localStorage.setItem('valid_token', "true")
             return true;
         } else {
             window.location.assign("http://localhost:3000/RejectionPage/");
+            localStorage.setItem('valid_token', "false")
         }
 
     }
