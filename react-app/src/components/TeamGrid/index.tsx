@@ -5,6 +5,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import CreateTeamModal from '../CreateTeamModal/createTeamModal';
 import RemoveTeamModal from '../RemoveTeamModal/RemoveTeamModal';
+import ManageTeamModal from '../ManageTeamModal/manageTeamModal'
 
 import './TeamGrid.css';
 
@@ -218,13 +219,7 @@ export default function TeamGrid() {
                 </div>
 
                 <div className="bottom_buttons_group">
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('manage team clicked')
-                    }}
-                    >
-                        Manage Selected Team
-                    </Button>
+                    <ManageTeamModal />
                     <RemoveTeamModal deleteTeams={deleteTeams}/>
                 </div>
             </div>
