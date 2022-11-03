@@ -3,6 +3,7 @@ import { Button, Box } from '@mui/material';
 import RemoveClientModal from '../RemoveClientModal/RemoveClientModal';
 import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
+import CreateClientModal from '../CreateClientModal/createClientModal';
 
 import './ClientGrid.css';
 
@@ -100,6 +101,26 @@ const clientRows = [
     { id: 11, clientName: 'Nick Fury', organization: 'Mock Organization Name', email: 'NA', status: 'Inactive' }
 ];
 
+const createNewRow = (prevRows: {
+    id: number;
+    clientName: string;
+    organization: string;
+    email: string;
+    status: string;
+}[], clientName: string,
+    organization: string,
+    email: string,
+    status: string) => {
+
+    return {
+        id: prevRows.length + 1,
+        clientName: clientName,
+        organization: organization,
+        email: email,
+        status: status,
+    }
+}
+
 export default function ClientGrid() {
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
     const [rows, setRows] = React.useState(() => clientRows);
@@ -108,16 +129,22 @@ export default function ClientGrid() {
         setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
     };
 
+
+    const getCreateClientInfo = (
+        clientName: string,
+        organization: string,
+        email: string,
+        status: string) => {
+
+        console.log("creating a new client")
+        setRows((prevRows) => [...prevRows, createNewRow(prevRows, clientName, organization, email, status)]);
+
+    }
+
     return (
         <div className="main_content">
             <div className="top_buttons">
-                <Button variant="contained" onClick={() => {
-                    // TODO: Handle Create Team click here
-                    console.log('create client clicked')
-                }}
-                >
-                    Create Client
-                </Button>
+                <CreateClientModal getCreateClientInfo={getCreateClientInfo} />
 
                 <Button variant="contained" onClick={() => {
                     // TODO: Handle import from excel click here

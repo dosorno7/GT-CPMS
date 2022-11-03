@@ -27,39 +27,34 @@ const style = {
 export default function CreateClientModal( {getCreateClientInfo}: any) {
     const [open, setOpen] = React.useState(false);
     const [clientStatus, setClientStatus] = React.useState('');
+    const [firstName, setFirstName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
+    const [organization, setOrganization] = React.useState('');
+    const [email, setEmail] = React.useState('');
+
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    let firstName = '';
-    let lastName = '';
-    let clientOrg = '';
-    let contactInfo = '';
-
-    const handleCreateClick = (
-        firstName: string,
-        lastName: string,
-        clientOrg: string,
-        contactInfo: string,
-        clientStatus: string
-    ) => {
-        getCreateClientInfo(firstName, lastName, clientOrg, contactInfo, clientStatus);
+    const handleCreateClick = () => {
+        getCreateClientInfo(firstName, lastName, organization, email, clientStatus);
         handleClose();
     }
 
     const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        firstName = event.target.value;
+        setFirstName(event.target.value);
     }
 
     const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        lastName = event.target.value;
+        setLastName(event.target.value);
     }
 
-    const handleClientOrgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        clientOrg = event.target.value;
+    const handleOrganizationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setOrganization(event.target.value);
     }
 
-    const handleContactInfoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        contactInfo = event.target.value;
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
     }
 
     const handleClientStatusChange = (event: SelectChangeEvent) => {
@@ -104,15 +99,15 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
-                            onChange={handleFirstNameChange}
+                            onChange={handleOrganizationChange}
                         />
 
                         <TextField
-                            label="Contact Information"
+                            label="Email"
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
-                            onChange={handleFirstNameChange}
+                            onChange={handleEmailChange}
                         />
 
                         <Select
@@ -127,7 +122,7 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             <MenuItem value="Inactive">Inactive</MenuItem>
                         </Select>
                     </Typography>
-                    <Button variant="contained" onClick={() => { handleCreateClick(firstName, lastName, clientOrg, contactInfo, clientStatus) }}>
+                    <Button variant="contained" onClick={() => { handleCreateClick() }}>
                         Create Client
                     </Button>
 
