@@ -30,7 +30,8 @@ export default function ManageTeamModal(props: {
         project: string,
         client: string,
         professor: string
-    }[]; selectionModel: string | any[]; }) {
+    }[]; selectionModel: string | any[]; 
+    manageDisabled: boolean}) {
     const [open, setOpen] = React.useState(false);
 
     const [teamNumber, setTeamNumber] = React.useState('');
@@ -76,7 +77,7 @@ export default function ManageTeamModal(props: {
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}
+            <Button variant="contained" onClick={handleOpen} disabled={props.manageDisabled}
             >
                 Manage Selected Team
             </Button>
