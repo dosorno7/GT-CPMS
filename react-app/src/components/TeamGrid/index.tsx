@@ -139,6 +139,7 @@ const createNewRow = (prevRows: {
 export default function TeamGrid() {
     const [rows, setRows] = React.useState(() => rowsmock);
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
+    
 
     const deleteTeams = () => {
         setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
@@ -154,7 +155,7 @@ export default function TeamGrid() {
         console.log("creating a new team")
         setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamNumber, section, project, client, professor)]);
 
-    }
+    } 
 
     return (
         <div className="main_content">
@@ -219,7 +220,7 @@ export default function TeamGrid() {
                 </div>
 
                 <div className="bottom_buttons_group">
-                    <ManageTeamModal />
+                    <ManageTeamModal rows={rows} selectionModel={selectionModel}/>
                     <RemoveTeamModal deleteTeams={deleteTeams}/>
                 </div>
             </div>
