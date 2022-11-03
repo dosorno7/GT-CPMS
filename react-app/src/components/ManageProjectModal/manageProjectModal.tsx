@@ -18,24 +18,26 @@ const style = {
 
 export default function ManageProjectModal(props: {
     rows: {
-        clientName: '',
-        organization: '',
-        email: '',
-        status: ''
+        teamAssigned: string,
+        section: string,
+        organization: string,
+        client: string,
+        status: string
     }[]; selectionModel: string | any[];
     manageDisabled: boolean
 }) {
 
     const [open, setOpen] = React.useState(false);
-    const [selectedClient, setSelectedClient] = React.useState([{
-        clientName: '',
+    const [selectedProject, setSelectedProject] = React.useState([{
+        teamAssigned: '',
+        section: '',
         organization: '',
-        email: '',
+        client: '',
         status: ''
     }]);
 
     const handleOpen = () => {
-        setSelectedClient(props.rows.filter((r: any) => props.selectionModel.includes(r.id)))
+        setSelectedProject(props.rows.filter((r: any) => props.selectionModel.includes(r.id)))
         setOpen(true);
     }
     const handleClose = () => setOpen(false);
@@ -45,7 +47,7 @@ export default function ManageProjectModal(props: {
         <div>
             <Button variant="contained" onClick={handleOpen} disabled={props.manageDisabled}
             >
-                Manage Selected Client
+                Manage Selected Project
             </Button>
             <Modal
                 open={open}
@@ -55,11 +57,11 @@ export default function ManageProjectModal(props: {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Team {selectedClient[0].clientName}
+                        Project from {selectedProject[0].client}
                     </Typography>
 
                     <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
-                        {/* client info here*/}
+                        {/* project info here*/}
                     </Typography>
                 </Box>
             </Modal>

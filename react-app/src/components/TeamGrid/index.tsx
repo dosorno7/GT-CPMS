@@ -173,7 +173,6 @@ export default function TeamGrid() {
         
         console.log("creating a new team")
         setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamNumber, section, project, client, professor)]);
-
     } 
 
     React.useEffect(() => {

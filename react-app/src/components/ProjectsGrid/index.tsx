@@ -4,6 +4,7 @@ import RemoveProjectsModal from '../RemoveProjectsModal/RemoveProjectsModal';
 import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import CreateProjectModal from '../CreateProjectModal/createProjectModal';
+import ManageProjectModal from '../ManageProjectModal/manageProjectModal';
 
 import './ProjectsGrid.css';
 
@@ -97,26 +98,26 @@ const projectsColumns: GridColDef[] = [
 ];
 
 const projectsRows = [
-    { id: 1, client: 'Tony Stark', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2100, status: 'Active'},
-    { id: 2, client: 'Carol Denvers', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2101, status: 'Active' },
-    { id: 3, client: 'Stephen Strange', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2102, status: 'Active' },
-    { id: 4, client: 'Peter Quill', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2103, status: 'Active' },
-    { id: 5, client: 'Steve Rogers', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2104, status: 'Active' },
-    { id: 6, client: 'Bucky Barnes', section: 'JDA', organization: 'Mock Org name', teamAssigned: 2105, status: 'Active' },
-    { id: 7, client: 'Bruce Banner', section: 'JIA', organization: 'Mock Org name', teamAssigned: 0, status: 'Unassigned' },
-    { id: 8, client: 'Eddie Brock', section: 'JIA', organization: 'Mock Org name', teamAssigned: 0, status: 'Unassigned' },
-    { id: 9, client: 'Pepper Potts', section: 'JIA', organization: 'Mock Org name', teamAssigned: 0, status: 'Unassigned' },
-    { id: 10, client: 'Nick Fury', section: 'JDF', organization: 'Mock Org name', teamAssigned: 0, status: 'Completed' },
-    { id: 11, client: 'Peter Parker', section: 'JDF', organization: 'Mock Org name', teamAssigned: 0, status: 'Completed' }
+    { id: 1, client: 'Tony Stark', section: 'JDA', organization: 'Mock Org name', teamAssigned: '2100', status: 'Active'},
+    { id: 2, client: 'Carol Denvers', section: 'JDA', organization: 'Mock Org name', teamAssigned: '2101', status: 'Active' },
+    { id: 3, client: 'Stephen Strange', section: 'JDA', organization: 'Mock Org name', teamAssigned: '2102', status: 'Active' },
+    { id: 4, client: 'Peter Quill', section: 'JDA', organization: 'Mock Org name', teamAssigned: '2103', status: 'Active' },
+    { id: 5, client: 'Steve Rogers', section: 'JDA', organization: 'Mock Org name', teamAssigned: '2104', status: 'Active' },
+    { id: 6, client: 'Bucky Barnes', section: 'JDA', organization: 'Mock Org name', teamAssigned: '2105', status: 'Active' },
+    { id: 7, client: 'Bruce Banner', section: 'JIA', organization: 'Mock Org name', teamAssigned: '0', status: 'Unassigned' },
+    { id: 8, client: 'Eddie Brock', section: 'JIA', organization: 'Mock Org name', teamAssigned: '0', status: 'Unassigned' },
+    { id: 9, client: 'Pepper Potts', section: 'JIA', organization: 'Mock Org name', teamAssigned: '0', status: 'Unassigned' },
+    { id: 10, client: 'Nick Fury', section: 'JDF', organization: 'Mock Org name', teamAssigned: '0', status: 'Completed' },
+    { id: 11, client: 'Peter Parker', section: 'JDF', organization: 'Mock Org name', teamAssigned: '0', status: 'Completed' }
 ];
 const createNewRow = (prevRows: {
     id: number;
-    teamAssigned: number;
+    teamAssigned: string;
     section: string;
     organization: string;
     client: string;
     status: string;
-}[], teamAssigned: number,
+}[], teamAssigned: string,
     section: string,
     organization: string,
     client: string, 
@@ -132,13 +133,32 @@ const createNewRow = (prevRows: {
 export default function ProjectsGrid() {
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
     const [rows, setRows] = React.useState(() => projectsRows);
+    const [selectedProject, setSelectedProject] = React.useState([{
+        teamAssigned: '',
+        section: '',
+        organization: '',
+        client: '',
+        status: ''
+    }]);
+    const [manageDisabled, setManageDisabled] = React.useState(true);
+
+    function checkDisableManage() {
+        if (selectedProject == null
+            || selectedProject.length == 0
+            || selectedProject.length > 1
+            || selectedProject[0].client == '') {
+            setManageDisabled(true)
+        } else {
+            setManageDisabled(false)
+        }
+    }
 
     const deleteProjects = () => {
         setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
     };
 
     const getCreateProjectInfo = (
-        teamAssigned: number, 
+        teamAssigned: string, 
         section: string, 
         organization: string, 
         client: string,
@@ -148,6 +168,11 @@ export default function ProjectsGrid() {
         setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamAssigned, section, organization, client, status)]);
 
     }
+
+    React.useEffect(() => {
+        checkDisableManage();
+    })
+
     return (
         <div className="main_content">
             <div className="top_buttons">
@@ -184,7 +209,10 @@ export default function ProjectsGrid() {
                         border: 2
                     }}
                     selectionModel={selectionModel}
-                    onSelectionModelChange={setSelectionModel}
+                    onSelectionModelChange={(newSelectionModel) => {
+                        setSelectionModel(newSelectionModel);
+                        setSelectedProject(rows.filter((r: any) => newSelectionModel.includes(r.id)));
+                    }}
                     getRowClassName={(params) =>
                         params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                     }
@@ -211,13 +239,7 @@ export default function ProjectsGrid() {
                 </div>
 
                 <div className="bottom_buttons_group">
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('Manage project clicked')
-                    }}
-                    >
-                        Manage Selected Project
-                    </Button>
+                    <ManageProjectModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
                     <RemoveProjectsModal deleteProjects={deleteProjects}/>
                 </div>
             </div>
