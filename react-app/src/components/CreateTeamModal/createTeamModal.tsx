@@ -44,6 +44,8 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
   const [projName, setProjName] = React.useState('');
   const [clientName, setClientName] = React.useState('');
   const [profName, setProfName] = React.useState('');
+  const [studentName, setStudentName] = React.useState('');
+  const [studentEmail, setStudentEmail] = React.useState('');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -52,15 +54,15 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
   const handleOpen2 = () => setOpen2(true);
   const handleClose2 = () => setOpen2(false);
 
-  const [formValues, setFormValues] = React.useState([{ studentName: "", studentEmail: ""}])
+  const [formValues, setFormValues] = React.useState([{ name: studentName, email: studentEmail}])
 
   let handleRowChange = () => {
       let newFormValues = [...formValues];
       setFormValues(newFormValues);
   }
 
-  let addFormFields = () => {
-      setFormValues([...formValues, { studentName: "", studentEmail: "" }])
+  const addFormFields = () => {
+      setFormValues([...formValues, { name: studentName, email: studentEmail }])
   }
 
 
@@ -68,18 +70,15 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
       formValidation()
   });
 
-
-
-  let studentName = '';
-  let studentEmail = '';
-
   //Event Handlers
-  const handleStudentsClick = (
-      studentName: string,
-      studentEmail: string) => {
-          handleClose2();
-          handleCreateClick();
-      }
+  const handleStudentsClick = () => {
+        formValues.push({name: studentName, email: studentEmail})
+        setFormValues([...formValues, { name: studentName, email: studentEmail }])
+        formValues.shift()
+        console.log(formValues)
+        handleClose2();
+        handleCreateClick();
+    }
 
   function handleCreateClick() {
       getCreateTeamInfo(teamNumber, section, projName, clientName, profName);
@@ -89,7 +88,9 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
       setClientName('')
       setProfName('') 
       handleClose();
-      setFormValues([{ studentName: "", studentEmail: ""}])
+      setStudentEmail('');
+      setStudentName('');
+      setFormValues([{ name: "", email: ""}])
       style1 = {
         position: 'absolute' as 'absolute',
         top: '50%',
@@ -200,11 +201,11 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
   }
 
   const handleStudentNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      studentName = event.target.value;
+      setStudentName(event.target.value);
   }
 
   const handleStudentEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      studentEmail = event.target.value;
+      setStudentEmail(event.target.value);
   }
 
   return (
@@ -308,7 +309,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                       ))}
                   </Typography>
                   <Button variant="contained" style={{marginRight: '18px'}} onClick={() => addFormFields()}>Add Student</Button>
-                  <Button variant="contained" onClick={() => { handleStudentsClick(studentName, studentEmail) }}>
+                  <Button variant="contained" onClick={() => handleStudentsClick()}>
                       Create Team
                   </Button>
               </Box>
