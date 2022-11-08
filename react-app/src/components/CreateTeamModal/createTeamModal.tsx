@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField'
 import Modal from '@mui/material/Modal';
 
 
-const style = {
+let style1 = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
@@ -19,6 +19,20 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  opacity: '100%',
+};
+
+let style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    opacity: '100%',
 };
 
 export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
@@ -65,6 +79,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
       studentName: string,
       studentEmail: string) => {
           handleClose2();
+          handleCreateClick();
       }
 
   function handleCreateClick() {
@@ -74,8 +89,57 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
       setProjName('')
       setClientName('')
       setProfName('') 
-      handleOpen2();
       handleClose();
+      style1 = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 500,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        opacity: '100%',
+    };
+  }
+
+  function handleNext() {
+    handleOpen2();
+    style1 = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 500,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        opacity: '0%',
+    };
+  }
+  
+  function handleBack() {
+    handleClose2();
+    // handleOpen();
+    style1 = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 500,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        opacity: '100%',
+    };
+    setTeamNumber(teamNumber)
+    setSection(section)
+    setProjName(projName)
+    setClientName(clientName)
+    setProfName(profName)
   }
 
   function handleTeamNumberChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -155,7 +219,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
           >
-              <Box sx={style}>
+              <Box sx={style1}>
                   <Typography id="modal-modal-title" variant="h6" component="h2">
                       Create New Team
                   </Typography>
@@ -206,7 +270,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                           helperText={genericHelperText(profName)}
                       />
                   </Typography>
-                  <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick() }}>
+                  <Button variant="contained" disabled={disabled} onClick={() => { handleNext() }}>
                       Next
                   </Button>
               </Box>
@@ -218,6 +282,9 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
               aria-describedby="modal-modal-description"
           >
               <Box sx={style}>
+                <Button variant="contained" onClick={() => { handleBack() }}>
+                      Back
+                </Button>
                   <Typography id="modal-modal-title" variant="h6" component="h2">
                       Enter Student Information
                   </Typography>
