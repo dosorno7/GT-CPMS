@@ -90,6 +90,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
       setClientName('')
       setProfName('') 
       handleClose();
+      setFormValues([{ studentName: "", studentEmail: ""}])
       style1 = {
         position: 'absolute' as 'absolute',
         top: '50%',
@@ -308,7 +309,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                       </div>
                       ))}
                   </Typography>
-                  <Button variant="contained" onClick={() => addFormFields()}>Add Student</Button>
+                  <Button variant="contained" style={{marginRight: '18px'}} onClick={() => addFormFields()}>Add Student</Button>
                   <Button variant="contained" onClick={() => { handleStudentsClick(studentName, studentEmail) }}>
                       Create Team
                   </Button>
