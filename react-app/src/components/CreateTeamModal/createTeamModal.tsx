@@ -56,7 +56,6 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
 
   let handleRowChange = () => {
       let newFormValues = [...formValues];
-      // newFormValues[i][e.target.name] = e.target.value;
       setFormValues(newFormValues);
   }
 
@@ -123,7 +122,6 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
   
   function handleBack() {
     handleClose2();
-    // handleOpen();
     style1 = {
         position: 'absolute' as 'absolute',
         top: '50%',
