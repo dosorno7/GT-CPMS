@@ -241,10 +241,12 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                       </div>
                       ))}
                   </Typography>
+                  <div className="option_buttons">
                   <Button variant="contained" onClick={() => addFormFields()}>Add Student</Button>
                   <Button variant="contained" onClick={() => { handleStudentsClick(studentName, studentEmail) }}>
                       Create Team
                   </Button>
+                  </div>
               </Box>
           </Modal>
       </div>
