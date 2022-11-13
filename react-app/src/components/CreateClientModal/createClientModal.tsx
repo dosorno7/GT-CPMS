@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 import Modal from '@mui/material/Modal';
+import { FormHelperText } from '@mui/material';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -31,13 +32,27 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
     const [lastName, setLastName] = React.useState('');
     const [organization, setOrganization] = React.useState('');
     const [email, setEmail] = React.useState('');
+    const [disabled, setDisabled] = React.useState(true);
+
 
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setFirstName('')
+        setLastName('')
+        setOrganization('')
+        setEmail('')
+        setClientStatus('')
+        setOpen(false);
+    }
 
     const handleCreateClick = () => {
         getCreateClientInfo(firstName, lastName, organization, email, clientStatus);
+        setFirstName('')
+        setLastName('')
+        setOrganization('')
+        setEmail('')
+        setClientStatus('')
         handleClose();
     }
 
@@ -59,6 +74,39 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
 
     const handleClientStatusChange = (event: SelectChangeEvent) => {
         setClientStatus(event.target.value);
+    }
+
+    React.useEffect(() => {
+        formValidation()
+    });
+
+    function formValidation() {
+        if (firstName != '' 
+            && lastName != ''
+            && organization != ''
+            && email != '')
+            setDisabled(false)
+        else
+            setDisabled(true)
+    }
+
+    function genericHelperText(input: any) {
+        if (input == '')
+            return 'This field cannot be empty'
+        else
+            return ''
+    }
+
+    function emailHelperText() {
+        if (email == '') {
+            return 'This field cannot be empty'
+        } else if (!(email.includes('@') && (email.includes('.com') || email.includes('.edu')
+            || email.includes('.net')
+            || email.includes('.org')))) {
+                return 'Please enter a valid email (ex. burdell5@gatech.edu)'
+        } else {
+            return ''
+        }
     }
     
     return (
@@ -84,6 +132,8 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleFirstNameChange}
+                            error={firstName == ''}
+                            helperText={genericHelperText(firstName)}
                         />
 
                         <TextField
@@ -92,6 +142,8 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleLastNameChange}
+                            error={lastName == ''}
+                            helperText={genericHelperText(lastName)}
                         />
 
                         <TextField
@@ -100,6 +152,8 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleOrganizationChange}
+                            error={organization == ''}
+                            helperText={genericHelperText(organization)}
                         />
 
                         <TextField
@@ -108,8 +162,16 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleEmailChange}
+                            error={email == ''
+                                || !(email.includes('@')
+                                    && (email.includes('.com')
+                                        || email.includes('.edu')
+                                        || email.includes('.net')
+                                        || email.includes('.org')))}
+                            helperText={emailHelperText()}
                         />
-
+                    <FormControl>
+                        <InputLabel id="select-label">Client Status</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
@@ -122,8 +184,10 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             <MenuItem value="Prospective">Prospective</MenuItem>
                             <MenuItem value="Inactive">Inactive</MenuItem>
                         </Select>
+                    </FormControl>
+                        
                     </Typography>
-                    <Button variant="contained" onClick={() => { handleCreateClick() }}>
+                    <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick() }}>
                         Create Client
                     </Button>
 
