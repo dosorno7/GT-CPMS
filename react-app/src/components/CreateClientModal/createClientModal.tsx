@@ -37,10 +37,22 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
 
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setFirstName('')
+        setLastName('')
+        setOrganization('')
+        setEmail('')
+        setClientStatus('')
+        setOpen(false);
+    }
 
     const handleCreateClick = () => {
         getCreateClientInfo(firstName, lastName, organization, email, clientStatus);
+        setFirstName('')
+        setLastName('')
+        setOrganization('')
+        setEmail('')
+        setClientStatus('')
         handleClose();
     }
 
@@ -119,9 +131,9 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
+                            onChange={handleFirstNameChange}
                             error={firstName == ''}
                             helperText={genericHelperText(firstName)}
-                            onChange={handleFirstNameChange}
                         />
 
                         <TextField
@@ -129,9 +141,9 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
+                            onChange={handleLastNameChange}
                             error={lastName == ''}
                             helperText={genericHelperText(lastName)}
-                            onChange={handleLastNameChange}
                         />
 
                         <TextField
@@ -139,9 +151,9 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
+                            onChange={handleOrganizationChange}
                             error={organization == ''}
                             helperText={genericHelperText(organization)}
-                            onChange={handleOrganizationChange}
                         />
 
                         <TextField
@@ -149,14 +161,14 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
-                            error={email == '' 
-                            || !(email.includes('@') 
-                                        && (email.includes('.com') 
-                                        || email.includes('.edu') 
-                                        || email.includes('.net') 
+                            onChange={handleEmailChange}
+                            error={email == ''
+                                || !(email.includes('@')
+                                    && (email.includes('.com')
+                                        || email.includes('.edu')
+                                        || email.includes('.net')
                                         || email.includes('.org')))}
                             helperText={emailHelperText()}
-                            onChange={handleEmailChange}
                         />
                     <FormControl>
                         <InputLabel id="select-label">Client Status</InputLabel>
