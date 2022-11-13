@@ -37,13 +37,14 @@ export default function RemoveProjectsModal( {deleteProjects}: any ) {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Are you sure that you want to delete these project(s)?
                     </Typography>
-
+                    <div className="option_buttons">
                     <Button variant="contained" onClick={handleYes}>
                         Yes
                     </Button>
                     <Button variant="contained" onClick={handleClose}>
                         No
                     </Button>
+                    </div>
                 </Box>
             </Modal>
         </div>

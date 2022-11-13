@@ -116,6 +116,7 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             value={clientStatus}
                             onChange={handleClientStatusChange}
                             label="Client Status"
+                            style={{padding: 10, width: 220, height: 53, marginLeft: 8, marginBottom: 15, marginTop: 8}}
                         >
                             <MenuItem value="Active">Active</MenuItem>
                             <MenuItem value="Prospective">Prospective</MenuItem>
