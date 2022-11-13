@@ -32,7 +32,13 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
   const [profName, setProfName] = React.useState('');
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setTeamNumber('');
+    setProjName('');
+    setClientName('');
+    setProfName('');
+    setOpen(false);
+  }
 
   const [open2, setOpen2] = React.useState(false);
   const handleOpen2 = () => setOpen2(true);
