@@ -59,7 +59,12 @@ export default function ManageTeamModal(props: {
                         Team {selectedTeam[0].teamNumber}
                     </Typography>
                     <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
-                        {/* Team info will go here */}                        
+                        <b>Section: </b>  {selectedTeam[0].section} <br/>
+                        <b>Project: </b>  {selectedTeam[0].project} <br />
+                        <b>Client: </b>  {selectedTeam[0].client} <br />
+                        <b>Professor: </b>  {selectedTeam[0].professor} <br />
+                        <b>Students: </b> 
+
                     </Typography>
 
                 </Box>
