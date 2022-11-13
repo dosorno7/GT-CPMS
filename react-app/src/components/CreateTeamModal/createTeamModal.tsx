@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField'
 import Modal from '@mui/material/Modal';
 
 
-const style = {
+let style1 = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
@@ -19,6 +19,20 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  opacity: '100%',
+};
+
+let style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    opacity: '100%',
 };
 
 export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
@@ -30,6 +44,8 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
   const [projName, setProjName] = React.useState('');
   const [clientName, setClientName] = React.useState('');
   const [profName, setProfName] = React.useState('');
+  const [studentName, setStudentName] = React.useState('');
+  const [studentEmail, setStudentEmail] = React.useState('');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -38,16 +54,15 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
   const handleOpen2 = () => setOpen2(true);
   const handleClose2 = () => setOpen2(false);
 
-  const [formValues, setFormValues] = React.useState([{ studentName: "", studentEmail: ""}])
+  const [formValues, setFormValues] = React.useState([{ name: studentName, email: studentEmail}])
 
   let handleRowChange = () => {
       let newFormValues = [...formValues];
-      // newFormValues[i][e.target.name] = e.target.value;
       setFormValues(newFormValues);
   }
 
-  let addFormFields = () => {
-      setFormValues([...formValues, { studentName: "", studentEmail: "" }])
+  const addFormFields = () => {
+      setFormValues([...formValues, { name: studentName, email: studentEmail }])
   }
 
 
@@ -55,17 +70,15 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
       formValidation()
   });
 
-
-
-  let studentName = '';
-  let studentEmail = '';
-
   //Event Handlers
-  const handleStudentsClick = (
-      studentName: string,
-      studentEmail: string) => {
-          handleClose2();
-      }
+  const handleStudentsClick = () => {
+        formValues.push({name: studentName, email: studentEmail})
+        setFormValues([...formValues, { name: studentName, email: studentEmail }])
+        formValues.shift()
+        console.log(formValues)
+        handleClose2();
+        handleCreateClick();
+    }
 
   function handleCreateClick() {
       getCreateTeamInfo(teamNumber, section, projName, clientName, profName);
@@ -74,8 +87,59 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
       setProjName('')
       setClientName('')
       setProfName('') 
-      handleOpen2();
       handleClose();
+      setStudentEmail('');
+      setStudentName('');
+      setFormValues([{ name: "", email: ""}])
+      style1 = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 500,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        opacity: '100%',
+    };
+  }
+
+  function handleNext() {
+    handleOpen2();
+    style1 = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 500,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        opacity: '0%',
+    };
+  }
+  
+  function handleBack() {
+    handleClose2();
+    style1 = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 500,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        opacity: '100%',
+    };
+    setTeamNumber(teamNumber)
+    setSection(section)
+    setProjName(projName)
+    setClientName(clientName)
+    setProfName(profName)
   }
 
   function handleTeamNumberChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -137,11 +201,11 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
   }
 
   const handleStudentNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      studentName = event.target.value;
+      setStudentName(event.target.value);
   }
 
   const handleStudentEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      studentEmail = event.target.value;
+      setStudentEmail(event.target.value);
   }
 
   return (
@@ -155,7 +219,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
           >
-              <Box sx={style}>
+              <Box sx={style1}>
                   <Typography id="modal-modal-title" variant="h6" component="h2">
                       Create New Team
                   </Typography>
@@ -206,7 +270,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                           helperText={genericHelperText(profName)}
                       />
                   </Typography>
-                  <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick() }}>
+                  <Button variant="contained" disabled={disabled} onClick={() => { handleNext() }}>
                       Next
                   </Button>
               </Box>
@@ -218,6 +282,9 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
               aria-describedby="modal-modal-description"
           >
               <Box sx={style}>
+                <Button variant="contained" onClick={() => { handleBack() }}>
+                      Back
+                </Button>
                   <Typography id="modal-modal-title" variant="h6" component="h2">
                       Enter Student Information
                   </Typography>
@@ -241,8 +308,8 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                       </div>
                       ))}
                   </Typography>
-                  <Button variant="contained" onClick={() => addFormFields()}>Add Student</Button>
-                  <Button variant="contained" onClick={() => { handleStudentsClick(studentName, studentEmail) }}>
+                  <Button variant="contained" style={{marginRight: '18px'}} onClick={() => addFormFields()}>Add Student</Button>
+                  <Button variant="contained" onClick={() => handleStudentsClick()}>
                       Create Team
                   </Button>
               </Box>
