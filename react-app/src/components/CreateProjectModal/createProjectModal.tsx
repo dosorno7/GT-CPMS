@@ -25,14 +25,16 @@ const style = {
 export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
     const [open, setOpen] = React.useState(false);
     const [faultyInput, setFaultyInput] = React.useState(false);
+    const [disabled, setDisabled] = React.useState(true)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    let teamNumber = '';
-    let section = '';
-    let organization = '';
-    let clientName = '';
-    let activeStatus = '';
+    const[organization, setOrganization] = React.useState(''); 
+    const[teamNumber, setTeamNumber] = React.useState(''); 
+    const[clientName, setClientName] = React.useState(''); 
+    const[activeStatus, setActiveStatus] = React.useState(''); 
+    const[section, setSection] = React.useState('')
+
     let section_dict = ["JIA", "JDA", "JDF"];
     let words = ["Active", "Unassigned", "Completed"]
 
@@ -61,9 +63,9 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
 
     const handleTeamNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!isNaN(Number(event.target.value))) {
-            teamNumber = event.target.value;
+            setTeamNumber(event.target.value);
         } else {
-            teamNumber = "";
+            setTeamNumber("");
         }
     }
 
@@ -71,22 +73,21 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
         //Add valid section dictionary in db later to replace this code
         console.log(event.target.value in section_dict)
         if(section_dict.indexOf(event.target.value) > -1) {
-            section = event.target.value;
+            setSection(event.target.value);
         } else {
-            section = "";
+            setSection("");
         }
     }
 
     const handleorganizationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        organization = event.target.value;
+        setOrganization(event.target.value)
     }
 
     const handleClientNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if(event.target.value.length - (event.target.value.indexOf(" ") + 1) > 0  && event.target.value.indexOf(" ") >= 0) {
-            console.log(clientName)
-            clientName = event.target.value;
+            setClientName(event.target.value);
         } else {
-            clientName = "";
+            setClientName("");
         }
         
     }
@@ -94,10 +95,24 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
     const handleStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {  
         console.log(words.indexOf(event.target.value))
         if(words.indexOf(event.target.value) > -1) {
-            activeStatus = event.target.value;
+            setActiveStatus(event.target.value);
         } else {
-            activeStatus = "";
+            setActiveStatus("");
         }
+    }
+
+
+    React.useEffect(() => {
+        validIn()
+    });
+
+    function validIn() {
+        if (teamNumber.length == 0 || section.length == 0 || organization.length == 0 || clientName.length == 0|| activeStatus.length == 0) {
+            setDisabled(true);
+        } else {
+            setDisabled(false);
+        }
+
     }
 
     return (
@@ -123,6 +138,8 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleorganizationChange}
+                            error={organization === ''}
+                            helperText = {organization === '' ? ("This field cannot be empty") : ''}
                         />
                         <TextField
                             label="Client Name"
@@ -130,13 +147,18 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleClientNameChange}
-                        />
+                            error={clientName === ''}
+                            helperText = {clientName === '' ? ('Please enter a valid (First Last) name') : ''}
+
+                        />  
                         <TextField 
                             label="Team Number" 
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }} 
                             margin="normal" 
                             onChange={handleTeamNumberChange}
+                            error={teamNumber === ''}
+                            helperText = {teamNumber === '' ? ('Please enter a valid number') : ''}
                         />
                         <TextField
                             label="Section"
@@ -144,6 +166,8 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleSectionChange}
+                            error={section === ''}
+                            helperText = {section === '' ? ('Please enter a valid section') : ''}
                         />
                         <TextField
                             label="Activity Status (Active/Not Active)"
@@ -151,9 +175,11 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleStatusChange}
+                            error={activeStatus === ''}
+                            helperText = {activeStatus === '' ? ('Please enter one of: Active, Unassigned, or Completed') : ''}
                         />
                     </Typography>
-                    <Button variant="contained" onClick={() => { handleCreateClick(teamNumber, section, organization, clientName, activeStatus) }}>
+                    <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick(teamNumber, section, organization, clientName, activeStatus) }}>
                         Create Project
                     </Button>
 
