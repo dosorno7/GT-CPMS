@@ -24,6 +24,7 @@ const style = {
 
 export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
     const [open, setOpen] = React.useState(false);
+    const [faultyInput, setFaultyInput] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -32,6 +33,8 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
     let organization = '';
     let clientName = '';
     let activeStatus = '';
+    let section_dict = ["JIA", "JDA", "JDF"];
+    let words = ["Active", "Unassigned", "Completed"]
 
     //Event Handlers
     const handleCreateClick = (
@@ -40,17 +43,38 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
         organization: string,
         clientName: string,
         activeStatus: string) => {
-
-        getCreateProjectInfo(teamNumber, section, organization, clientName, activeStatus); 
-        handleClose();
+        
+        getCreateProjectInfo(teamNumber, section, organization, clientName, activeStatus);
+        if (teamNumber.length == 0 || section.length == 0 || organization.length == 0 || clientName.length == 0|| activeStatus.length == 0) {
+            console.warn("Inputs are wrong");
+            //{faultyInput ? 'Invalid Inputs'  : ''}
+            setFaultyInput(true);
+            var val = document.getElementById("modal-modal-error")
+            if (val != null){
+                val.textContent = "Invalid inputs provided";
+            }
+        } else {
+            setFaultyInput(false);
+            handleClose();
+        }
     }
 
     const handleTeamNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        teamNumber = event.target.value;
+        if (!isNaN(Number(event.target.value))) {
+            teamNumber = event.target.value;
+        } else {
+            teamNumber = "";
+        }
     }
 
     const handleSectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        section = event.target.value;
+        //Add valid section dictionary in db later to replace this code
+        console.log(event.target.value in section_dict)
+        if(section_dict.indexOf(event.target.value) > -1) {
+            section = event.target.value;
+        } else {
+            section = "";
+        }
     }
 
     const handleorganizationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,11 +82,22 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
     }
 
     const handleClientNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        clientName = event.target.value;
+        if(event.target.value.length - (event.target.value.indexOf(" ") + 1) > 0  && event.target.value.indexOf(" ") >= 0) {
+            console.log(clientName)
+            clientName = event.target.value;
+        } else {
+            clientName = "";
+        }
+        
     }
 
-    const handleStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        activeStatus = event.target.value;
+    const handleStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {  
+        console.log(words.indexOf(event.target.value))
+        if(words.indexOf(event.target.value) > -1) {
+            activeStatus = event.target.value;
+        } else {
+            activeStatus = "";
+        }
     }
 
     return (
@@ -122,6 +157,9 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
                         Create Project
                     </Button>
 
+                    <Typography id="modal-modal-error" variant="h6" component="h2">
+                        
+                    </Typography>
                 </Box>
             </Modal>
         </div>
