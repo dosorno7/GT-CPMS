@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 import Modal from '@mui/material/Modal';
+import { FormHelperText } from '@mui/material';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -31,6 +32,8 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
     const [lastName, setLastName] = React.useState('');
     const [organization, setOrganization] = React.useState('');
     const [email, setEmail] = React.useState('');
+    const [disabled, setDisabled] = React.useState(true);
+
 
 
     const handleOpen = () => setOpen(true);
@@ -60,6 +63,39 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
     const handleClientStatusChange = (event: SelectChangeEvent) => {
         setClientStatus(event.target.value);
     }
+
+    React.useEffect(() => {
+        formValidation()
+    });
+
+    function formValidation() {
+        if (firstName != '' 
+            && lastName != ''
+            && organization != ''
+            && email != '')
+            setDisabled(false)
+        else
+            setDisabled(true)
+    }
+
+    function genericHelperText(input: any) {
+        if (input == '')
+            return 'This field cannot be empty'
+        else
+            return ''
+    }
+
+    function emailHelperText() {
+        if (email == '') {
+            return 'This field cannot be empty'
+        } else if (!(email.includes('@') && (email.includes('.com') || email.includes('.edu')
+            || email.includes('.net')
+            || email.includes('.org')))) {
+                return 'Please enter a valid email (ex. burdell5@gatech.edu)'
+        } else {
+            return ''
+        }
+    }
     
     return (
         <div>
@@ -83,6 +119,8 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
+                            error={firstName == ''}
+                            helperText={genericHelperText(firstName)}
                             onChange={handleFirstNameChange}
                         />
 
@@ -91,6 +129,8 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
+                            error={lastName == ''}
+                            helperText={genericHelperText(lastName)}
                             onChange={handleLastNameChange}
                         />
 
@@ -99,6 +139,8 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
+                            error={organization == ''}
+                            helperText={genericHelperText(organization)}
                             onChange={handleOrganizationChange}
                         />
 
@@ -107,9 +149,17 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
+                            error={email == '' 
+                            || !(email.includes('@') 
+                                        && (email.includes('.com') 
+                                        || email.includes('.edu') 
+                                        || email.includes('.net') 
+                                        || email.includes('.org')))}
+                            helperText={emailHelperText()}
                             onChange={handleEmailChange}
                         />
-
+                    <FormControl>
+                        <InputLabel id="select-label">Client Status</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
@@ -121,8 +171,10 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             <MenuItem value="Prospective">Prospective</MenuItem>
                             <MenuItem value="Inactive">Inactive</MenuItem>
                         </Select>
+                    </FormControl>
+                        
                     </Typography>
-                    <Button variant="contained" onClick={() => { handleCreateClick() }}>
+                    <Button variant="contained" disabled={disabled} onClick={() => { handleCreateClick() }}>
                         Create Client
                     </Button>
 
