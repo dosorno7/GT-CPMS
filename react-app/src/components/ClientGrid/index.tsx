@@ -4,6 +4,7 @@ import RemoveClientModal from '../RemoveClientModal/RemoveClientModal';
 import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import CreateClientModal from '../CreateClientModal/createClientModal';
+import ManageClientModal from '../ManageClientModal/manageClientModal'
 
 import './ClientGrid.css';
 
@@ -124,10 +125,28 @@ const createNewRow = (prevRows: {
 export default function ClientGrid() {
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
     const [rows, setRows] = React.useState(() => clientRows);
+    const [selectedClient, setSelectedClient] = React.useState([{
+        clientName: '',
+        organization: '',
+        email: '',
+        status: ''
+    }]);
+    const [manageDisabled, setManageDisabled] = React.useState(true)
 
     const deleteClients = () => {
         setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
     };
+
+    function checkDisableManage() {
+        if (selectedClient == null
+            || selectedClient.length == 0
+            || selectedClient.length > 1
+            || selectedClient[0].clientName == '') {
+            setManageDisabled(true)
+        } else {
+            setManageDisabled(false)
+        }
+    }
 
 
     const getCreateClientInfo = (
@@ -140,6 +159,10 @@ export default function ClientGrid() {
         setRows((prevRows) => [...prevRows, createNewRow(prevRows, clientName, organization, email, status)]);
 
     }
+
+    React.useEffect(() => {
+        checkDisableManage();
+    })
 
     return (
         <div className="main_content">
@@ -172,7 +195,10 @@ export default function ClientGrid() {
                     checkboxSelection
                     experimentalFeatures={{ newEditingApi: true }}
                     selectionModel={selectionModel}
-                    onSelectionModelChange={setSelectionModel}
+                    onSelectionModelChange={(newSelectionModel) => {
+                        setSelectionModel(newSelectionModel);
+                        setSelectedClient(rows.filter((r: any) => newSelectionModel.includes(r.id)));
+                    }}
                     sx = {{
                         border: 2
                     }}
@@ -202,13 +228,7 @@ export default function ClientGrid() {
                 </div>
 
                 <div className="bottom_buttons_group">
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('manage client clicked')
-                    }}
-                    >
-                        Manage Selected Client
-                    </Button>
+                    <ManageClientModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
                     <RemoveClientModal deleteClients={deleteClients}/>
                 </div>
             </div>

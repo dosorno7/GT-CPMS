@@ -5,6 +5,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import CreateTeamModal from '../CreateTeamModal/createTeamModal';
 import RemoveTeamModal from '../RemoveTeamModal/RemoveTeamModal';
+import ManageTeamModal from '../ManageTeamModal/manageTeamModal'
 
 import './TeamGrid.css';
 
@@ -138,10 +139,30 @@ const createNewRow = (prevRows: {
 export default function TeamGrid() {
     const [rows, setRows] = React.useState(() => rowsmock);
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
+    const [selectedTeam, setSelectedTeam] = React.useState([{
+        teamNumber: '',
+        section: '',
+        project: '',
+        client: '',
+        professor: ''
+    }]);
+    const [manageDisabled, setManageDisabled] = React.useState(true)
+    
 
     const deleteTeams = () => {
         setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
     };
+
+    function checkDisableManage() {
+        if (selectedTeam == null 
+            || selectedTeam.length == 0
+            || selectedTeam.length > 1
+            || selectedTeam[0].teamNumber == '') {
+            setManageDisabled(true)
+        } else {
+            setManageDisabled(false)
+        }
+    }
 
     const getCreateTeamInfo = (
         teamNumber: string, 
@@ -152,8 +173,12 @@ export default function TeamGrid() {
         
         console.log("creating a new team")
         setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamNumber, section, project, client, professor)]);
+    } 
 
-    }
+    React.useEffect(() => {
+        checkDisableManage();
+    })
+
 
     return (
         <div className="main_content">
@@ -190,7 +215,10 @@ export default function TeamGrid() {
                     border: 2
                 }}
                 selectionModel={selectionModel}
-                onSelectionModelChange={setSelectionModel}
+                onSelectionModelChange={(newSelectionModel) => {
+                    setSelectionModel(newSelectionModel);
+                    setSelectedTeam(rows.filter((r: any) => newSelectionModel.includes(r.id)));
+                }}
                 getRowClassName={(params) =>
                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                 }
@@ -218,13 +246,7 @@ export default function TeamGrid() {
                 </div>
 
                 <div className="bottom_buttons_group">
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('manage team clicked')
-                    }}
-                    >
-                        Manage Selected Team
-                    </Button>
+                    <ManageTeamModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
                     <RemoveTeamModal deleteTeams={deleteTeams}/>
                 </div>
             </div>
