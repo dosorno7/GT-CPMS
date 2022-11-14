@@ -5,9 +5,11 @@ The Client-Project Management System is a web application for Georgia Tech profe
 ## Version 0.4.0
 ### New Features
 * Able to remove clients. 
-* Able to remove projects
+* Able to remove projects.
+* Able to add multiple students at once when creating a team.
 * Able to verify initialized client is valid before submission through error checking and messages on creation page.
 * Able to verify initialized project is valid before submission through error checking and messages on creation page.
+* Able to manage a selected team.
 
 ### Bug Fixes
 * Fixed create client/team/project modal not updating error messages when the user clicks away and returns. 
