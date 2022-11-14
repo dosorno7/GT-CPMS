@@ -61,7 +61,11 @@ export default function ManageProjectModal(props: {
                     </Typography>
 
                     <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
-                        {/* project info here*/}
+                        <b>Team Assigned: </b>  {selectedProject[0].teamAssigned} <br/>
+                        <b>Section: </b>  {selectedProject[0].section} <br />
+                        <b>Organization: </b>  {selectedProject[0].organization} <br />
+                        <b>Client: </b>  {selectedProject[0].client} <br />
+                        <b>Status: </b>  {selectedProject[0].status} <br />
                     </Typography>
                 </Box>
             </Modal>
