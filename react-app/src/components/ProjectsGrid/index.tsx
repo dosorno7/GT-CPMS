@@ -165,7 +165,14 @@ export default function ProjectsGrid() {
         status: string ) => {
         
         console.log("creating a new project")
-        setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamAssigned, section, organization, client, status)]);
+        console.log(typeof teamAssigned, section, organization, client, status);
+
+        if (String(teamAssigned).length == 0 || section.length == 0 || organization.length == 0 || client.length == 0|| status.length == 0) {
+            console.log("Failed to create team");
+            
+        } else {
+            setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamAssigned, section, organization, client, status)]);
+        }
 
     }
 
