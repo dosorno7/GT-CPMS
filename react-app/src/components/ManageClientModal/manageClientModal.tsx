@@ -58,7 +58,10 @@ export default function ManageClientModal(props: {
                     </Typography>
 
                     <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
-                        {/* client info here*/}
+                        <b>Client Name: </b>  {selectedClient[0].clientName} <br/>
+                        <b>Organization: </b>  {selectedClient[0].organization} <br />
+                        <b>Email: </b>  {selectedClient[0].email} <br />
+                        <b>Status: </b>  {selectedClient[0].status} <br />
                     </Typography>
                 </Box>
             </Modal>
