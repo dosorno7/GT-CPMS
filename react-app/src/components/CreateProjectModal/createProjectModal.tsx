@@ -49,7 +49,6 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
         getCreateProjectInfo(teamNumber, section, organization, clientName, activeStatus);
         if (teamNumber.length == 0 || section.length == 0 || organization.length == 0 || clientName.length == 0|| activeStatus.length == 0) {
             console.warn("Inputs are wrong");
-            //{faultyInput ? 'Invalid Inputs'  : ''}
             setFaultyInput(true);
             var val = document.getElementById("modal-modal-error")
             if (val != null){
