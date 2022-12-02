@@ -87,7 +87,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
     }
 
   function handleCreateClick() {
-      getCreateTeamInfo(teamNumber, section, projName, clientName, profName);
+      getCreateTeamInfo(teamNumber, section, projName, clientName, profName, formValues);
       setTeamNumber('')
       setSection('')
       setProjName('')
