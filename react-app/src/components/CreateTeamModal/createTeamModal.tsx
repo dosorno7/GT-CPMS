@@ -181,7 +181,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
 
   function sectionHelperText() {
       if (section == '') {
-          return 'This field cannot be empty';
+          return 'Required *';
       }
       if (section.toUpperCase() != section) {
           return 'Section code cannot contain lowercase characters';
@@ -191,7 +191,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
 
   function teamNumberHelperText() {
       if (teamNumber == '') {
-          return 'This field cannot be empty';
+          return 'Required *';
       }
       if (teamNumber.match(/^[0-9]+$/) == null) {
           return 'Team number must only contain numbers';
@@ -201,7 +201,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
 
   function genericHelperText(input: any) {            
       if (input == '')
-          return 'This field cannot be empty'
+          return 'Required *'
       else
           return ''
   }
@@ -236,7 +236,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                           sx={{ m: 1, width: '25ch' }} 
                           margin="normal" 
                           onChange={handleTeamNumberChange}
-                          error={teamNumber == '' || teamNumber.match(/^[0-9]+$/) == null}
+                          error={teamNumber.match(/^[0-9]+$/) == null && teamNumber != ''}
                           helperText={teamNumberHelperText()}
                       />
                       <TextField
@@ -245,7 +245,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                           sx={{ m: 1, width: '25ch' }}
                           margin="normal"
                           onChange={handleSectionChange}
-                          error={section == '' || section.toUpperCase() != section}
+                          error={section.toUpperCase() != section}
                           helperText={sectionHelperText()}
                       />
                       <TextField
@@ -254,7 +254,6 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                           sx={{ m: 1, width: '25ch' }}
                           margin="normal"
                           onChange={handleProjNameChange}
-                          error={projName == ''}
                           helperText={genericHelperText(projName)}
                       />
                       <TextField
@@ -263,7 +262,6 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                           sx={{ m: 1, width: '25ch' }}
                           margin="normal"
                           onChange={handleClientNameChange}
-                          error={clientName == ''}
                           helperText={genericHelperText(clientName)}
                       />
                       <TextField
@@ -272,7 +270,6 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                           sx={{ m: 1, width: '25ch' }}
                           margin="normal"
                           onChange={handleProfNameChange}
-                          error={profName == ''}
                           helperText={genericHelperText(profName)}
                       />
                   </Typography>
