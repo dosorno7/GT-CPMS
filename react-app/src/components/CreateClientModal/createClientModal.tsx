@@ -92,14 +92,14 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
 
     function genericHelperText(input: any) {
         if (input == '')
-            return 'This field cannot be empty'
+            return 'Required *'
         else
             return ''
     }
 
     function emailHelperText() {
         if (email == '') {
-            return 'This field cannot be empty'
+            return 'Required *'
         } else if (!(email.includes('@') && (email.includes('.com') || email.includes('.edu')
             || email.includes('.net')
             || email.includes('.org')))) {
@@ -132,7 +132,6 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleFirstNameChange}
-                            error={firstName == ''}
                             helperText={genericHelperText(firstName)}
                         />
 
@@ -142,7 +141,6 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleLastNameChange}
-                            error={lastName == ''}
                             helperText={genericHelperText(lastName)}
                         />
 
@@ -152,7 +150,6 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleOrganizationChange}
-                            error={organization == ''}
                             helperText={genericHelperText(organization)}
                         />
 
@@ -162,28 +159,27 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
                             onChange={handleEmailChange}
-                            error={email == ''
-                                || !(email.includes('@')
+                            error={( email != '' && 
+                                !(email.includes('@')
                                     && (email.includes('.com')
                                         || email.includes('.edu')
                                         || email.includes('.net')
-                                        || email.includes('.org')))}
+                                        || email.includes('.org'))))}
                             helperText={emailHelperText()}
                         />
-                    <FormControl>
+                    <FormControl style={{marginBottom: 15, marginLeft: 8, marginTop: 8}}>
                         <InputLabel id="select-label">Client Status</InputLabel>
                         <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
                             value={clientStatus}
                             onChange={handleClientStatusChange}
                             label="Client Status"
-                            style={{padding: 10, width: 220, height: 53, marginLeft: 8, marginBottom: 15, marginTop: 8}}
+                            style={{padding: 10, width: 220, height: 53}}
                         >
                             <MenuItem value="Active">Active</MenuItem>
                             <MenuItem value="Prospective">Prospective</MenuItem>
                             <MenuItem value="Inactive">Inactive</MenuItem>
                         </Select>
+                        <FormHelperText>{genericHelperText(clientStatus)}</FormHelperText>
                     </FormControl>
                         
                     </Typography>
