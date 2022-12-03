@@ -181,6 +181,7 @@ export default function TeamGrid() {
         students: [{name: '', email: ''}]
     }]);
     const [manageDisabled, setManageDisabled] = React.useState(true)
+    const [manageDisabled2, setManageDisabled2] = React.useState(true)
     
 
     const deleteTeams = () => {
@@ -195,6 +196,13 @@ export default function TeamGrid() {
             setManageDisabled(true)
         } else {
             setManageDisabled(false)
+        }
+        if (selectedTeam == null 
+            || selectedTeam.length == 0
+            || selectedTeam[0].teamNumber == '') {
+            setManageDisabled2(true)
+        } else {
+            setManageDisabled2(false)
         }
     }
 
@@ -215,13 +223,22 @@ export default function TeamGrid() {
 
     const copyEmails = () => {
         setSelectedTeam(rows.filter((r: any) => selectionModel.includes(r.id)))
-        emails = handleEmails(selectedTeam[0].students)
+        console.log(selectedTeam.length);
+        emails = '';
+        for (let i = 0; i < selectedTeam.length; i++) {
+            if (i != selectedTeam.length - 1) {
+                emails = emails + handleEmails(emails, selectedTeam[i].students) + ', ';
+            } else {
+                emails = emails + handleEmails(emails, selectedTeam[i].students)
+            }
+        }
+        // emails = handleEmails(selectedTeam[0].students)
         navigator.clipboard.writeText(emails);
         handleOpen2();
         console.log(emails);
     }
 
-    const handleEmails = (students: {
+    const handleEmails = (emails: string, students: {
         name: string,
         email: string
     }[]) => {
@@ -307,7 +324,7 @@ export default function TeamGrid() {
                         // TODO: Handle click here
                         copyEmails()
                         console.log('copy emails clicked')
-                    }} disabled={manageDisabled}
+                    }} disabled={manageDisabled2}
                     >
                         Copy Emails to Clipboard
                     </Button>
