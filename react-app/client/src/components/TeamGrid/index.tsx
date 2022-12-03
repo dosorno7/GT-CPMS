@@ -97,6 +97,8 @@ const columns: GridColDef[] = [
     },
 ];
 
+let loadedRows = [];
+
 const rowsmock = [
     { id: 1, teamNumber: '2100', section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen'},
     { id: 2, teamNumber: '2101', section: 'JDA', project: 'Helius', client: 'Carol Denvers', professor: 'Elizabeth Olsen' },
@@ -146,11 +148,18 @@ export default function TeamGrid() {
         client: '',
         professor: ''
     }]);
-    const [manageDisabled, setManageDisabled] = React.useState(true)
-    
+    const [manageDisabled, setManageDisabled] = React.useState(true);
 
     const deleteTeams = () => {
-        setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
+        for (let i = 0; i < selectionModel.length; i++) {
+            fetch('http://localhost:3001/deleteTeam/' + selectionModel[i], {
+                method: 'DELETE',
+            }).then(response => {
+                return response.text();
+            }).then(data => {
+                getTeams();
+            });
+        }
     };
 
     function checkDisableManage() {
@@ -171,14 +180,40 @@ export default function TeamGrid() {
         client: string, 
         professor: string) => {
         
-        console.log("creating a new team")
-        setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamNumber, section, project, client, professor)]);
-    } 
+        console.log("Creating a new team.");
+
+        fetch('http://localhost:3001/createTeam', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({teamNumber, section, project, client, professor}),
+        }).then(response => {
+            return response.text();
+        }).then(data => {
+            getTeams();
+        });
+    }
+    
+    const getTeams = () => {
+        fetch('http://localhost:3001/getTeams').then(response => {
+            return response.text();
+        }).then(data => {
+            var newJson = data.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
+            newJson = newJson.replace(/'/g, '"');
+            newJson = newJson.replaceAll("team_number", "teamNumber");
+            loadedRows = JSON.parse(newJson);
+            setRows(loadedRows);
+        });
+    }
+
+    React.useEffect(() => {
+        getTeams();
+    }, []);
 
     React.useEffect(() => {
         checkDisableManage();
-    })
-
+    });
 
     return (
         <div className="main_content">
