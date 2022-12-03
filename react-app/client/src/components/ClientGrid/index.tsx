@@ -5,6 +5,7 @@ import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import CreateClientModal from '../CreateClientModal/createClientModal';
 import ManageClientModal from '../ManageClientModal/manageClientModal'
+import { ExportCSV } from '../../ExcelFunctionality/ExportToCSV';
 
 import './ClientGrid.css';
 
@@ -218,13 +219,7 @@ export default function ClientGrid() {
                         Copy Emails to Clipboard
                     </Button>
 
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('export to excel clicked')
-                    }}
-                    >
-                        Export to Excel
-                    </Button>
+                    <ExportCSV csvData={rows} fileName="ClientExport" chooseRows={selectionModel}/>
                 </div>
 
                 <div className="bottom_buttons_group">
