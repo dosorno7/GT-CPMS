@@ -5,11 +5,25 @@ import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import CreateTeamModal from '../CreateTeamModal/createTeamModal';
 import RemoveTeamModal from '../RemoveTeamModal/RemoveTeamModal';
-import ManageTeamModal from '../ManageTeamModal/manageTeamModal'
+import ManageTeamModal from '../ManageTeamModal/manageTeamModal';
+import Modal from '@mui/material/Modal';
 
 import './TeamGrid.css';
 
 const ODD_OPACITY = 0.2;
+let emails = '';
+let style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    opacity: '100%',
+};
 
 const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
     '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
@@ -107,7 +121,7 @@ const columns: GridColDef[] = [
 ];
 
 const rowsmock = [
-    { id: 1, teamNumber: '2100', section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen', students:[{name: '', email: ''}]},
+    { id: 1, teamNumber: '2100', section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen', students:[{name: 'John Doe', email: 'jdoe@gatech.edu'}]},
     { id: 2, teamNumber: '2101', section: 'JDA', project: 'Helius', client: 'Carol Denvers', professor: 'Elizabeth Olsen', students:[{name: '', email: ''}] },
     { id: 3, teamNumber: '2102', section: 'JDA', project: 'Insight', client: 'Peter Parker', professor: 'Elizabeth Olsen', students:[{name: '', email: ''}] },
     { id: 4, teamNumber: '2103', section: 'JDA', project: 'Reclamation', client: 'Stephen Strange', professor: 'Elizabeth Olsen', students:[{name: '', email: ''}] },
@@ -194,10 +208,37 @@ export default function TeamGrid() {
             name: string,
             email: string
         }[]) => {
-            
+
         console.log("creating a new team")
         setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamNumber, section, project, client, professor, students)]);
     } 
+
+    const copyEmails = () => {
+        setSelectedTeam(rows.filter((r: any) => selectionModel.includes(r.id)))
+        emails = handleEmails(selectedTeam[0].students)
+        navigator.clipboard.writeText(emails);
+        handleOpen2();
+        console.log(emails);
+    }
+
+    const handleEmails = (students: {
+        name: string,
+        email: string
+    }[]) => {
+        emails = '';
+        for (let i = 0; i < students.length; i++) {
+            if (i != students.length - 1) {
+                emails = emails + students[i].email + ', ';
+            } else {
+                emails = emails + students[i].email;
+            }
+        }
+        return emails;
+    }
+
+    const [open2, setOpen2] = React.useState(false);
+    const handleOpen2 = () => setOpen2(true);
+    const handleClose2 = () => setOpen2(false);
 
     React.useEffect(() => {
         checkDisableManage();
@@ -248,14 +289,25 @@ export default function TeamGrid() {
                 }
             />
         </Box>
+        <Modal
+              open={open2}
+              onClose={handleClose2}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+          >
+              <Box sx={style}>
+                Emails Copied!
+              </Box>
+        </Modal>
 
             <div className="bottom_buttons">
 
                 <div className="bottom_buttons_group">
                     <Button variant="contained" onClick={() => {
                         // TODO: Handle click here
+                        copyEmails()
                         console.log('copy emails clicked')
-                    }}
+                    }} disabled={manageDisabled}
                     >
                         Copy Emails to Clipboard
                     </Button>
