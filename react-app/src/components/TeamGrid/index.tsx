@@ -17,12 +17,14 @@ let style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 500,
+    width: 300,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
     opacity: '100%',
+    borderRadius: '5px',
+    textAlign: 'center',
 };
 
 const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
