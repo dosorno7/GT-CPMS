@@ -223,7 +223,6 @@ export default function TeamGrid() {
 
     const copyEmails = () => {
         setSelectedTeam(rows.filter((r: any) => selectionModel.includes(r.id)))
-        console.log(selectedTeam.length);
         emails = '';
         for (let i = 0; i < selectedTeam.length; i++) {
             if (i != selectedTeam.length - 1) {
@@ -232,7 +231,6 @@ export default function TeamGrid() {
                 emails = emails + handleEmails(emails, selectedTeam[i].students)
             }
         }
-        // emails = handleEmails(selectedTeam[0].students)
         navigator.clipboard.writeText(emails);
         handleOpen2();
         console.log(emails);
@@ -254,7 +252,10 @@ export default function TeamGrid() {
     }
 
     const [open2, setOpen2] = React.useState(false);
-    const handleOpen2 = () => setOpen2(true);
+    const handleOpen2 = () => {
+        setOpen2(true);
+        setTimeout(() => setOpen2(false), 1150);
+    }
     const handleClose2 = () => setOpen2(false);
 
     React.useEffect(() => {
@@ -321,12 +322,10 @@ export default function TeamGrid() {
 
                 <div className="bottom_buttons_group">
                     <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
                         copyEmails()
-                        console.log('copy emails clicked')
                     }} disabled={manageDisabled2}
                     >
-                        Copy Emails to Clipboard
+                        Copy Student Emails to Clipboard
                     </Button>
 
                     <Button variant="contained" onClick={() => {
