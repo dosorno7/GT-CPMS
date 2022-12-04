@@ -42,6 +42,96 @@ app.delete('/deleteTeam/:teamId', (req, res) => {
   })
 });
 
+app.get('/getClients', (req, res) => {
+  cpms_model.getClients()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.post('/createClient', (req, res) => {
+  cpms_model.createClient(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.delete('/deleteClient/:clientId', (req, res) => {
+  cpms_model.deleteClient(req.params.clientId)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/getProjects', (req, res) => {
+  cpms_model.getProjects()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.post('/createProject', (req, res) => {
+  cpms_model.createProject(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.delete('/deleteProject/:projectId', (req, res) => {
+  cpms_model.deleteProject(req.params.projectId)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/getStudents', (req, res) => {
+  cpms_model.getStudents()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.post('/createStudent', (req, res) => {
+  cpms_model.createStudent(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.delete('/deleteStudents/:teamNumber', (req, res) => {
+  cpms_model.deleteStudents(req.params.teamNumber)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 });

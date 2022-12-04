@@ -16,15 +16,15 @@ const style = {
     p: 4,
 };
 
-export default function RemoveProjectsModal( {deleteProjects}: any ) {
+export default function RemoveProjectsModal( props: {deleteProjects: any, removeDisabled: boolean} ) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleYes = () => { deleteProjects(); setOpen(false); }
+    const handleYes = () => { props.deleteProjects(); setOpen(false); }
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}>
+            <Button variant="contained" onClick={handleOpen} disabled={props.removeDisabled}>
                 Delete Selected Projects
             </Button>
             <Modal

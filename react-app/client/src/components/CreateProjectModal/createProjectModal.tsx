@@ -135,7 +135,7 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
 
                     <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
                         <TextField
-                            label="Organizaton Name"
+                            label="Organization Name"
                             id="standard-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             margin="normal"
@@ -178,8 +178,8 @@ export default function CreateProjectModal( {getCreateProjectInfo}: any ) {
                                 style={{ padding: 10, width: 220, height: 53 }}
                             >
                                 <MenuItem value="Active">Active</MenuItem>
-                                <MenuItem value="Prospective">Unassigned</MenuItem>
-                                <MenuItem value="Inactive">Completed</MenuItem>
+                                <MenuItem value="Unassigned">Unassigned</MenuItem>
+                                <MenuItem value="Completed">Completed</MenuItem>
                             </Select>
                             <FormHelperText>{activeStatus === '' ? ('Required *') : ''}</FormHelperText>
                         </FormControl>

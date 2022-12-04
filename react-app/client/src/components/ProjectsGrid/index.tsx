@@ -98,6 +98,8 @@ const projectsColumns: GridColDef[] = [
     },
 ];
 
+let loadedRows = [];
+
 const projectsRows = [
     { id: 1, client: 'Tony Stark', section: 'JDA', organization: 'Mock Org name', teamAssigned: '2100', status: 'Active'},
     { id: 2, client: 'Carol Denvers', section: 'JDA', organization: 'Mock Org name', teamAssigned: '2101', status: 'Active' },
@@ -111,6 +113,7 @@ const projectsRows = [
     { id: 10, client: 'Nick Fury', section: 'JDF', organization: 'Mock Org name', teamAssigned: '0', status: 'Completed' },
     { id: 11, client: 'Peter Parker', section: 'JDF', organization: 'Mock Org name', teamAssigned: '0', status: 'Completed' }
 ];
+
 const createNewRow = (prevRows: {
     id: number;
     teamAssigned: string;
@@ -131,6 +134,7 @@ const createNewRow = (prevRows: {
         client: client,
         status: status }
 }
+
 export default function ProjectsGrid() {
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
     const [rows, setRows] = React.useState(() => projectsRows);
@@ -142,6 +146,7 @@ export default function ProjectsGrid() {
         status: ''
     }]);
     const [manageDisabled, setManageDisabled] = React.useState(true);
+    const [removeDisabled, setRemoveDisabled] = React.useState(true);
 
     function checkDisableManage() {
         if (selectedProject == null
@@ -154,8 +159,26 @@ export default function ProjectsGrid() {
         }
     }
 
+    function checkDisableRemove() {
+        if (selectedProject == null
+            || selectedProject.length === 0
+            || selectedProject[0].client === '') {
+                setRemoveDisabled(true);
+        } else {
+            setRemoveDisabled(false);
+        }
+    }
+
     const deleteProjects = () => {
-        setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
+        for (let i = 0; i < selectionModel.length; i++) {
+            fetch('http://localhost:3001/deleteProject/' + selectionModel[i], {
+                method: 'DELETE',
+            }).then(response => {
+                return response.text();
+            }).then(data => {
+                getProjects();
+            });
+        }
     };
 
     const getCreateProjectInfo = (
@@ -165,20 +188,44 @@ export default function ProjectsGrid() {
         client: string,
         status: string ) => {
         
-        console.log("creating a new project")
-        console.log(typeof teamAssigned, section, organization, client, status);
+        console.log("Creating a new project.");
 
         if (String(teamAssigned).length == 0 || section.length == 0 || organization.length == 0 || client.length == 0|| status.length == 0) {
-            console.log("Failed to create team");
-            
+            console.log("Failed to create team"); 
         } else {
-            setRows((prevRows) => [...prevRows, createNewRow(prevRows, teamAssigned, section, organization, client, status)]);
+            fetch('http://localhost:3001/createProject', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({teamAssigned, section, organization, client, status}),
+            }).then(response => {
+                return response.text();
+            }).then(data => {
+                getProjects();
+            });
         }
+    }
 
+    const getProjects = () => {
+        fetch('http://localhost:3001/getProjects').then(response => {
+            return response.text();
+        }).then(data => {
+            var newJson = data.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
+            newJson = newJson.replace(/'/g, '"');
+            newJson = newJson.replaceAll("team_number", "teamAssigned").replaceAll("client_name", "client");
+            loadedRows = JSON.parse(newJson);
+            setRows(loadedRows);
+        });
     }
 
     React.useEffect(() => {
+        getProjects();
+    }, []);
+
+    React.useEffect(() => {
         checkDisableManage();
+        checkDisableRemove();
     })
 
     return (
@@ -242,7 +289,7 @@ export default function ProjectsGrid() {
 
                 <div className="bottom_buttons_group">
                     <ManageProjectModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
-                    <RemoveProjectsModal deleteProjects={deleteProjects}/>
+                    <RemoveProjectsModal deleteProjects={deleteProjects} removeDisabled={removeDisabled}/>
                 </div>
             </div>
         </div>

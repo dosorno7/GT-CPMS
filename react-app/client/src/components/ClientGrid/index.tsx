@@ -89,6 +89,8 @@ const clientColumns: GridColDef[] = [
     },
 ];
 
+let loadedRows = [];
+
 const clientRows = [
     { id: 1, clientName: 'Tony Stark', organization: 'Mock Organization Name', email: 'tstark@me.com', status: 'Active'},
     { id: 2, clientName: 'Carol Denvers', organization: 'Mock Organization Name', email: 'cdanvers@aol.com', status: 'Active'},
@@ -135,7 +137,15 @@ export default function ClientGrid() {
     const [manageDisabled, setManageDisabled] = React.useState(true)
 
     const deleteClients = () => {
-        setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
+        for (let i = 0; i < selectionModel.length; i++) {
+            fetch('http://localhost:3001/deleteClient/' + selectionModel[i], {
+                method: 'DELETE',
+            }).then(response => {
+                return response.text();
+            }).then(data => {
+                getClients();
+            });
+        }
     };
 
     function checkDisableManage() {
@@ -156,10 +166,36 @@ export default function ClientGrid() {
         email: string,
         status: string) => {
 
-        console.log("creating a new client")
-        setRows((prevRows) => [...prevRows, createNewRow(prevRows, clientName, organization, email, status)]);
+        console.log("Creating a new client.");
 
+        fetch('http://localhost:3001/createClient', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({email, clientName, organization, status}),
+        }).then(response => {
+            return response.text();
+        }).then(data => {
+            getClients();
+        });
     }
+
+    const getClients = () => {
+        fetch('http://localhost:3001/getClients').then(response => {
+            return response.text();
+        }).then(data => {
+            var newJson = data.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
+            newJson = newJson.replace(/'/g, '"');
+            newJson = newJson.replaceAll("client_name", "clientName");
+            loadedRows = JSON.parse(newJson);
+            setRows(loadedRows);
+        });
+    }
+
+    React.useEffect(() => {
+        getClients();
+    }, []);
 
     React.useEffect(() => {
         checkDisableManage();
