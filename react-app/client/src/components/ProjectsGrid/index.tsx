@@ -145,6 +145,7 @@ export default function ProjectsGrid() {
         status: ''
     }]);
     const [manageDisabled, setManageDisabled] = React.useState(true);
+    const [removeDisabled, setRemoveDisabled] = React.useState(true);
 
     function checkDisableManage() {
         if (selectedProject == null
@@ -154,6 +155,16 @@ export default function ProjectsGrid() {
             setManageDisabled(true)
         } else {
             setManageDisabled(false)
+        }
+    }
+
+    function checkDisableRemove() {
+        if (selectedProject == null
+            || selectedProject.length === 0
+            || selectedProject[0].client === '') {
+                setRemoveDisabled(true);
+        } else {
+            setRemoveDisabled(false);
         }
     }
 
@@ -213,6 +224,7 @@ export default function ProjectsGrid() {
 
     React.useEffect(() => {
         checkDisableManage();
+        checkDisableRemove();
     })
 
     return (
@@ -282,7 +294,7 @@ export default function ProjectsGrid() {
 
                 <div className="bottom_buttons_group">
                     <ManageProjectModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
-                    <RemoveProjectsModal deleteProjects={deleteProjects}/>
+                    <RemoveProjectsModal deleteProjects={deleteProjects} removeDisabled={removeDisabled}/>
                 </div>
             </div>
         </div>
