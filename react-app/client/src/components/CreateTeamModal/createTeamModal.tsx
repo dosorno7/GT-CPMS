@@ -293,7 +293,7 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                   </Typography>
                   <Typography component={'div'} id="modal-modal-description" sx={{ mt: 2 }}>
                       {formValues.map((element, index) => (
-                      <div>
+                          <div>
                           <TextField 
                               label="Student Name" 
                               id="standard-start-adornment"
@@ -312,12 +312,10 @@ export default function CreateTeamModal( {getCreateTeamInfo}: any ) {
                       ))}
                   </Typography>
                   <div className="option_buttons">
-                  <Button variant="contained" onClick={() => addFormFields()}>Add Student</Button>
-                  <Button variant="contained" onClick={() => { handleStudentsClick() }}> </Button>
-                  <Button variant="contained" style={{marginRight: '18px'}} onClick={() => addFormFields()}>Add Student</Button>
-                  <Button variant="contained" onClick={() => handleStudentsClick()}>
-                      Create Team
-                  </Button>
+                    <Button variant="contained" onClick={() => addFormFields()}>Add Student</Button>
+                    <Button variant="contained" onClick={() => handleStudentsClick()}>
+                        Create Team
+                    </Button>
                   </div>
               </Box>
           </Modal>
