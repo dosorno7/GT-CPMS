@@ -265,7 +265,7 @@ export default function ClientGrid() {
 
                 <div className="bottom_buttons_group">
                     <ManageClientModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
-                    <RemoveClientModal deleteClients={deleteClients}/>
+                    <RemoveClientModal deleteClients={deleteClients} selectionModel={selectionModel} />
                 </div>
             </div>
         </div>
