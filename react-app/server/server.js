@@ -42,6 +42,36 @@ app.delete('/deleteTeam/:teamId', (req, res) => {
   })
 });
 
+app.get('/getClients', (req, res) => {
+  cpms_model.getClients()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.post('/createClient', (req, res) => {
+  cpms_model.createClient(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.delete('/deleteClient/:clientId', (req, res) => {
+  cpms_model.deleteClient(req.params.clientId)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 });

@@ -8,8 +8,6 @@ import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
-
 import Modal from '@mui/material/Modal';
 import { FormHelperText } from '@mui/material';
 
@@ -34,8 +32,6 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
     const [email, setEmail] = React.useState('');
     const [disabled, setDisabled] = React.useState(true);
 
-
-
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setFirstName('')
@@ -47,7 +43,7 @@ export default function CreateClientModal( {getCreateClientInfo}: any) {
     }
 
     const handleCreateClick = () => {
-        getCreateClientInfo(firstName, lastName, organization, email, clientStatus);
+        getCreateClientInfo(firstName + " " + lastName, organization, email, clientStatus);
         setFirstName('')
         setLastName('')
         setOrganization('')
