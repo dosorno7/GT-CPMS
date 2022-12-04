@@ -87,6 +87,41 @@ const deleteClient = (id) => {
         });
     });
 }
+
+const getProjects = () => {
+    return new Promise(function(resolve, reject) {
+        pool.query('SELECT * FROM project', (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(results.rows);
+        });
+    });
+}
+
+const createProject = (body) => {
+    return new Promise(function(resolve, reject) {
+        const { teamAssigned, section, organization, client, status } = body;
+        pool.query('INSERT INTO project (organization, client_name, team_number, section, status) VALUES ($1, $2, $3, $4, $5) RETURNING *', [organization, client, teamAssigned, section, status], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows[0]);
+        });
+    });
+}
+
+const deleteProject = (id) => {
+    return new Promise(function(resolve, reject) {
+        const projectId = parseInt(id);
+        pool.query('DELETE FROM project WHERE id = $1', [projectId], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(projectId);
+        });
+    });
+}
   
 module.exports = {
     getTeams,
@@ -94,5 +129,8 @@ module.exports = {
     deleteTeam,
     getClients,
     createClient,
-    deleteClient
+    deleteClient,
+    getProjects,
+    createProject,
+    deleteProject
 }
