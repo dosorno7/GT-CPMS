@@ -72,6 +72,36 @@ app.delete('/deleteClient/:clientId', (req, res) => {
   })
 });
 
+app.get('/getProjects', (req, res) => {
+  cpms_model.getProjects()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.post('/createProject', (req, res) => {
+  cpms_model.createProject(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.delete('/deleteProject/:projectId', (req, res) => {
+  cpms_model.deleteProject(req.params.projectId)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 });
