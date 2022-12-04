@@ -234,6 +234,17 @@ export default function TeamGrid() {
         }
     }
 
+    const getUpdateInfo = (
+        section: string,
+        project: string,
+        client: string,
+        professor: string) => {
+        selectedTeam[0].section = section
+        selectedTeam[0].project = project
+        selectedTeam[0].client = client
+        selectedTeam[0].professor = professor
+    }
+
     const getCreateTeamInfo = (
         teamNumber: string, 
         section: string, 
@@ -426,7 +437,7 @@ export default function TeamGrid() {
                 </div>
 
                 <div className="bottom_buttons_group">
-                    <ManageTeamModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
+                    <ManageTeamModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} getUpdateInfo={getUpdateInfo}/>
                     <RemoveTeamModal deleteTeams={deleteTeams}/>
                 </div>
             </div>
