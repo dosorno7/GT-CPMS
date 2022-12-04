@@ -7,6 +7,7 @@ import CreateClientModal from '../CreateClientModal/createClientModal';
 import ManageClientModal from '../ManageClientModal/manageClientModal'
 
 import './ClientGrid.css';
+import { listenerCount } from 'process';
 
 const ODD_OPACITY = 0.2;
 
@@ -160,6 +161,15 @@ export default function ClientGrid() {
 
     }
 
+    const getUpdateInfo = (
+        clientName: string,
+        organization: string,
+        email: string) => {
+        selectedClient[0].clientName = clientName
+        selectedClient[0].organization = organization
+        selectedClient[0].email = email
+    }
+
     React.useEffect(() => {
         checkDisableManage();
     })
@@ -228,7 +238,7 @@ export default function ClientGrid() {
                 </div>
 
                 <div className="bottom_buttons_group">
-                    <ManageClientModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
+                    <ManageClientModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} getUpdateInfo={getUpdateInfo}/>
                     <RemoveClientModal deleteClients={deleteClients}/>
                 </div>
             </div>
