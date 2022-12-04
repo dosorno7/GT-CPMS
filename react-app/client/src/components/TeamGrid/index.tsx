@@ -5,7 +5,8 @@ import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import CreateTeamModal from '../CreateTeamModal/createTeamModal';
 import RemoveTeamModal from '../RemoveTeamModal/RemoveTeamModal';
-import ManageTeamModal from '../ManageTeamModal/manageTeamModal';
+import ManageTeamModal from '../ManageTeamModal/manageTeamModal'
+import { ExportCSV } from '../../ExcelFunctionality/ExportToCSV';
 import Modal from '@mui/material/Modal';
 
 import './TeamGrid.css';
@@ -416,13 +417,7 @@ export default function TeamGrid() {
                         Copy Student Emails to Clipboard
                     </Button>
 
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('export to excel clicked')
-                    }}
-                    >
-                        Export to Excel
-                    </Button>
+                    <ExportCSV csvData={rows} fileName="TeamsExport" chooseRows={selectionModel}/>
                 </div>
 
                 <div className="bottom_buttons_group">
