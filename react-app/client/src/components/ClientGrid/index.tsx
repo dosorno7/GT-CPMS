@@ -58,6 +58,7 @@ const clientColumns: GridColDef[] = [
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
         align: 'center', 
+        flex: 1,
     },
     {
         field: 'organization',
@@ -66,6 +67,7 @@ const clientColumns: GridColDef[] = [
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
         align: 'center', 
+        flex: 1,
         
     },
     {
