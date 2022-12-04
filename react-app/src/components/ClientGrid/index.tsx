@@ -131,7 +131,8 @@ export default function ClientGrid() {
         email: '',
         status: ''
     }]);
-    const [manageDisabled, setManageDisabled] = React.useState(true)
+    const [manageDisabled, setManageDisabled] = React.useState(true);
+    const [removeDisabled, setRemoveDisabled] = React.useState(true);
 
     const deleteClients = () => {
         setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
@@ -145,6 +146,16 @@ export default function ClientGrid() {
             setManageDisabled(true)
         } else {
             setManageDisabled(false)
+        }
+    }
+
+    function checkDisableRemove() {
+        if (selectedClient == null
+            || selectedClient.length === 0
+            || selectedClient[0].clientName == '') {
+                setRemoveDisabled(true);
+        } else {
+            setRemoveDisabled(false);
         }
     }
 
@@ -162,6 +173,7 @@ export default function ClientGrid() {
 
     React.useEffect(() => {
         checkDisableManage();
+        checkDisableRemove();
     })
 
     return (
@@ -229,7 +241,7 @@ export default function ClientGrid() {
 
                 <div className="bottom_buttons_group">
                     <ManageClientModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
-                    <RemoveClientModal deleteClients={deleteClients}/>
+                    <RemoveClientModal deleteClients={deleteClients} removeDisabled={removeDisabled}/>
                 </div>
             </div>
         </div>

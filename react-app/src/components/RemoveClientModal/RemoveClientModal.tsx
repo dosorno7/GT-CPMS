@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 import './RemoveClientModal.css';
+import ProjectsPage from '../../containers/ProjectsPage/ProjectsPage';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -18,15 +19,15 @@ const style = {
     p: 4,
 };
 
-export default function RemoveClientModal( {deleteClients}: any ) {
+export default function RemoveClientModal( props: {deleteClients: any, removeDisabled: boolean}  ) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleYes = () => { deleteClients(); setOpen(false); }
+    const handleYes = () => { props.deleteClients(); setOpen(false); }
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}>
+            <Button variant="contained" onClick={handleOpen} disabled={props.removeDisabled}>
                 Delete Selected Clients
             </Button>
             <Modal
