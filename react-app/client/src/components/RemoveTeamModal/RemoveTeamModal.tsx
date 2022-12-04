@@ -16,15 +16,15 @@ const style = {
     p: 4,
 };
 
-export default function RemoveTeamModal( {deleteTeams}: any ) {
+export default function RemoveTeamModal( props: {deleteTeams: any, removeDisabled: boolean} ) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleYes = () => { deleteTeams(); setOpen(false); }
+    const handleYes = () => { props.deleteTeams(); setOpen(false); }
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}>
+            <Button variant="contained" onClick={handleOpen} disabled={props.removeDisabled}>
                 Delete Selected Teams
             </Button>
             <Modal

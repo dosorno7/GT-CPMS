@@ -149,6 +149,7 @@ export default function TeamGrid() {
         professor: ''
     }]);
     const [manageDisabled, setManageDisabled] = React.useState(true);
+    const [removeDisabled, setRemoveDisabled] = React.useState(true);
 
     const deleteTeams = () => {
         for (let i = 0; i < selectionModel.length; i++) {
@@ -170,6 +171,16 @@ export default function TeamGrid() {
             setManageDisabled(true)
         } else {
             setManageDisabled(false)
+        }
+    }
+
+    function checkDisableRemove() {
+        if (selectedTeam == null
+            || selectedTeam.length === 0
+            || selectedTeam[0].teamNumber == '') {
+                setRemoveDisabled(true);
+        } else {
+            setRemoveDisabled(false);
         }
     }
 
@@ -213,6 +224,7 @@ export default function TeamGrid() {
 
     React.useEffect(() => {
         checkDisableManage();
+        checkDisableRemove();
     });
 
     return (
@@ -282,7 +294,7 @@ export default function TeamGrid() {
 
                 <div className="bottom_buttons_group">
                     <ManageTeamModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
-                    <RemoveTeamModal deleteTeams={deleteTeams}/>
+                    <RemoveTeamModal deleteTeams={deleteTeams} removeDisabled={removeDisabled}/>
                 </div>
             </div>
         </div>
