@@ -5,6 +5,7 @@ import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import CreateProjectModal from '../CreateProjectModal/createProjectModal';
 import ManageProjectModal from '../ManageProjectModal/manageProjectModal';
+import { ExportCSV } from '../../ExcelFunctionality/ExportToCSV';
 
 import './ProjectsGrid.css';
 
@@ -236,13 +237,7 @@ export default function ProjectsGrid() {
                         Copy Emails to Clipboard
                     </Button>
 
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('Export to excel clicked')
-                    }}
-                    >
-                        Export to Excel
-                    </Button>
+                    <ExportCSV csvData={rows} fileName="ProjectsExport" chooseRows={selectionModel}/>
                 </div>
 
                 <div className="bottom_buttons_group">
