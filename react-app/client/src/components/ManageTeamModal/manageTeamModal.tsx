@@ -17,13 +17,19 @@ const style = {
     p: 4,
 };
 
+let names = '';
+
 export default function ManageTeamModal(props: {
     rows: {
         teamNumber: string,
         section: string,
         project: string,
         client: string,
-        professor: string
+        professor: string,
+        students: {
+            name: string,
+            email: string
+        }[]
     }[]; selectionModel: string | any[]; 
     manageDisabled: boolean}) {
 
@@ -33,13 +39,35 @@ export default function ManageTeamModal(props: {
         section: '',
         project: '',
         client: '',
-        professor: ''
+        professor: '',
+        students: [{
+            name: '',
+            email: ''
+        }]
     }])
 
     const handleOpen = () => {
         setSelectedTeam(props.rows.filter((r: any) => props.selectionModel.includes(r.id)))
+        console.log(selectedTeam[0]);
         setOpen(true);
     }
+
+    const handleNames = (students: {
+            name: string,
+            email: string
+        }[]) => {
+        names = '';
+        for (let i = 0; i < students.length; i++) {
+            if (i != students.length - 1) {
+                names = names + students[i].name + ', ';
+            } else {
+                names = names + students[i].name;
+            }
+        }
+        console.log(names);
+        return names;
+    }
+
     const handleClose = () => setOpen(false);
 
     return (
@@ -63,7 +91,7 @@ export default function ManageTeamModal(props: {
                         <b>Project: </b>  {selectedTeam[0].project} <br />
                         <b>Client: </b>  {selectedTeam[0].client} <br />
                         <b>Professor: </b>  {selectedTeam[0].professor} <br />
-                        <b>Students: </b> 
+                        <b>Students: </b> {handleNames(selectedTeam[0].students)}
 
                     </Typography>
 
