@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -27,6 +26,7 @@ export default function ManageTeamModal(props: {
         client: string,
         professor: string,
         students: {
+            teamNumber: string,
             name: string,
             email: string
         }[]
@@ -41,6 +41,7 @@ export default function ManageTeamModal(props: {
         client: '',
         professor: '',
         students: [{
+            teamNumber: '',
             name: '',
             email: ''
         }]
@@ -53,6 +54,7 @@ export default function ManageTeamModal(props: {
     }
 
     const handleNames = (students: {
+            teamNumber: string,
             name: string,
             email: string
         }[]) => {
