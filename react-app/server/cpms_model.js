@@ -122,6 +122,41 @@ const deleteProject = (id) => {
         });
     });
 }
+
+const getStudents = () => {
+    return new Promise(function(resolve, reject) {
+        pool.query('SELECT * FROM student', (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(results.rows);
+        });
+    });
+}
+
+const createStudent = (body) => {
+    return new Promise(function(resolve, reject) {
+        const { teamNumber, name, email } = body;
+        pool.query('INSERT INTO student (team_number, name, email) VALUES ($1, $2, $3) RETURNING *', [teamNumber, name, email], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows[0]);
+        });
+    });
+}
+
+const deleteStudents = (teamNumber) => {
+    return new Promise(function(resolve, reject) {
+        const parsedTeamNumber = parseInt(teamNumber);
+        pool.query('DELETE FROM student WHERE team_number = $1', [parsedTeamNumber], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(parsedTeamNumber);
+        });
+    });
+}
   
 module.exports = {
     getTeams,
@@ -132,5 +167,8 @@ module.exports = {
     deleteClient,
     getProjects,
     createProject,
-    deleteProject
+    deleteProject,
+    getStudents,
+    createStudent,
+    deleteStudents
 }

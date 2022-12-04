@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './RequestPage.css';
 import { useState } from 'react';
 import '../App.css';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { MenuItem } from '@mui/material';
 
 function RequestPage() {
   const [firstName, setFirstName] = useState("");
@@ -27,6 +29,10 @@ function RequestPage() {
           alert(`The name you entered was: ${firstName} ${lastName}\nThe email you entered was: ${email}\nThe access you chose was: ${access}`)
     }
   }
+
+  const handleAccessChange = (event: SelectChangeEvent) => {  
+    setAccess(event.target.value);
+  }
   
   return (
     <div className="body">
@@ -48,12 +54,17 @@ function RequestPage() {
             </label>
             <label>
               Select Access:
-              <select className='textbox' name='access'> 
-                <option value="instructor">Instructor</option>
-                <option value="administrator">Administrator</option>
-                <option selected value="client">Client</option>
-                <option value="student">Student</option>
-              </select>
+              <Select
+                  value={access}
+                  onChange={handleAccessChange}
+                  label="Activity Status"
+                  style={{ padding: 10, width: 220, height: 25 }}
+              >
+                <MenuItem value="instructor">Instructor</MenuItem>
+                <MenuItem value="administrator">Administrator</MenuItem>
+                <MenuItem value="client">Client</MenuItem>
+                <MenuItem value="student">Student</MenuItem>
+              </Select>
             </label>
             <input type="submit" className='textbox' />
           </div>
