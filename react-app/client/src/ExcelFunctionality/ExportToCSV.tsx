@@ -23,14 +23,14 @@ export const ExportCSV: React.FC<Props> = ({ csvData, fileName, chooseRows }) =>
   }
 
   const exportToCSV = (csvData: Object[], fileName: string) => {
-  console.log(csvData)
-  const ws = XLSX.utils.json_to_sheet(csvData);
-  const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    console.log(csvData)
+    const ws = XLSX.utils.json_to_sheet(csvData);
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
 
-  const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-  const data = new Blob([excelBuffer], { type: fileType });
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
 
-  FileSaver.saveAs(data, fileName + fileExtension);
+    FileSaver.saveAs(data, fileName + fileExtension);
   };
 
   return (
