@@ -18,7 +18,7 @@ class ClientPage extends Component {
                         </div>
 
                     </div>
-                    <BasicTabs />
+                    <BasicTabs value={1}/>
                 </div>
 
                 <ClientGrid />
