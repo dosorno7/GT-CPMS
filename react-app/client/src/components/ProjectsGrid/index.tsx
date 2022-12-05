@@ -5,6 +5,7 @@ import { DataGrid, GridColDef, GridRowId, gridClasses } from '@mui/x-data-grid';
 import { alpha, styled } from '@mui/material/styles';
 import CreateProjectModal from '../CreateProjectModal/createProjectModal';
 import ManageProjectModal from '../ManageProjectModal/manageProjectModal';
+import { ExportCSV } from '../../ExcelFunctionality/ExportToCSV';
 
 import './ProjectsGrid.css';
 
@@ -67,6 +68,7 @@ const projectsColumns: GridColDef[] = [
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
         align: 'center',
+        flex: 1,
 
     },
     {   
@@ -76,6 +78,7 @@ const projectsColumns: GridColDef[] = [
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
         align: 'center', 
+        flex: 1,
     },
     {
         field: 'organization',
@@ -145,6 +148,7 @@ export default function ProjectsGrid() {
         status: ''
     }]);
     const [manageDisabled, setManageDisabled] = React.useState(true);
+    const [removeDisabled, setRemoveDisabled] = React.useState(true);
 
     function checkDisableManage() {
         if (selectedProject == null
@@ -154,6 +158,16 @@ export default function ProjectsGrid() {
             setManageDisabled(true)
         } else {
             setManageDisabled(false)
+        }
+    }
+
+    function checkDisableRemove() {
+        if (selectedProject == null
+            || selectedProject.length === 0
+            || selectedProject[0].client === '') {
+                setRemoveDisabled(true);
+        } else {
+            setRemoveDisabled(false);
         }
     }
 
@@ -213,6 +227,7 @@ export default function ProjectsGrid() {
 
     React.useEffect(() => {
         checkDisableManage();
+        checkDisableRemove();
     })
 
     return (
@@ -271,18 +286,12 @@ export default function ProjectsGrid() {
                         Copy Emails to Clipboard
                     </Button>
 
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('Export to excel clicked')
-                    }}
-                    >
-                        Export to Excel
-                    </Button>
+                    <ExportCSV csvData={rows} fileName="ProjectsExport" chooseRows={selectionModel}/>
                 </div>
 
                 <div className="bottom_buttons_group">
                     <ManageProjectModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
-                    <RemoveProjectsModal deleteProjects={deleteProjects}/>
+                    <RemoveProjectsModal deleteProjects={deleteProjects} removeDisabled={removeDisabled}/>
                 </div>
             </div>
         </div>

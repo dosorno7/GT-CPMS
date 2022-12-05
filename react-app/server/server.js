@@ -102,6 +102,36 @@ app.delete('/deleteProject/:projectId', (req, res) => {
   })
 });
 
+app.get('/getStudents', (req, res) => {
+  cpms_model.getStudents()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.post('/createStudent', (req, res) => {
+  cpms_model.createStudent(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.delete('/deleteStudents/:teamNumber', (req, res) => {
+  cpms_model.deleteStudents(req.params.teamNumber)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 });

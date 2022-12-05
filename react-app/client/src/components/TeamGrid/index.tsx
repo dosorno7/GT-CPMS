@@ -5,7 +5,8 @@ import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import CreateTeamModal from '../CreateTeamModal/createTeamModal';
 import RemoveTeamModal from '../RemoveTeamModal/RemoveTeamModal';
-import ManageTeamModal from '../ManageTeamModal/manageTeamModal';
+import ManageTeamModal from '../ManageTeamModal/manageTeamModal'
+import { ExportCSV } from '../../ExcelFunctionality/ExportToCSV';
 import Modal from '@mui/material/Modal';
 
 import './TeamGrid.css';
@@ -74,7 +75,8 @@ const columns: GridColDef[] = [
         width: 150,
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
-        align: 'center', 
+        align: 'center',
+        flex: 1, 
     },
     {
         field: 'section',
@@ -83,6 +85,7 @@ const columns: GridColDef[] = [
         headerAlign: 'center',
         headerClassName: 'super-app-theme--header',
         align: 'center', 
+        flex: 1,
         
     },
     {
@@ -122,24 +125,24 @@ const columns: GridColDef[] = [
     },
 ];
 
-let loadedRows = [];
+let loadedRows: any[];
+let loadedStudents: any[];
 
 const rowsmock = [
-    { id: 1, teamNumber: '2100', section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen', students:[{name: 'John Doe', email: 'jdoe@gatech.edu'}]},
-    { id: 2, teamNumber: '2101', section: 'JDA', project: 'Helius', client: 'Carol Denvers', professor: 'Elizabeth Olsen', students:[{name: '', email: ''}] },
-    { id: 3, teamNumber: '2102', section: 'JDA', project: 'Insight', client: 'Peter Parker', professor: 'Elizabeth Olsen', students:[{name: '', email: ''}] },
-    { id: 4, teamNumber: '2103', section: 'JDA', project: 'Reclamation', client: 'Stephen Strange', professor: 'Elizabeth Olsen', students:[{name: '', email: ''}] },
-    { id: 5, teamNumber: '2104', section: 'JDA', project: 'Phase 2', client: 'Peter Quill', professor: 'Elizabeth Olsen', students:[{name: '', email: ''} ]},
-    { id: 6, teamNumber: '2105', section: 'JDF', project: 'Avengers Initiative', client: 'Steve Rogers', professor: 'Chris Evans', students:[{name: '', email: ''}] },
-    { id: 7, teamNumber: '2106', section: 'JDF', project: 'Blizzard', client: 'Bucky Barnes', professor: 'Chris Evans', students:[{name: '', email: ''}] },
-    { id: 8, teamNumber: '2107', section: 'JDF', project: 'Pegasus', client: 'Bruce Banner', professor: 'Chris Evans', students:[{name: '', email: ''}] },
-    { id: 9, teamNumber: '2108', section: 'JIA', project: 'Venom', client: 'Eddie Brock', professor: 'Mark Ruffalo', students:[{name: '', email: ''}] },
-    { id: 10, teamNumber: '2109', section: 'JIA', project: 'Project Alpha', client: 'Steve Rogers', professor: 'Mark Ruffalo', students:[{name: '', email: ''}] },
-    { id: 11, teamNumber: '2110', section: 'JIA', project: 'Phase 4', client: 'Tony Stark', professor: 'Mark Ruffalo', students:[{name: '', email: ''}] },
-    { id: 12, teamNumber: '2111', section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo', students:[{name: '', email: ''}] },
-    { id: 13, teamNumber: '2112', section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo', students:[{name: '', email: ''}] },
-    { id: 14, teamNumber: '2113', section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo', students:[{name: '', email: ''}] },
-
+    { id: 1, teamNumber: '2100', section: 'JDA', project: 'G.O.L.I.A.T.H.', client: 'Tony Stark', professor: 'Elizabeth Olsen', students:[{teamNumber: '2100', name: 'John Doe', email: 'jdoe@gatech.edu'}]},
+    { id: 2, teamNumber: '2101', section: 'JDA', project: 'Helius', client: 'Carol Denvers', professor: 'Elizabeth Olsen', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 3, teamNumber: '2102', section: 'JDA', project: 'Insight', client: 'Peter Parker', professor: 'Elizabeth Olsen', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 4, teamNumber: '2103', section: 'JDA', project: 'Reclamation', client: 'Stephen Strange', professor: 'Elizabeth Olsen', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 5, teamNumber: '2104', section: 'JDA', project: 'Phase 2', client: 'Peter Quill', professor: 'Elizabeth Olsen', students:[{teamNumber: '', name: '', email: ''} ]},
+    { id: 6, teamNumber: '2105', section: 'JDF', project: 'Avengers Initiative', client: 'Steve Rogers', professor: 'Chris Evans', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 7, teamNumber: '2106', section: 'JDF', project: 'Blizzard', client: 'Bucky Barnes', professor: 'Chris Evans', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 8, teamNumber: '2107', section: 'JDF', project: 'Pegasus', client: 'Bruce Banner', professor: 'Chris Evans', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 9, teamNumber: '2108', section: 'JIA', project: 'Venom', client: 'Eddie Brock', professor: 'Mark Ruffalo', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 10, teamNumber: '2109', section: 'JIA', project: 'Project Alpha', client: 'Steve Rogers', professor: 'Mark Ruffalo', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 11, teamNumber: '2110', section: 'JIA', project: 'Phase 4', client: 'Tony Stark', professor: 'Mark Ruffalo', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 12, teamNumber: '2111', section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 13, teamNumber: '2112', section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo', students:[{teamNumber: '', name: '', email: ''}] },
+    { id: 14, teamNumber: '2113', section: 'JIA', project: 'Unassigned', client: 'Unassigned', professor: 'Mark Ruffalo', students:[{teamNumber: '', name: '', email: ''}] },
 ];
 
 const createNewRow = (prevRows: {
@@ -174,7 +177,15 @@ const createNewRow = (prevRows: {
 }
 
 export default function TeamGrid() {
-    const [rows, setRows] = React.useState(() => rowsmock);
+    const [rows, setRows] = React.useState([{
+        id: '',
+        teamNumber: '',
+        section: '',
+        project: '',
+        client: '',
+        professor: '',
+        students: [{teamNumber: '', name: '', email: ''}]
+    }]);
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
     const [selectedTeam, setSelectedTeam] = React.useState([{
         teamNumber: '',
@@ -182,7 +193,7 @@ export default function TeamGrid() {
         project: '',
         client: '',
         professor: '',
-        students: [{name: '', email: ''}]
+        students: [{teamNumber: '', name: '', email: ''}]
     }]);
     const [manageDisabled, setManageDisabled] = React.useState(true)
     const [manageDisabled2, setManageDisabled2] = React.useState(true)
@@ -190,12 +201,20 @@ export default function TeamGrid() {
 
     const deleteTeams = () => {
         for (let i = 0; i < selectionModel.length; i++) {
+            let teamNumber = rows.filter(row => row.id == selectionModel[i])[0].teamNumber;
+
             fetch('http://localhost:3001/deleteTeam/' + selectionModel[i], {
                 method: 'DELETE',
             }).then(response => {
                 return response.text();
             }).then(data => {
                 getTeams();
+            });
+
+            fetch('http://localhost:3001/deleteStudents/' + teamNumber, {
+                method: 'DELETE',
+            }).then(response => {
+                return response.text();
             });
         }
     };
@@ -225,6 +244,7 @@ export default function TeamGrid() {
         client: string, 
         professor: string,
         students: {
+            teamNumber: string,
             name: string,
             email: string
         }[]) => {
@@ -234,14 +254,32 @@ export default function TeamGrid() {
         fetch('http://localhost:3001/createTeam', {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({teamNumber, section, project, client, professor, students}),
+            body: JSON.stringify({teamNumber, section, project, client, professor}),
         }).then(response => {
             return response.text();
         }).then(data => {
             getTeams();
         });
+
+        for (let i = 0; i < students.length; i++) {
+            let student = students[i];
+            let name = student.name;
+            let email = student.email;
+
+            fetch('http://localhost:3001/createStudent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({teamNumber, name, email}),
+            }).then(response => {
+                return response.text();
+            }).then(data => {
+                getTeams();
+            });
+        }
     }
     
     const getTeams = () => {
@@ -252,7 +290,22 @@ export default function TeamGrid() {
             newJson = newJson.replace(/'/g, '"');
             newJson = newJson.replaceAll("team_number", "teamNumber");
             loadedRows = JSON.parse(newJson);
-            setRows(loadedRows);
+
+            fetch('http://localhost:3001/getStudents').then(response => {
+                return response.text();
+            }).then(data => {
+                var newJson = data.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
+                newJson = newJson.replace(/'/g, '"');
+                newJson = newJson.replaceAll("team_number", "teamNumber");
+                loadedStudents = JSON.parse(newJson);
+                
+                for (let i = 0; i < loadedRows.length; i++) {
+                    let filteredStudents = loadedStudents.filter(student => student.teamNumber == loadedRows[i].teamNumber);
+                    loadedRows[i].students = filteredStudents;
+                }
+
+                setRows(loadedRows);
+            });
         });
     }
 
@@ -366,13 +419,7 @@ export default function TeamGrid() {
                         Copy Student Emails to Clipboard
                     </Button>
 
-                    <Button variant="contained" onClick={() => {
-                        // TODO: Handle click here
-                        console.log('export to excel clicked')
-                    }}
-                    >
-                        Export to Excel
-                    </Button>
+                    <ExportCSV csvData={rows} fileName="TeamsExport" chooseRows={selectionModel}/>
                 </div>
 
                 <div className="bottom_buttons_group">

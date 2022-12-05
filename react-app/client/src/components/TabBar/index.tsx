@@ -38,23 +38,24 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
+export default function BasicTabs({value}: any) {
+  //const [value, setValue] = React.useState(0);
   let history = useNavigate();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    value = newValue;
   };
 
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Teams" onClick={() => {history('/HomePage')}} />
-          <Tab label="Clients" onClick={() => {history('/ClientPage/')}} />
-          <Tab label="Projects" onClick={() => {history('/ProjectsPage/')}} />
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          <Tab label="Teams" {...a11yProps(0)} value={0} onClick={() => {history('/HomePage')}} />
+          <Tab label="Clients" {...a11yProps(1)} value={1} onClick={() => {history('/ClientPage/')}} />
+          <Tab label="Projects" {...a11yProps(2)} value={2} onClick={() => {history('/ProjectsPage/')}} />
         </Tabs>
       </Box>
     </Box>
   );
+
 }
