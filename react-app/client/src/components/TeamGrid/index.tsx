@@ -359,13 +359,6 @@ export default function TeamGrid() {
             <div className="top_buttons">
                 <CreateTeamModal getCreateTeamInfo={getCreateTeamInfo} />
 
-                <Button variant="contained" onClick={() => {
-                    // TODO: Handle import from excel click here
-                    console.log('import from excel clicked')
-                    }}
-                >
-                    Import From Excel
-                </Button>
                         
                 {/* TODO: Filtering goes here! */}
             </div>

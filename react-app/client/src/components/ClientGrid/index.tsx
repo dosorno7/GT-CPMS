@@ -208,13 +208,6 @@ export default function ClientGrid() {
             <div className="top_buttons">
                 <CreateClientModal getCreateClientInfo={getCreateClientInfo} />
 
-                <Button variant="contained" onClick={() => {
-                    // TODO: Handle import from excel click here
-                    console.log('import from excel clicked')
-                }}
-                >
-                    Import From Excel
-                </Button>   
                 {/* TODO: Filtering goes here! */}
             </div>
 
