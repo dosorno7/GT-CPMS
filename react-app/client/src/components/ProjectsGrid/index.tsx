@@ -234,14 +234,6 @@ export default function ProjectsGrid() {
         <div className="main_content">
             <div className="top_buttons">
             <CreateProjectModal getCreateProjectInfo={getCreateProjectInfo} />
-
-                <Button variant="contained" onClick={() => {
-                    // TODO: Handle import from Excel click here
-                    console.log('Import from Excel clicked')
-                }}
-                >
-                    Import From Excel
-                </Button>
                 
                 {/* TODO: Filtering goes here! */}
             </div>
