@@ -2,6 +2,26 @@
 The Client-Project Management System is a web application for Georgia Tech professors of the Computer Science Junior Design Course. Professors are able to authenticate and log-in to the application using Georgia Tech's SSO Authentication service. The application will allow professors to view and manage project/team/client pairings. They will be able to filter the display and quickly grab the emails for teams, sections, clients, etc. for contacting. As students, professors, clients, and projects come and go, the Client-Project Management System is highly adaptable and allows professors to create, edit, and delete teams in one place. 
 
 # Release Notes
+## Version 1.0.0
+### New Features
+* Able to export the Teams/Clients/Projects grid to excel files.
+* Able to manage a selected client.
+* Able to manage a selected project.
+* Able to copy selected teams' student emails to clipboard from the Teams page.
+
+### Bug Fixes
+* Fixed duplicate button issue on team creation modal 
+* Fixed resizing issue on all 3 pages where some of the grid columns would not resize when the browser was resized.
+* Fixed bug where tab bar would not show the active tab. 
+* Fixed the dropdown menu on the request access page not saving the selected choice upon submission.
+* Fixed brief flash of unauthorized user page even if a valid ticket is presented when authenticating. 
+* Fixed create team issue where background would remain grey and unclickable if create team is exited on the second page.
+* Fixed create team issue where user is unable to create a second team after creating their first team. 
+* Fixed create team issue where the error checking for the section field did not update after closing and reopening the modal.
+
+### Known Issues
+* N/A
+
 ## Version 0.4.0
 ### New Features
 * Able to remove clients. 
