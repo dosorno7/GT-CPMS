@@ -163,5 +163,8 @@ The other option if this does not work is:
 2. CD into the directory with the bin (again, it will look something like this: <code>C:\Program Files\PostgreSQL\15\bin</code>)
 3. Run the command psql.exe 
 
+## Running the application
+To run the application, you must start the webapp and the server. To start the webapp, navigate to the client directory in a new terminal and run <code>npm start</code>. To start the server, navigate to the server directory in a new terminal and run <code>node server.js</code> 
+
 
 
