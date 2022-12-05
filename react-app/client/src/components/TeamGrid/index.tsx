@@ -219,6 +219,10 @@ export default function TeamGrid() {
         }
     };
 
+    function checkNumSelected() {
+        return selectionModel.length
+    }
+
     function checkDisableManage() {
         if (selectedTeam == null 
             || selectedTeam.length == 0
@@ -417,7 +421,7 @@ export default function TeamGrid() {
 
                 <div className="bottom_buttons_group">
                     <ManageTeamModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
-                    <RemoveTeamModal deleteTeams={deleteTeams}/>
+                    <RemoveTeamModal deleteTeams={deleteTeams} selectionModel={selectionModel} />
                 </div>
             </div>
         </div>

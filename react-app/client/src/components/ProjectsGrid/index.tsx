@@ -283,7 +283,7 @@ export default function ProjectsGrid() {
 
                 <div className="bottom_buttons_group">
                     <ManageProjectModal rows={rows} selectionModel={selectionModel} manageDisabled={manageDisabled} />
-                    <RemoveProjectsModal deleteProjects={deleteProjects} removeDisabled={removeDisabled}/>
+                    <RemoveProjectsModal deleteProjects={deleteProjects} selectionModel={selectionModel} />
                 </div>
             </div>
         </div>
