@@ -19,7 +19,7 @@ class HomePage extends Component {
                         </div>
 
                     </div>
-                    <BasicTabs />
+                    <BasicTabs value={0} />
                 </div>
 
                 <TeamGrid />
