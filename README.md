@@ -88,11 +88,22 @@ N/A
 * The dropdown menu does not save the selected choice upon submission.
 
 # Installation Guide
-The installation guide for this project has two main components. First, begin by cloning this repository by performing the following command: <code>git clone https://github.com/dosorno7/GT-CPMS-2110</code>. Once cloned, open a terminal window and navigate to the client directory. To get all the dependencies needed for the project, simply run the following command: <code>npm install</code>. This will automatically install all dependent packages needed to run the project. If you wish to launch a local version of the application, simply run the command <code>npm start</code>. Navigate to http://localhost:3000/ to see the result. Note that it may take 30 seconds up to a minute for the page to finish loading when launching it for the first time.
 
+## Set Up local webapp
+The installation guide for this project has two main components. First, begin by installing node.js and npm if you don't have them installed. Visit this link https://nodejs.org/en/download/ and accept all the default settings in the installer. Then clone this repository by performing the following command: <code>git clone https://github.com/dosorno7/GT-CPMS-2110</code>. Once cloned, open a terminal window and navigate to the client directory. To get all the dependencies needed for the project, simply run the following command: <code>npm install</code>. This will automatically install all dependent packages needed to run the project. If you wish to launch a local version of the application, simply run the command <code>npm start</code>. Navigate to http://localhost:3000/ to see the result. Note that it may take 30 seconds up to a minute for the page to finish loading when launching it for the first time.
+
+## Set Up Remote server
 The second part of this installation guide involves starting the server locally. Before continuing, ensure that you have both NodeJS and Express.js installed on your machine. You can install NodeJS by going to the following webpage and selecting the version of NodeJS that is suitable for your machine's operating system: https://nodejs.org/en/download/. To install Express.js, simply perform the command <code>npm install express</code>. 
 
-Additionally, the application uses PostgreSQL so you will need to install this and create the table schema locally to fully use the application's features locally on your computer. If you are on a MacOS computer, you can install PostgreSQL by using brew. Simply run the command <code>brew install postgresql</code>. Note that the PostgreSQL server may not start automatically once this is finished. If this is the case, run <code>brew services start postgresql</code>. Now, we must access the PostgreSQL terminal. In your terminal window, run the following: <code>psql -d postgres -U postgres</code>. Once inside the PostgreSQL terminal, perform the following queries:
+### Install Postgres on MAC
+Additionally, the application uses PostgreSQL so you will need to install this and create the table schema locally to fully use the application's features locally on your computer. If you are on a MacOS computer, you can install PostgreSQL by using brew. Simply run the command <code>brew install postgresql</code>. 
+
+### Install Postgres on Windows
+If you are on a Windows machine, you will not have access to brew. Instead, you can go to this website https://www.postgresql.org/download/ and follow the instructions to download the installer. When it is done installing, execute the installer and continue with all the default ports and settings. When asked to set a password, choose a password at your own discretion. 
+
+After successful install, open a command prompt on your computer. Type the command <code>psql</code> in the command prompt. This will then prompt your password (which was chosen in the installation process). Enter your password and hit enter, this will open the psql shell in command prompt. Note that this will only work if psql was added to your PATH, go to troubleshooting if this does not work for you.  
+
+Note that the PostgreSQL server may not start automatically once this is finished. If this is the case, run <code>brew services start postgresql</code>. Now, we must access the PostgreSQL terminal. In your terminal window, run the following: <code>psql -d postgres -U postgres</code>. Once inside the PostgreSQL terminal, perform the following queries:
 
 * <code>CREATE ROLE cpmsdatabasehelper WITH LOGIN PASSWORD 'CPMSGT';</code>
 * <code>ALTER ROLE cpmsdatabasehelper CREATEDB;</code>
@@ -128,5 +139,32 @@ A common setup issue can arise sometimes when finishing attempting to access the
     * <code>host all all ::1/128 md5</code>
 8. Restart the PostgreSQL service once again.
 9. You should now be able to execute <code>psql -d postgres -U postgres</code> and securely login with your new set password.
+
+### Module not found errors
+It is possible that when you run npm start, you will encounter module not found errors. 
+For example this: Module not found: Error: Can't resolve 'file-saver'
+
+1. Find the name of the module that cannot be resolved (in the above error, file-saver is the missing module)
+2. run npm install (missing module) (in this case, npm install file-saver). 
+
+### Postgres issues
+An error message that you may see when running psql is:
+<code>'psql' is not recognized as an internal or external command</code>
+
+If you get this issue on a windows machine, then it is likely that psql is not added to your path. There are two options to remedy this.
+1. Type path in the windows search bar
+2. Click on environment variables
+3. New system variable
+4. For the variable name put psql, for the variable value put the path to the Postgres15 bin (it should look similar to this path <code>C:\Program Files\PostgreSQL\15\bin</code>
+5. Finally, run <code>refreshenv</code> in your command prompt and then test psql in the prompt
+
+The other option if this does not work is:
+1. Open a command prompt
+2. CD into the directory with the bin (again, it will look something like this: <code>C:\Program Files\PostgreSQL\15\bin</code>)
+3. Run the command psql.exe 
+
+## Running the application
+To run the application, you must start the webapp and the server. To start the webapp, navigate to the client directory in a new terminal and run <code>npm start</code>. To start the server, navigate to the server directory in a new terminal and run <code>node server.js</code> 
+
 
 
