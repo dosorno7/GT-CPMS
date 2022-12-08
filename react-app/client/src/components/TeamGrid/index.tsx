@@ -322,7 +322,7 @@ export default function TeamGrid() {
         emails = '';
         for (let i = 0; i < selectedTeam.length; i++) {
             if (i != selectedTeam.length - 1) {
-                emails = emails + handleEmails(emails, selectedTeam[i].students) + ', ';
+                emails = emails + handleEmails(emails, selectedTeam[i].students) + '; ';
             } else {
                 emails = emails + handleEmails(emails, selectedTeam[i].students)
             }
