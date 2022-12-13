@@ -20,7 +20,7 @@ class RejectionPage extends Component<any, any> {
                             It seems that you are not an authorized user, would you like to request access?
                         </div>
                         <button id="requestaccessbutton" onClick={event =>  
-                        window.location.href='http://localhost:3000/RequestPage/'}>
+                        window.location.href='http://cpms.cc.gatech.edu/RequestPage/'}>
                             Request Access
                         </button>
                     </div>

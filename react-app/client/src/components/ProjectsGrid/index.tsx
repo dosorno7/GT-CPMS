@@ -173,7 +173,7 @@ export default function ProjectsGrid() {
 
     const deleteProjects = () => {
         for (let i = 0; i < selectionModel.length; i++) {
-            fetch('http://localhost:3001/deleteProject/' + selectionModel[i], {
+            fetch('http://cpms.cc.gatech.edu/api/deleteProject/' + selectionModel[i], {
                 method: 'DELETE',
             }).then(response => {
                 return response.text();
@@ -195,7 +195,7 @@ export default function ProjectsGrid() {
         if (String(teamAssigned).length == 0 || section.length == 0 || organization.length == 0 || client.length == 0|| status.length == 0) {
             console.log("Failed to create team"); 
         } else {
-            fetch('http://localhost:3001/createProject', {
+            fetch('http://cpms.cc.gatech.edu/api/createProject', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -210,7 +210,7 @@ export default function ProjectsGrid() {
     }
 
     const getProjects = () => {
-        fetch('http://localhost:3001/getProjects').then(response => {
+        fetch('http://cpms.cc.gatech.edu/api/getProjects').then(response => {
             return response.text();
         }).then(data => {
             var newJson = data.replace(/([a-zA-Z0-9]+?):/g, '"$1":');

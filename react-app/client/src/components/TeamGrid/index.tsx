@@ -203,7 +203,7 @@ export default function TeamGrid() {
         for (let i = 0; i < selectionModel.length; i++) {
             let teamNumber = rows.filter(row => row.id == selectionModel[i])[0].teamNumber;
 
-            fetch('http://localhost:3001/deleteTeam/' + selectionModel[i], {
+            fetch('http://cpms.cc.gatech.edu/api/deleteTeam/' + selectionModel[i], {
                 method: 'DELETE',
             }).then(response => {
                 return response.text();
@@ -211,7 +211,7 @@ export default function TeamGrid() {
                 getTeams();
             });
 
-            fetch('http://localhost:3001/deleteStudents/' + teamNumber, {
+            fetch('http://cpms.cc.gatech.edu/api/deleteStudents/' + teamNumber, {
                 method: 'DELETE',
             }).then(response => {
                 return response.text();
@@ -255,7 +255,7 @@ export default function TeamGrid() {
 
         console.log("Creating a new team.");
 
-        fetch('http://localhost:3001/createTeam', {
+        fetch('http://cpms.cc.gatech.edu/api/createTeam', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -272,7 +272,7 @@ export default function TeamGrid() {
             let name = student.name;
             let email = student.email;
 
-            fetch('http://localhost:3001/createStudent', {
+            fetch('http://cpms.cc.gatech.edu/api/createStudent', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -287,7 +287,7 @@ export default function TeamGrid() {
     }
     
     const getTeams = () => {
-        fetch('http://localhost:3001/getTeams').then(response => {
+        fetch('http://cpms.cc.gatech.edu/api/getTeams').then(response => {
             return response.text();
         }).then(data => {
             var newJson = data.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
@@ -295,7 +295,7 @@ export default function TeamGrid() {
             newJson = newJson.replaceAll("team_number", "teamNumber");
             loadedRows = JSON.parse(newJson);
 
-            fetch('http://localhost:3001/getStudents').then(response => {
+            fetch('http://cpms.cc.gatech.edu/api/getStudents').then(response => {
                 return response.text();
             }).then(data => {
                 var newJson = data.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
@@ -318,7 +318,8 @@ export default function TeamGrid() {
     }, []);
 
     const copyEmails = () => {
-        setSelectedTeam(rows.filter((r: any) => selectionModel.includes(r.id)))
+        setSelectedTeam(rows.filter((r: any) => selectionModel.includes(r.id)));
+        console.log(selectedTeam);
         emails = '';
         for (let i = 0; i < selectedTeam.length; i++) {
             if (i != selectedTeam.length - 1) {
@@ -327,10 +328,27 @@ export default function TeamGrid() {
                 emails = emails + handleEmails(emails, selectedTeam[i].students)
             }
         }
-        navigator.clipboard.writeText(emails);
-        handleOpen2();
         console.log(emails);
+        copyToClipboardNonHTTPS(emails);
+        // navigator.clipboard.writeText(emails);
+        handleOpen2();
     }
+
+    const copyToClipboardNonHTTPS = (emails: string) => {
+        const tempTextArea = document.createElement("textarea");
+        tempTextArea.value = emails;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.focus();
+        tempTextArea.select();
+
+        try {
+          document.execCommand('copy');
+        } catch (err) {
+          console.error('Unable to copy to clipboard', err);
+        }
+
+        document.body.removeChild(tempTextArea);
+      }
 
     const handleEmails = (emails: string, students: {
         name: string,
