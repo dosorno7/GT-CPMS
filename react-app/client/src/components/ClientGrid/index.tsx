@@ -140,7 +140,7 @@ export default function ClientGrid() {
 
     const deleteClients = () => {
         for (let i = 0; i < selectionModel.length; i++) {
-            fetch('http://localhost:3001/deleteClient/' + selectionModel[i], {
+            fetch('http://cpms.cc.gatech.edu/api/deleteClient/' + selectionModel[i], {
                 method: 'DELETE',
             }).then(response => {
                 return response.text();
@@ -170,7 +170,7 @@ export default function ClientGrid() {
 
         console.log("Creating a new client.");
 
-        fetch('http://localhost:3001/createClient', {
+        fetch('http://cpms.cc.gatech.edu/api/createClient', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ export default function ClientGrid() {
     }
 
     const getClients = () => {
-        fetch('http://localhost:3001/getClients').then(response => {
+        fetch('http://cpms.cc.gatech.edu/api/getClients').then(response => {
             return response.text();
         }).then(data => {
             var newJson = data.replace(/([a-zA-Z0-9]+?):/g, '"$1":');

@@ -35,21 +35,26 @@ The Client-Project Management System is a web application for Georgia Tech profe
 
 # Installation Guide
 
+## View the application
+If you simply wish to view the application as is, simply connect to the Georgia Tech VPN and go to http://cpms.cc.gatech.edu/. You will now be able to use the latest version of the application without any further installation instructions! If you wish to setup a local development version for the application to apply changes, continue reading through this installation guide.
+
 ## Set Up local webapp
 The installation guide for this project has two main components. First, begin by installing node.js and npm if you don't have them installed. Visit this link https://nodejs.org/en/download/ and accept all the default settings in the installer. Then clone this repository by performing the following command: <code>git clone https://github.com/dosorno7/GT-CPMS-2110</code>. Once cloned, open a terminal window and navigate to the client directory. To get all the dependencies needed for the project, simply run the following command: <code>npm install</code>. This will automatically install all dependent packages needed to run the project. If you wish to launch a local version of the application, simply run the command <code>npm start</code>. Navigate to http://localhost:3000/ to see the result. Note that it may take 30 seconds up to a minute for the page to finish loading when launching it for the first time.
 
-## Set Up Remote server
+## Set Up local server
 The second part of this installation guide involves starting the server locally. Before continuing, ensure that you have both NodeJS and Express.js installed on your machine. You can install NodeJS by going to the following webpage and selecting the version of NodeJS that is suitable for your machine's operating system: https://nodejs.org/en/download/. To install Express.js, simply perform the command <code>npm install express</code>. 
 
 ### Install Postgres on MAC
-Additionally, the application uses PostgreSQL so you will need to install this and create the table schema locally to fully use the application's features locally on your computer. If you are on a MacOS computer, you can install PostgreSQL by using brew. Simply run the command <code>brew install postgresql</code>. 
+Additionally, the application uses PostgreSQL so you will need to install this and create the table schema locally to fully use the application's features locally on your computer. If you are on a MacOS computer, you can install PostgreSQL by using brew. Simply run the command <code>brew install postgresql</code>. Note that the PostgreSQL server may not start automatically once this is finished. If this is the case, run <code>brew services start postgresql</code>.
 
 ### Install Postgres on Windows
 If you are on a Windows machine, you will not have access to brew. Instead, you can go to this website https://www.postgresql.org/download/ and follow the instructions to download the installer. When it is done installing, execute the installer and continue with all the default ports and settings. When asked to set a password, choose a password at your own discretion. 
 
 After successful install, open a command prompt on your computer. Type the command <code>psql</code> in the command prompt. This will then prompt your password (which was chosen in the installation process). Enter your password and hit enter, this will open the psql shell in command prompt. Note that this will only work if psql was added to your PATH, go to troubleshooting if this does not work for you.  
 
-Note that the PostgreSQL server may not start automatically once this is finished. If this is the case, run <code>brew services start postgresql</code>. Now, we must access the PostgreSQL terminal. In your terminal window, run the following: <code>psql -d postgres -U postgres</code>. Once inside the PostgreSQL terminal, perform the following queries:
+### Configuring PostgreSQL local tables and roles
+
+Now, we must access the PostgreSQL terminal. In your terminal window, run the following: <code>psql -d postgres -U postgres</code>. Once inside the PostgreSQL terminal, perform the following queries:
 
 * <code>CREATE ROLE cpmsdatabasehelper WITH LOGIN PASSWORD 'CPMSGT';</code>
 * <code>ALTER ROLE cpmsdatabasehelper CREATEDB;</code>
@@ -66,6 +71,12 @@ Now, exit the PostgreSQL terminal by typing <code>/q</code>. Reenter the Postgre
 You may now exit the PostgreSQL terminal by typing <code>/q</code>.
 
 Now, once you have a local version of the frontend running on http://localhost:3000/, open a new terminal window and navigate to the server folder. Run the command <code>npm install</code> to install the remaining dependencies and packages needed to run the server. To start the server, simply run the following command: <code>node server.js</code>. The server should now be running in http://localhost:3001/. However, there is no need for you to open localhost on port 3001 on your browser. You may now use the application's frontend on http://localhost:3000/ which will interact with the running server.
+
+## Deploying changes to the virtual machine
+
+If you wish to deploy changes to the virtual machine, two scripts have been provided for ease. If you wish to deploy client-side changes, go to the client folder and open the <code>deploy.sh</code> file. Switch out the gburdell3 in this line <code>scp -r build/* gburdell3@cpms.cc.gatech.edu:/var/www/130.207.114.64</code> and replace it with your Georgia Tech username. Then, simply open a terminal window at the client folder and run <code>bash deploy.sh</code>. Now, if you wish to deploy server-side changes, go to the server folder and follow the same procedure with the <code>deploy.sh</code> file in that folder.
+
+Note that your username must be authorized to access the virtual machine to deploy any changes. You can verify if you are authorized by attempting to SSH into the virtual machine by using the command <code>ssh -l YOUR_GT_USERNAME_HERE cpms.cc.gatech.edu</code> where YOUR_GT_USERNAME_HERE represents your Georgia Tech username. If prompted for a password, simply enter your Georgia Tech password.  
 
 ## Common Setup Issues and Troubleshooting
 

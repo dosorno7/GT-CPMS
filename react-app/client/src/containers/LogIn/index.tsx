@@ -5,7 +5,7 @@ import RequestPage from '../RequestPage/RequestPage';
 
 class LogIn extends Component {
     authenticate() {
-        window.location.assign("https://sso.gatech.edu/cas/login?service=http://localhost:3000/AuthenticationPage/");
+        window.location.assign("https://sso.gatech.edu/cas/login?service=http://cpms.cc.gatech.edu/AuthenticationPage/");
         var link = window.location.href;
         var ticket = link.substring(link.indexOf("ticket"));
         console.log(ticket);
@@ -28,7 +28,7 @@ class LogIn extends Component {
                     </button>
                     </div>
                     <button id="requestaccessbutton" onClick={event =>  
-                        window.location.href='http://localhost:3000/RequestPage/'}>
+                        window.location.href='http://cpms.cc.gatech.edu/RequestPage/'}>
                         Request Access
                     </button>
                     </div>

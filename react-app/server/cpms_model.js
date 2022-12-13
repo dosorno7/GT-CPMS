@@ -1,22 +1,11 @@
-/*
-Do not delete. VM connection information.
-const pool = new Pool({
-  user: 'my_user',
-  host: '130.207.114.64',
-  database: 'my_database',
-  password: '',
-  port: 5432,
-});
-*/
-
 const Pool = require('pg').Pool;
 const pool = new Pool({
     user: 'cpmsdatabasehelper',
-    host: 'localhost',
+    host: '130.207.114.64',
     database: 'cpms',
     password: 'CPMSGT',
     port: 5432,
-});
+  });
 
 const getTeams = () => {
     return new Promise(function(resolve, reject) {

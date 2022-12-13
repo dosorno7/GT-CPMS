@@ -12,11 +12,11 @@ class AuthenticationPage extends Component {
 
         //Replace with proper identification when OIT gives access
         if(ticket.substring(0, 2) != "") {
-            window.location.assign("http://localhost:3000/HomePage/");
+            window.location.assign("http://cpms.cc.gatech.edu/HomePage/");
             localStorage.setItem('valid_token', "true")
             return true;
         } else {
-            window.location.assign("http://localhost:3000/RejectionPage/");
+            window.location.assign("http://cpms.cc.gatech.edu/RejectionPage/");
             localStorage.setItem('valid_token', "false")
         }
 
